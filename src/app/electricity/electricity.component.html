@@ -1,1 +1,62 @@
-<p>electricity works!</p>
+<app-nav-bar></app-nav-bar>
+
+<main>
+  <div class="electricity-bills-container">
+    <h2 class="electricity-bills-heading">Electricity Bills</h2>
+    <div class="electricity-bills-section">
+      <h3 class="electricity-bills-section-heading">Pending Bills</h3>
+      <table class="electricity-bills-table">
+        <thead>
+          <tr>
+            <th>Bill Number</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Pay Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>250</td>
+            <td>May 1, 2023</td>
+            <td><button class="pay-now-button">Pay Now</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>180</td>
+            <td>May 5, 2023</td>
+            <td><button class="pay-now-button">Pay Now</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="electricity-bills-section">
+      <h3 class="electricity-bills-section-heading">Paid Bills</h3>
+      <table class="electricity-bills-table">
+        <thead>
+          <tr>
+            <th>Bill Number</th>
+            <th>Amount</th>
+            <th>Paid On</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>350</td>
+            <td>April 25, 2023</td>
+            <td><button class="delete-button">Delete</button></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>200</td>
+            <td>April 20, 2023</td>
+            <td><button class="delete-button">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>

@@ -1,0 +1,113 @@
+body {
+    margin: 0px;
+    background-image: none;
+    position: relative;
+    left: 0px;
+    width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#base {
+    position: absolute;
+    z-index: 0;
+}
+/* Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation */
+
+/* Main Content */
+
+/* Main container styles */
+main {
+max-width: 800px;
+margin: 0 auto;
+padding: 20px;
+}
+
+/* Heading styles */
+.water-bills-heading {
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 40px;
+}
+
+.water-bills-section-heading {
+font-size: 20px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+/* Water droplet icon styles */
+.water-icon {
+  width: 300px;
+  height: 300px;
+  margin-right: 25px;
+  vertical-align: middle;
+}
+
+/* Table styles */
+.water-bills-container table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.water-bills-container th,
+.water-bills-container td {
+border: 1px solid #ccc;
+padding: 8px;
+text-align: left;
+}
+
+.water-bills-container th {
+background-color: #f2f2f2;
+font-weight: bold;
+}
+
+/* Button styles */
+.water-bills-container .pay-now-button,
+.water-bills-container .delete-button {
+background-color: #4CAF50;
+border: none;
+color: white;
+padding: 8px 16px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin: 4px 2px;
+cursor: pointer;
+}
+
+
+
+/* Variables */
+:root {
+--primary-color: #4CAF50;
+--primary-color-hover: #3e8e41;
+}
+.water-bills-container .delete-button {
+background-color: #f44336;
+}
+.water-bills-container .delete-button:hover {
+background-color: #ff5555;
+}
+/* Footer */

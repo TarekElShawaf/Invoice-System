@@ -1,1 +1,61 @@
-<p>water works!</p>
+<app-nav-bar></app-nav-bar>
+<main>
+  <div class="water-bills-container">
+    <h2 class="water-bills-heading">Water Bills</h2>
+    <div class="water-bills-section">
+      <h3 class="water-bills-section-heading">Pending Bills</h3>
+      <table class="water-bills-table">
+        <thead>
+          <tr>
+            <th>Bill Number</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Pay Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>150</td>
+            <td>May 1, 2023</td>
+            <td><button class="pay-now-button">Pay Now</button></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>120</td>
+            <td>May 5, 2023</td>
+            <td><button class="pay-now-button">Pay Now</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="water-bills-section">
+      <h3 class="water-bills-section-heading">Paid Bills</h3>
+      <table class="water-bills-table">
+        <thead>
+          <tr>
+            <th>Bill Number</th>
+            <th>Amount</th>
+            <th>Paid On</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>250</td>
+            <td>April 25, 2023</td>
+            <td><button class="delete-button">Delete</button></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>100</td>
+            <td>April 20, 2023</td>
+            <td><button class="delete-button">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>
