@@ -14,14 +14,22 @@
                 Happy to see you again! Please enter your email and password to login to your account.
             </span>
         </div>
-        <form style="margin-top: 15%;">
-            <input type="text" class="login-params" placeholder="Your Email">
+        <form #fForm="ngForm" [formGroup]="loginForm"  style="margin-top: 10%;">
+            <input  type="text" formControlName="email" class="login-params myEmail" [ngClass]="emailStatus" placeholder="Your Email" >
+            <div *ngIf="this.loginForm.controls.email.errors?.['required'] &&this.loginForm.controls.email.touched " style="color:red">Email Is Required</div>
+            <div *ngIf="this.loginForm.controls.email.errors?.['email']&&this.loginForm.controls.email.touched" style="color:red">Input should be in the form of an email  example@yahoo.com</div>
             <br>
-            <input type="password" class="login-params" placeholder="Your Password">
+            <input type="password"  formControlName="password" class="login-params myPassword" [ngClass]="passwordStatus" placeholder="Your Password" ng-model="password" minlength="8">
+            <div *ngIf="this.loginForm.controls.password.errors?.['required'] &&this.loginForm.controls.password.touched " style="color:red">Password Is Required</div>
+            <div *ngIf="this.loginForm.controls.password.errors?.['minlength'] &&this.loginForm.controls.password.touched" style="color:red">Password Should be at least 8 characters long</div>
+
+            <div class="login-button">
+                <!-- <a id="login-buttonID" href="" onclick="validateLogin()">Login</a> -->
+                <button #btn [disabled]="!loginForm.valid" type="submit" id="login-buttonID" routerLink="/home" routerLinkActive="active" >Login</button>
+                <div *ngIf="(btn.disabled && loginForm.touched)" style="color:red">Please complete the login data </div>
+            </div>
         </form>
-        <div class="login-button">
-            <a id="login-buttonID" href="">Login</a>
-        </div>
+
 
     </div>
 </div>

@@ -1,0 +1,51 @@
+.homecontent{
+    text-align: center;
+  }
+  .home{
+    margin-bottom: 50px;
+
+  }
+  .offers{
+    display: flex;
+    /* justify-content: space-evenly; */
+    margin-top: 30px;
+    
+  }
+  .imgss img{
+    width: 270px;
+    
+  }
+  .imgs img{
+    width: 300px;
+    
+    
+  }
+  .imgs{
+    text-align: center;
+    width: 50%;
+  }
+  .imgss{
+    text-align: center;
+    width: 50%;
+  }
+  .imgss p{
+    color: gray;
+  }
+  .imgs p{
+    color: gray;
+  }
+  button{
+    cursor:pointer;
+    background: rgba(46, 193, 172, 1);
+    width: 24%;
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(216, 216, 216, 1);
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5em;
+    color: #FFFFFF;
+    line-height: 65px;
+
+  }

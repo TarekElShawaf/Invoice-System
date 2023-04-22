@@ -7,6 +7,10 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { OffersComponent } from './offers/offers.component';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ElectricityComponent } from './electricity/electricity.component';
+import { WaterComponent } from './water/water.component';
 
 @NgModule({
   declarations: [
@@ -14,13 +18,18 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     LoginComponent,
     HomeComponent,
     FooterComponent,
-    NavBarComponent
+    NavBarComponent,
+    OffersComponent,
+    ElectricityComponent,
+    WaterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
