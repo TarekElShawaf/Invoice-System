@@ -11,6 +11,7 @@ import { OffersComponent } from './offers/offers.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ElectricityComponent } from './electricity/electricity.component';
 import { WaterComponent } from './water/water.component';
+import { TelephoneComponent } from './telephone/telephone.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { WaterComponent } from './water/water.component';
     NavBarComponent,
     OffersComponent,
     ElectricityComponent,
-    WaterComponent
+    WaterComponent,
+    TelephoneComponent
   ],
   imports: [
     BrowserModule,
