@@ -9,22 +9,28 @@
     </div>
 </div>
 <div class="belly">
+
+    <a routerLink="/electricity" routerLinkActive="active" style="text-decoration: none;">
     <div class="payments">
-        <div class="payment-title"> <a class="payment-option" href="">Electricity</a>      </div>
+        <div class="payment-title"> <a class="payment-option" routerLink="/electricity" routerLinkActive="active">Electricity</a>      </div>
         <div class="payment-icon"> <img class="payment-image" src="../../assets/images/bolt-256.png">       </div>
        
     </div>
+    </a>
+
+    <a routerLink="/water" routerLinkActive="active" style="text-decoration: none;">
     <div class="payments">
-        <div class="payment-title"> <a class="payment-option" href="">Water</a>      </div>
+        <div class="payment-title"> <a class="payment-option" routerLink="/water" routerLinkActive="active">Water</a>      </div>
         <div class="payment-icon"> <img class="payment-image" src="../../assets/images/droplet-256.png">      </div>
-    
-        
     </div>
+    </a>
+
+    <a routerLink="/telephone" routerLinkActive="active" style="text-decoration: none;">
     <div class="payments">
-        <div class="payment-title">  <a class="payment-option" href="">Telephone</a>      </div>
+
+        <div class="payment-title">  <a class="payment-option" routerLink="/telephone" routerLinkActive="active">Telephone</a>      </div>
         <div class="payment-icon">  <img class="payment-image" src="../../assets/images/phone-46-256.png">       </div>
-       
-   
     </div>
+    </a>
 </div>
 <app-footer></app-footer>

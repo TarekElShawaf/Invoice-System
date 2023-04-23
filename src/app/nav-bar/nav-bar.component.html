@@ -3,7 +3,9 @@
         <h1 class="nav-header">E-PAY</h1>
     </div>
     <div class="nav-links">
-        <span><a href="" class="nav-link">Electricity</a></span> <span> <a href="" class="nav-link">Water</a> </span>  <span><a href="" class="nav-link">Telephone</a></span>
+        <span><a routerLink="/electricity" routerLinkActive="active" class="nav-link">Electricity</a></span> 
+        <span><a routerLink="/water" routerLinkActive="active" class="nav-link">Water</a></span>  
+        <span><a routerLink="/telephone" routerLinkActive="active" class="nav-link">Telephone</a></span>
     </div>
     <div class="nav-profile">
 
@@ -20,13 +22,13 @@
         </div>
         <div class="nav-profile-user">
          <p class="nav-profile-name">
-                Tarek ElShawaf
+                {{loggedUser.firstName}} {{loggedUser.lastName}}
          </p>
-        <select name="view-profile" id="view-profile">
+        <select name="view-profile" id="view-profile" (change)="logout()">
           <option value="" disabled selected hidden>View Profile</option>
           <option value="View Info">View Info</option>
           <option value="Settings">Settings</option>
-          <option value="Logout">Logout</option>
+          <option value="Logout" >Logout</option>
         </select>
         
         </div>

@@ -14,7 +14,7 @@
                 Happy to see you again! Please enter your email and password to login to your account.
             </span>
         </div>
-        <form #fForm="ngForm" [formGroup]="loginForm"  style="margin-top: 10%;">
+        <form #fForm="ngForm" [formGroup]="loginForm"  style="margin-top: 10%;" (ngSubmit)="onLogin(fForm.value)">
             <input  type="text" formControlName="email" class="login-params myEmail" [ngClass]="emailStatus" placeholder="Your Email" >
             <div *ngIf="this.loginForm.controls.email.errors?.['required'] &&this.loginForm.controls.email.touched " style="color:red">Email Is Required</div>
             <div *ngIf="this.loginForm.controls.email.errors?.['email']&&this.loginForm.controls.email.touched" style="color:red">Input should be in the form of an email  example@yahoo.com</div>
@@ -25,7 +25,7 @@
 
             <div class="login-button">
                 <!-- <a id="login-buttonID" href="" onclick="validateLogin()">Login</a> -->
-                <button #btn [disabled]="!loginForm.valid" type="submit" id="login-buttonID" routerLink="/home" routerLinkActive="active" >Login</button>
+                <button #btn [disabled]="!loginForm.valid" type="submit" id="login-buttonID"  >Login</button>
                 <div *ngIf="(btn.disabled && loginForm.touched)" style="color:red">Please complete the login data </div>
             </div>
         </form>

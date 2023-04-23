@@ -12,6 +12,8 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ElectricityComponent } from './electricity/electricity.component';
 import { WaterComponent } from './water/water.component';
 import { TelephoneComponent } from './telephone/telephone.component';
+import {HttpClientModule} from '@angular/common/http'
+import { DbservService } from './dbserv.service';
 
 @NgModule({
   declarations: [
@@ -29,9 +31,10 @@ import { TelephoneComponent } from './telephone/telephone.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [AppRoutingModule],
+  providers: [AppRoutingModule,DbservService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
