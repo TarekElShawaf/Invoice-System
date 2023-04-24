@@ -57,7 +57,11 @@ onLogin(user:{email:String,password:String}){
       return;
     }
   })
-  if (this.found) this.router.navigate(['home'])
+  if (this.found){
+
+    this.usersService.getCart();
+    this.router.navigate(['home'])
+  } 
 }
 
 

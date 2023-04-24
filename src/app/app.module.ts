@@ -12,6 +12,7 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ElectricityComponent } from './electricity/electricity.component';
 import { WaterComponent } from './water/water.component';
 import { TelephoneComponent } from './telephone/telephone.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 import { DbservService } from './dbserv.service';
@@ -36,6 +37,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDialogModule
   ],
   providers: [AppRoutingModule,DbservService],
   bootstrap: [AppComponent]

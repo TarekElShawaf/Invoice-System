@@ -39,4 +39,11 @@ export class WaterComponent {
       await this.loadPaidBills();
       this.isDeleting=false;
     }
+
+    addToCart(pendingBill:Bill){
+      console.log(pendingBill)
+      this.usersService.addToCart(pendingBill)
+      console.log(this.usersService.loggedUserCart)
+
+    }
 }

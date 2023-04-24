@@ -19,7 +19,7 @@
             <td>{{pendingBill.billNum}}</td>
             <td>{{pendingBill.billAmount}}</td>
             <td>{{pendingBill.dueDate}}</td>
-            <td><button class="pay-now-button">Pay Now</button></td>
+            <td><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
       </table>
