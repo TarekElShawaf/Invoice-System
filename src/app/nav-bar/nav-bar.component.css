@@ -23,7 +23,7 @@
 .nav-links{
     display: flex;
     flex-direction: row;
-    margin-left: 27%;
+    margin-left: 26%;
     align-items: end;
     /* text-align: center; */
     justify-content: space-evenly;

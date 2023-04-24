@@ -1,19 +1,20 @@
 <nav class="nav"> 
     <div class="nav-title">
-        <h1 class="nav-header">E-PAY</h1>
+        <a routerLink="/home" routerLinkActive="active" style="text-decoration: none;"><h1 class="nav-header">E-PAY</h1> </a>
     </div>
     <div class="nav-links">
+        <span><a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a></span>
         <span><a routerLink="/electricity" routerLinkActive="active" class="nav-link">Electricity</a></span> 
         <span><a routerLink="/water" routerLinkActive="active" class="nav-link">Water</a></span>  
         <span><a routerLink="/telephone" routerLinkActive="active" class="nav-link">Telephone</a></span>
     </div>
     <div class="nav-profile">
 
-        <a class="nav-profile-icons" href="">
-            <img class="nav-profile-icon" src="../../assets/images/email.png"/>
+        <a class="nav-profile-icons" routerLink="/checkout" routerLinkActive="active">
+            <img class="nav-profile-icon" src="../../assets/images/shopping-cart-128 (1).png"/>
         </a>
         <a class="nav-profile-icons" href="">
-            <img class="nav-profile-icon" src="../../assets/images/notification.png">
+            <img class="nav-profile-icon" src="../../assets/images/email.png">
         </a>
         <div style="display: flex;
         margin: 2%;

@@ -12,6 +12,7 @@ export class LoginComponent {
 
   allUsers: any[] =[];
   found:boolean =false;
+  loginClicked:boolean=false;
   constructor(private usersService:DbservService , private router:Router){
 
   }
@@ -48,14 +49,15 @@ loadUsers() {
 }
 
 onLogin(user:{email:String,password:String}){
+  this.loginClicked=true;
   this.allUsers.forEach((i)=>{
-    if(i.email==user.email&&i.password==user.password){
+    if(i.email.toLowerCase()==user.email.toLowerCase()&&i.password==user.password){
       this.found=true;
       this.usersService.loggedUser=i;
       return;
     }
   })
-  this.router.navigate(['home'])
+  if (this.found) this.router.navigate(['home'])
 }
 
 

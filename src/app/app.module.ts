@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -12,8 +12,10 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ElectricityComponent } from './electricity/electricity.component';
 import { WaterComponent } from './water/water.component';
 import { TelephoneComponent } from './telephone/telephone.component';
-import {HttpClientModule} from '@angular/common/http'
+
+
 import { DbservService } from './dbserv.service';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,15 @@ import { DbservService } from './dbserv.service';
     OffersComponent,
     ElectricityComponent,
     WaterComponent,
-    TelephoneComponent
+    TelephoneComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [AppRoutingModule,DbservService],
   bootstrap: [AppComponent]

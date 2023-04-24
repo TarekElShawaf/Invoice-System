@@ -26,7 +26,8 @@
             <div class="login-button">
                 <!-- <a id="login-buttonID" href="" onclick="validateLogin()">Login</a> -->
                 <button #btn [disabled]="!loginForm.valid" type="submit" id="login-buttonID"  >Login</button>
-                <div *ngIf="(btn.disabled && loginForm.touched)" style="color:red">Please complete the login data </div>
+                <div *ngIf="(btn.disabled && loginForm.get('email').touched && loginForm.get('password').touched)" style="color:red">Please complete the login data </div>
+                <div *ngIf="(loginClicked==true && found==false && loginForm.valid)" style="color:red">Incorrect Email or Password </div>
             </div>
         </form>
 
