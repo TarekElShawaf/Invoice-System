@@ -35,29 +35,29 @@ export class DbservService {
   }
 
   
-  getPendingWaterBills(){
-    return this.http.get<{[key:string]:Bill}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/waterBills/Pending.json')
-      .pipe(map((res)=>{
+  getPendingBills(type: string) {
+    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending.json')
+      .pipe(map((res) => {
         const waterBills = [];
-        for(const key in res){
-          waterBills.push({...res[key],id:key})
+        for (const key in res) {
+          waterBills.push({ ...res[key], id: key })
         }
         return waterBills;
       }))
   }
-  getPaidWaterBills(){
-    return this.http.get<{[key:string]:Bill}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/waterBills/Paid.json')
-      .pipe(map((res)=>{
+  getPaidBills(type: string) {
+    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid.json')
+      .pipe(map((res) => {
         const waterBills = [];
-        for(const key in res){
-          waterBills.push({...res[key],id:key})
+        for (const key in res) {
+          waterBills.push({ ...res[key], id: key })
         }
         return waterBills;
       }))
   }
 
-  deleteBill(id:string){
-      this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/waterBills/Paid/'+id+'.json').subscribe();
+  deleteBill(id: string, type: string) {
+    this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
   }
 
   addToCart(bill:Bill){
