@@ -47,32 +47,58 @@ export class DbservService {
       .subscribe()
   }
 
-
+  //Get tariff plans for different service providers
+  getTariffPlans() {
+    return this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/tariffPlans.json')
+      .pipe(map((res) => {
+        this.tariffPlans = res;
+      }))
+      .subscribe()
+  }
 
   
   getPendingBills(type: string) {
     return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending.json')
       .pipe(map((res) => {
-        const waterBills = [];
+        const Bills = [];
         for (const key in res) {
-          waterBills.push({ ...res[key], id: key })
+         Bills.push({ ...res[key], id: key })
         }
-        return waterBills;
+        return Bills;
       }))
   }
   getPaidBills(type: string) {
     return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid.json')
       .pipe(map((res) => {
-        const waterBills = [];
+        const Bills = [];
         for (const key in res) {
-          waterBills.push({ ...res[key], id: key })
+          Bills.push({ ...res[key], id: key })
         }
-        return waterBills;
+        return Bills;
       }))
   }
 
   deleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
+  }
+
+  payBills(bills: Bill[], type: string) {
+    let paidBills: Bill[] = [];
+    bills.forEach((bill) => {
+      bill.status = "Paid";
+      paidBills.push(bill);
+      this.deleteBill(bill.id, type);
+    });
+    this.http
+      .put(
+        "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
+        this.loggedUser.id +
+        "/" +
+        type +
+        "/Paid.json",
+        paidBills
+      )
+      .subscribe();
   }
 
   addToCart(bill:Bill){
@@ -92,6 +118,16 @@ export class DbservService {
       }))
       .subscribe((res)=>{
       })
+  }
+  clearCart() {
+    this.loggedUserCart = [];
+    this.http
+      .delete(
+        "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
+        this.loggedUser.id +
+        "/cart.json"
+      )
+      .subscribe();
   }
 
 }

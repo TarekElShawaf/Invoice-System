@@ -13,6 +13,11 @@ export class TelephoneComponent {
   loggedUser = this.usersService.loggedUser;
   isDeleting = false;
   selectedTab = 'bills';
+  offerSelected: string = '';
+  serviceProviders: any[] = [];
+  selectedServiceProvider: any;
+  tariffPlans: any[] = [];
+  selectedTariffPlan: any;
   pendingBills: Bill[] = [];
   paidBills: Bill[] = [];
   unitPrice: number = this.usersService.telephoneUnits
@@ -68,12 +73,12 @@ export class TelephoneComponent {
       }
     })
     if (alreadyExists) {
-      alert(`Bill ${pendingBill.billNum}Bill already in cart`)
+      alert(`Bill ${pendingBill.billNum} already in cart`)
       console.log(this.usersService.loggedUserCart)
     }
     else {
       this.usersService.addToCart(pendingBill)
-      alert(`Bill ${pendingBill.billNum }Bill added to cart`)
+      alert(`Bill ${pendingBill.billNum } added to cart`)
     }
   }
   selectOffer(offerName: string) {
