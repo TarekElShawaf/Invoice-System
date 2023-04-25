@@ -16,6 +16,7 @@ export class NavBarComponent {
   logout(){
     console.log(this.usersService.loggedUser)
     this.usersService.loggedUser=null;
+    this.usersService.loggedUserCart=[]
     console.log(this.usersService.loggedUser)
     this.router.navigate(['login'])
   }

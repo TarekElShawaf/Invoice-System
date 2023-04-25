@@ -12,7 +12,8 @@ export class DbservService {
   constructor(private http:HttpClient) { }
 
   loggedUser:any;
-  loggedUserCart:Set<Bill>;
+  loggedUserCart: Array<Bill> = new Array();
+
   //Add user to DB
   createUser(user:{email:string,password:string}){
     console.log(user);
@@ -61,24 +62,22 @@ export class DbservService {
   }
 
   addToCart(bill:Bill){
-    console.log(bill)
-    this.loggedUserCart.add(bill)
+    this.loggedUserCart.push(bill)
     this.http.put('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/cart.json',this.loggedUserCart)
       .subscribe((res)=>{
-          console.log(res);
       })
   }
   getCart(){
     this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/cart.json')
       .pipe(map((res)=>{
         for(const key in res){
-          this.loggedUserCart.add({...res[key]})
+          console.log(key)
+          this.loggedUserCart.push({...res[key]})
         }
+
       }))
       .subscribe((res)=>{
-          console.log(res);
       })
-    console.log(this.loggedUserCart)
   }
 
 }

@@ -32,18 +32,31 @@ export class WaterComponent {
       })
     }
 
-    async deleteBill(id:string){
+    deleteBill(paidBill:Bill){
       this.isDeleting=true;
-      this.usersService.deleteBill(id);
-
-      await this.loadPaidBills();
+      this.usersService.deleteBill(paidBill.id);
+      const index = this.paidBills.indexOf(paidBill);
+      if (index > -1) { // only splice array when item is found
+        this.paidBills.splice(index, 1); // 2nd parameter means remove one item only
+      }
       this.isDeleting=false;
     }
 
     addToCart(pendingBill:Bill){
-      console.log(pendingBill)
-      this.usersService.addToCart(pendingBill)
-      console.log(this.usersService.loggedUserCart)
-
+      let alreadyExists=false;
+      this.usersService.loggedUserCart.forEach((item)=>{
+        if(item.billNum==pendingBill.billNum){
+          alreadyExists=true;
+          return;
+        }
+      })
+      if(alreadyExists){
+        alert("Bill already in cart")
+        console.log(this.usersService.loggedUserCart)
+      }
+      else{
+        this.usersService.addToCart(pendingBill)
+        alert("Bill added to cart")
+      }
     }
 }
