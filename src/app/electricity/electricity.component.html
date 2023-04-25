@@ -2,30 +2,31 @@
 
 <main>
   <div class="electricity-bills-container">
-    <h2 class="electricity-bills-heading">Electricity Bills</h2>
+    <h2 class="electricity-bills-heading">Electricity Bills  <span style="font-size: 16px;
+      font-weight: normal;
+      margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Kilowatt</span></h2>
+   
     <div class="electricity-bills-section">
       <h3 class="electricity-bills-section-heading">Pending Bills</h3>
       <table class="electricity-bills-table">
         <thead>
           <tr>
             <th>Bill Number</th>
-            <th>Amount</th>
+            <th>Units Used</th>
+            <th>Amount Due</th>
             <th>Due Date</th>
+            <th>Amount After Due Date</th>
             <th>Pay Now</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>250</td>
-            <td>May 1, 2023</td>
-            <td><button class="pay-now-button">Pay Now</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>180</td>
-            <td>May 5, 2023</td>
-            <td><button class="pay-now-button">Pay Now</button></td>
+          <tr *ngFor="let pendingBill of pendingBills;">
+            <td>{{pendingBill.billNum}}</td>
+            <td>{{pendingBill.billUnits}} Kilowatts</td>
+            <td>{{pendingBill.billUnits * unitPrice |currency:'EGP':true}}</td>
+            <td>{{pendingBill.dueDate | date}}</td>
+            <td>{{pendingBill.billUnits * unitPrice*(1.5) |currency:'EGP':true}}</td>
+            <td><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
       </table>
@@ -36,23 +37,21 @@
         <thead>
           <tr>
             <th>Bill Number</th>
-            <th>Amount</th>
-            <th>Paid On</th>
+            <th>Units Used</th>
+            <th>Amount Paid</th>
+            <th>Due Date</th>
+            <th>Amount After Due Date</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>3</td>
-            <td>350</td>
-            <td>April 25, 2023</td>
-            <td><button class="delete-button">Delete</button></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>200</td>
-            <td>April 20, 2023</td>
-            <td><button class="delete-button">Delete</button></td>
+          <tr *ngFor="let paidBill of paidBills;">
+            <td>{{paidBill.billNum}}</td>
+            <td>{{paidBill.billUnits}} Kilowatts</td>
+            <td>{{paidBill.billUnits * unitPrice |currency:'EGP':true}}</td>
+            <td>{{paidBill.dueDate | date}}</td>
+            <td>{{paidBill.billUnits * unitPrice*(1.5) |currency:'EGP':true}}</td>
+            <td><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
           </tr>
         </tbody>
       </table>

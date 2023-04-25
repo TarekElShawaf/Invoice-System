@@ -2,23 +2,29 @@
 <main>
 
   <div class="water-bills-container">
-    <h2 class="water-bills-heading">Water Bills</h2>
+    <h2 class="water-bills-heading">Water Bills <span style="font-size: 16px;
+      font-weight: normal;
+      margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Liter</span></h2>
     <div class="water-bills-section">
       <h3 class="water-bills-section-heading">Pending Bills</h3>
       <table class="water-bills-table">
         <thead>
           <tr>
             <th>Bill Number</th>
+            <th>Units Used</th>
             <th>Amount</th>
             <th>Due Date</th>
+            <th>Amount After Due Date</th>
             <th>Pay Now</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let pendingBill of pendingBills;">
             <td>{{pendingBill.billNum}}</td>
-            <td>{{pendingBill.billAmount}}</td>
+            <td>{{pendingBill.billUnits}} Liters</td>
+            <td>{{pendingBill.billUnits * unitPrice}}</td>
             <td>{{pendingBill.dueDate}}</td>
+            <td>{{pendingBill.billUnits * unitPrice*(1.5)}}</td>
             <td><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
@@ -30,16 +36,20 @@
         <thead>
           <tr>
             <th>Bill Number</th>
+            <th>Units Used</th>
             <th>Amount</th>
-            <th>Paid On</th>
-            <th>Delete</th>
+            <th>Due Date</th>
+            <th>Amount After Due Date</th>
+            <th>Pay Now</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let paidBill of paidBills;">
             <td>{{paidBill.billNum}}</td>
-            <td>{{paidBill.billAmount}}</td>
+            <td>{{paidBill.billUnits}} Liters</td>
+            <td>{{paidBill.billUnits * unitPrice}}</td>
             <td>{{paidBill.dueDate}}</td>
+            <td>{{paidBill.billUnits * unitPrice*(1.5)}}</td>
             <td><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
           </tr>
         </tbody>

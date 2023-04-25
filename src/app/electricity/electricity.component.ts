@@ -11,6 +11,7 @@ export class ElectricityComponent {
   constructor(private usersService: DbservService) { }
   loggedUser = this.usersService.loggedUser;
   isDeleting = false;
+  unitPrice:number = this.usersService.electricUnits
   pendingBills: Bill[] = [];
   paidBills: Bill[] = [];
 
@@ -19,8 +20,8 @@ export class ElectricityComponent {
     this.loadPaidBills();
   }
 
-  loadpendingBills() {
-    this.usersService.getPendingBills('electricBills').subscribe((pendingBills) => {
+  async loadpendingBills() {
+    (await this.usersService.getPendingBills('electricBills')).subscribe((pendingBills) => {
       this.pendingBills = pendingBills
       console.log(this.pendingBills)
     })
@@ -33,11 +34,31 @@ export class ElectricityComponent {
     })
   }
 
-  async deleteBill(id: string) {
-    this.isDeleting = true;
-    this.usersService.deleteBill(id, 'electricBills');
+  deleteBill(paidBill:Bill){
+    this.isDeleting=true;
+    this.usersService.deleteBill(paidBill.id,'electricBills');
+    const index = this.paidBills.indexOf(paidBill);
+    if (index > -1) { // only splice array when item is found
+      this.paidBills.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    this.isDeleting=false;
+  }
 
-    await this.loadPaidBills();
-    this.isDeleting = false;
+  addToCart(pendingBill:Bill){
+    let alreadyExists=false;
+    this.usersService.loggedUserCart.forEach((item)=>{
+      if(item.billNum==pendingBill.billNum){
+        alreadyExists=true;
+        return;
+      }
+    })
+    if(alreadyExists){
+      alert("Bill already in cart")
+      console.log(this.usersService.loggedUserCart)
+    }
+    else{
+      this.usersService.addToCart(pendingBill)
+      alert("Bill added to cart")
+    }
   }
 }

@@ -66,6 +66,7 @@ main {
 .electricity-bills-container table {
   border-collapse: collapse;
   width: 100%;
+  table-layout: fixed;
 }
 
 .electricity-bills-container th,

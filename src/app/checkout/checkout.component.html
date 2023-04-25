@@ -45,25 +45,47 @@
         line-height: 27px;
     ">  E-PAY
         </h4>
-        <p>payment</p>
-        <div class="ele">
+        <p>cart</p>
+        <div style="margin-bottom: 10px;" *ngFor="let pendingBill of loggedUserCart;">
+        <div *ngIf="findIndex(pendingBill,electricBills)" class="ele" >
           <div class="imgi">
             <img src="../../assets/images/lamp.png" alt="lamp">
           </div>
           <div class="tp">
             <h5>Electricity bill</h5>
-            <p>Total of 150 Watt</p>
-            <h4 style="font-weight: bold;">1500 L.E</h4>
+            <p>Total of {{pendingBill.billUnits}} Kilowatts</p>
+            <h4 style="font-weight: bold;">{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':true}}</h4>
           </div>
         </div>
-
+        <div *ngIf="findIndex(pendingBill,waterBills)" class="ele" >
+          <div class="imgi">
+            <img src="../../assets/images/waterTap.png" alt="waterTap">
+          </div>
+          <div class="tp">
+            <h5 >Water bill</h5>
+            <p >Total of {{pendingBill.billUnits}} Liters</p>
+            <h4 >{{(pendingBill.billUnits * waterUnitPrice |currency:'EGP':true)}}</h4>
+          </div>
+        </div>
+        <div *ngIf="findIndex(pendingBill,telephoneBills)" class="ele" >
+          <div class="imgi">
+            <img src="../../assets/images/lamp.png" alt="lamp">
+          </div>
+          <div class="tp">
+            <h5 >Electricity bill</h5>
+            <p >Total of {{pendingBill.billUnits}} Kilowatts</p>
+            <h4 >{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':true}}</h4>
+          </div>
+        </div>
+        </div>
       </div>
      <div class="method">
       <form >
         <label for="paymentmethod">payment Method</label>
         <br>
         <select name="visa" id="paymentmethod">
-          <option value="visa">visa</option>
+          <option value="visa">Visa</option>
+          <option value="visa">Cash (in case you are a government organization)</option>
 
         </select>
         
@@ -72,17 +94,17 @@
         <input type="text" name="promo" id="promocode">
       </form>
      </div>
-     
-     <div class="container">
+     <div></div>
+     <div class="container" >
       <div class="line"></div>
       <div class="subtotal">Sub Total</div>
-      <div class="subtotal-value">0LE</div>
+      <div class="subtotal-value">{{total|currency:"EGP":true}}</div>
       <div class="main">Main</div>
-      <div class="main-value">0LE</div>
+      <div class="main-value">{{total|currency:"EGP":true}}</div>
       <div class="discount">Discount</div>
       <div class="discount-value">0LE</div>
       <div class="total">Total to Pay</div>
-      <div class="total-value">0LE</div>
+      <div class="total-value">{{total|currency:"EGP":true}}</div>
       <div class="line"></div>
     </div>
 
@@ -100,13 +122,12 @@
           <p>Get your vouchers now</p>
         </div>
       </div>
-        
       <div class="payment">
         <div class="payment-label">Payment</div>
         <div class="payment-details">
           <div class="payment-row">
             <div class="payment-item">Total</div>
-            <div class="payment-value">0 LE</div>
+            <div class="payment-value">{{total|currency:"EGP":true}}</div>
           </div>
           <div class="payment-row">
             <div class="payment-item">Discount</div>
@@ -114,18 +135,19 @@
           </div>
           <div class="payment-row">
             <div class="payment-item">Total To Pay</div>
-            <div class="payment-value">0 LE</div>
+            <div class="payment-value">{{total|currency:"EGP":true}}</div>
           </div>
           <hr class="payment-divider">
           <div class="payment-row">
             <div class="payment-item">Sub-total</div>
-            <div class="payment-value">0 LE</div>
+            <div class="payment-value">{{total|currency:"EGP":true}}</div>
           </div>
           <div class="payment-row">
-            <button class="payment-button">Pay Now</button>
+            <button class="payment-button" >Pay Now</button>
           </div>
         </div>
       </div>        
   </div>
 </div>
+
 <app-footer></app-footer>

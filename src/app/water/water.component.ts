@@ -13,20 +13,20 @@ export class WaterComponent {
     isDeleting=false;
     pendingBills:Bill[] =[];
     paidBills:Bill[]=[];
-
+    unitPrice:number=this.usersService.waterUnits
     ngOnInit(){
       this.loadpendingBills();
       this.loadPaidBills();
     }
 
-    loadpendingBills(){
-      this.usersService.getPendingWaterBills().subscribe((pendingBills)=>{
+    async loadpendingBills(){
+      (await this.usersService.getPendingBills('waterBills')).subscribe((pendingBills)=>{
         this.pendingBills = pendingBills
         console.log(this.pendingBills)
       })
     }
     loadPaidBills(){
-      this.usersService.getPaidWaterBills().subscribe((paidBills)=>{
+      this.usersService.getPaidBills('waterBills').subscribe((paidBills)=>{
         this.paidBills = paidBills
         console.log(this.paidBills)
       })
@@ -34,7 +34,7 @@ export class WaterComponent {
 
     deleteBill(paidBill:Bill){
       this.isDeleting=true;
-      this.usersService.deleteBill(paidBill.id);
+      this.usersService.deleteBill(paidBill.id,'waterBills');
       const index = this.paidBills.indexOf(paidBill);
       if (index > -1) { // only splice array when item is found
         this.paidBills.splice(index, 1); // 2nd parameter means remove one item only

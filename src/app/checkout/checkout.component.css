@@ -26,15 +26,15 @@
       
     }
     .tp h5 {
-      margin: 0px 0px 15px;
+        margin-top:3px;margin-bottom: 3px;
       
       
     }
     .tp h4{
-      margin-top: 20px;
+        font-weight: bold; margin-bottom: 3px;margin-top:3px;font-size: medium;
     }
     .tp p{
-      margin-top: 19px;
+        margin-top:3px;margin-bottom: 3px;
     }
     .method label{
   
@@ -125,8 +125,9 @@
   
     }
     .imgi img{
-      width: 90px;
-      margin-right: 20px;
+        width: 90px;
+        height: 95px;
+        margin-right: 20px;
     }
     .container {
       display: flex;

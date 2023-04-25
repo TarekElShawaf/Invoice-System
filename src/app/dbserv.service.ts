@@ -13,7 +13,9 @@ export class DbservService {
 
   loggedUser:any;
   loggedUserCart: Array<Bill> = new Array();
-
+  electricUnits:number;
+  waterUnits:number;
+  telephoneUnits:number;
   //Add user to DB
   createUser(user:{email:string,password:string}){
     console.log(user);
@@ -34,6 +36,18 @@ export class DbservService {
         return users;
       }))
   }
+
+  getUnitPrices(){
+    return this.http.get<{electricUnits:number,waterUnits:number,telephoneUnits:number}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/unitPrices.json')
+      .pipe(map((res)=>{
+        this.electricUnits=res.electricUnits;
+        this.waterUnits=res.waterUnits;
+        this.telephoneUnits=res.telephoneUnits;
+      }))
+      .subscribe()
+  }
+
+
 
   
   getPendingBills(type: string) {
@@ -70,8 +84,8 @@ export class DbservService {
   getCart(){
     this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/cart.json')
       .pipe(map((res)=>{
+        console.log(res)
         for(const key in res){
-          console.log(key)
           this.loggedUserCart.push({...res[key]})
         }
 

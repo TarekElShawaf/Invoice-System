@@ -1,6 +1,7 @@
 export class Bill{
     billNum:number;
-    billAmount:number;
+    billUnits:number;
     dueDate:string;
-    id:string
+    id:string;
+
 }

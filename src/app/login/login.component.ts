@@ -39,6 +39,7 @@ ngOnInit(){
     this.passwordStatus=value
   })
   this.loadUsers();
+  this.usersService.getUnitPrices();
 
 }
 
