@@ -51,7 +51,7 @@ export class DbservService {
   getTariffPlans() {
     return this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/tariffPlans.json')
       .pipe(map((res) => {
-        this.tariffPlans = res;
+        //this.tariffPlans = res;
       }))
       .subscribe()
   }

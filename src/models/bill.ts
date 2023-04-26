@@ -3,5 +3,5 @@ export class Bill{
     billUnits:number;
     dueDate:string;
     id:string;
-
+    status:string;
 }
