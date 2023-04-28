@@ -31,14 +31,14 @@ loggedUserCart=this.usersService.loggedUserCart
 
 }
   async loadpendingBills(){
-  await (await this.usersService.getPendingBills('waterBills')).subscribe((pendingBills)=>{
+    await (await this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills)=>{
     this.waterBills = pendingBills
     console.log("DONEEEEEEEEE")
   })
-  await (await this.usersService.getPendingBills('electricBills')).subscribe((pendingBills)=>{
+  await (await this.usersService.getBills(('Pending'), ('ElectricBills')).subscribe((pendingBills)=>{
     this.electricBills = pendingBills
 
-  })
+  }))
   console.log("DONEEEEEEEEE2")
   console.log(this.waterBills)
   console.log(this.electricBills)
