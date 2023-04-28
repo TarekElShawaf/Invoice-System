@@ -40,6 +40,6 @@ import { CheckoutComponent } from './checkout/checkout.component';
     MatDialogModule
   ],
   providers: [AppRoutingModule,DbservService],
-  bootstrap: [LoginComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

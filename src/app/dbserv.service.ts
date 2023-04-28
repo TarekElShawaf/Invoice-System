@@ -57,8 +57,8 @@ export class DbservService {
   }
 
   
-  getBills(status:string,type: string) {
-    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type +'/'+status+'.json')
+  getPendingBills(type: string) {
+    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending.json')
       .pipe(map((res) => {
         const Bills = [];
         for (const key in res) {
@@ -67,7 +67,7 @@ export class DbservService {
         return Bills;
       }))
   }
-  /*getPaidBills(type: string) {
+  getPaidBills(type: string) {
     return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid.json')
       .pipe(map((res) => {
         const Bills = [];
@@ -76,7 +76,7 @@ export class DbservService {
         }
         return Bills;
       }))
-  }*/
+  }
 
   deleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
