@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import { DbservService } from './dbserv.service';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ServiceProviderComponent } from './service-provider/service-provider.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ElectricityComponent,
     WaterComponent,
     TelephoneComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ServiceProviderComponent
   ],
   imports: [
     BrowserModule,

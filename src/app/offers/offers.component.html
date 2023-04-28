@@ -6,26 +6,14 @@
       <p>choose your offer</p>
   </div>
   <div class="offers">
-  <div class="imgs">
-   <img src="../../assets/images/vodafone.png" alt="vodafonecard">
-   <h3>35 OFFER</h3>
-   <p>Total of :400 units</p>
-   <h3>35 L.E</h3>
-   <button>subscribe</button>
-  </div>
-  <div class="imgss">
-   <img src="../../assets/images/etsilat.jpg" alt="etsilatcard">
-   <h3>50 OFFER</h3>
-   <p>Total of :750 unit5</p>
-   <h3>50 L.E</h3>
-   <button>subscribe</button>
-  </div>
-   </div>
-    
+    <div *ngFor="let offer of offers" class="imgs">
+      <img [src]="'../../assets/images/'+offer.provider.toLowerCase()+'.png'" alt="{{offer.provider}}card">
+      <h3>{{offer.plan}}</h3>
+      <p>Total of : {{offer.totalUnits}} units</p>
+      <h3>{{offer.price}} L.E</h3>
+      <button (click)="subscribe(offer.plan)">subscribe</button>
     </div>
-
-
-
-
+  </div>
+</div>
 
 <app-footer></app-footer>

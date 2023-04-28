@@ -13,7 +13,7 @@ export class OffersComponent {
       {
         provider: "Vodafone",
         plan: "35 Offer",
-        totalUnits: 400,
+        totalUnits: 4500,
         price: 35
       },
       {

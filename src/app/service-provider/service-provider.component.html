@@ -1,0 +1,51 @@
+<app-nav-bar></app-nav-bar>
+<div class="service-provider">
+    <h2>Tariff Plans Service Provider</h2>
+    <p>Choose your service provider:</p>
+
+    <div class="providers">
+        <!-- List of service providers -->
+        <ul>
+            <li>
+                <img src="../../assets/images/vodafone.png" alt="Vodafone">
+                <button (click)="showTariffs('Vodafone')">View Tariffs</button>
+            </li>
+            <li>
+                <img src="../../assets/images/etisalat.png" alt="Etisalat">
+                <button (click)="showTariffs('Etisalat')">View Tariffs</button>
+            </li>
+            <li>
+                <img src="../../assets/images/orange.png" alt="Orange">
+                <button (click)="showTariffs('Orange')">View Tariffs</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="plans">
+        <ul>
+            <li *ngFor="let tariff of tariffs">
+                {{ tariff }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Pop-up dialog box for tariffs -->
+    <div class="popup" *ngIf="showDialog">
+        <div class="popup-overlay"></div>
+        <div class="popup-dialog">
+            <div class="popup-header">
+                <h3>Tariffs</h3>
+                <button class="close-button" (click)="closeDialog()">X</button>
+            </div>
+            <div class="popup-body">
+                <ul>
+                    <li *ngFor="let tariff of selectedTariffs">
+                        {{ tariff }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
