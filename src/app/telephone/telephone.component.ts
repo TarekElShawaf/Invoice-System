@@ -21,21 +21,7 @@ export class TelephoneComponent {
   pendingBills: Bill[] = [];
   paidBills: Bill[] = [];
   unitPrice: number = this.usersService.telephoneUnits
-  offers = [
-    {
-      name: '50% off on your first month',
-      description: 'Get 50% discount on your first month bill on subscribing to our postpaid plan.'
-    },
-    {
-      name: 'Refer a friend and get $10 credit',
-      description: 'Refer a friend to our services and earn $10 credit on your next bill.'
-    },
-    {
-      name: 'Upgrade to post-paid plan and get a free smartphone',
-      description: 'Upgrade your plan to postpaid and get a free smartphone on your next billing cycle.'
-    }
-  ];
-  selectedOffer = '';
+
 
   ngOnInit() {
     this.loadpendingBills();
@@ -43,13 +29,13 @@ export class TelephoneComponent {
   }
 
   async loadpendingBills() {
-    (await this.usersService.getPendingBills('telephoneBills')).subscribe((pendingBills) => {
+    (await this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
       this.pendingBills = pendingBills
       console.log(this.pendingBills)
     })
   }
   loadPaidBills() {
-    this.usersService.getPaidBills('telephoneBills').subscribe((paidBills) => { 
+    this.usersService.getBills(('Paid'), ('telephoneBills')).subscribe((paidBills) => { 
       this.paidBills = paidBills
       console.log(this.paidBills)
     })

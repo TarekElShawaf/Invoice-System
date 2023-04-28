@@ -19,18 +19,19 @@ export class WaterComponent {
       this.loadPaidBills();
     }
 
-    async loadpendingBills(){
-      (await this.usersService.getPendingBills('waterBills')).subscribe((pendingBills)=>{
-        this.pendingBills = pendingBills
-        console.log(this.pendingBills)
-      })
-    }
-    loadPaidBills(){
-      this.usersService.getPaidBills('waterBills').subscribe((paidBills)=>{
-        this.paidBills = paidBills
-        console.log(this.paidBills)
-      })
-    }
+  async loadpendingBills() {
+    (await this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
+      this.pendingBills = pendingBills
+      console.log(this.pendingBills)
+    })
+  }
+
+  loadPaidBills() {
+    this.usersService.getBills(('Paid'), ('waterBills')).subscribe((paidBills) => {
+      this.paidBills = paidBills
+      console.log(this.paidBills)
+    })
+  }
 
     deleteBill(paidBill:Bill){
       this.isDeleting=true;
