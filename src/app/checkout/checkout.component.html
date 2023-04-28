@@ -25,15 +25,12 @@
     <h4>{{loggedUser.firstName}} {{loggedUser.lastName}}</h4> <button>User</button>
   </div>
   <div class="text-section">
-    <p>012212122.</p>
-    <p>14 Mokkattam,Cairo,Egypt.</p>
+    <p>{{loggedUser.telephoneNo}}</p>
+    <p>{{loggedUser.address}}</p>
   </div>
   
 </div>
-<div class="check">
-  <input type="checkbox" name="Remember me" id="remember">
-<label for="remember">Remember me</label>
-</div>
+
   <div class="pay">
       <div class="t">
         <h4 style="    font-family: 'Raleway SemiBold', 'Raleway', sans-serif;
@@ -43,9 +40,8 @@
         color: #3A3A3A;
         text-align: left;
         line-height: 27px;
-    ">  E-PAY
+    ">  Your Cart
         </h4>
-        <p>cart</p>
         <div style="margin-bottom: 10px;" *ngFor="let pendingBill of loggedUserCart;">
         <div *ngIf="findIndex(pendingBill,electricBills)" class="ele" >
           <div class="imgi">
@@ -54,7 +50,7 @@
           <div class="tp">
             <h5>Electricity bill</h5>
             <p>Total of {{pendingBill.billUnits}} Kilowatts</p>
-            <h4 style="font-weight: bold;">{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':true}}</h4>
+            <h4 style="font-weight: bold;">{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':'code'}}</h4>
           </div>
         </div>
         <div *ngIf="findIndex(pendingBill,waterBills)" class="ele" >
@@ -64,7 +60,7 @@
           <div class="tp">
             <h5 >Water bill</h5>
             <p >Total of {{pendingBill.billUnits}} Liters</p>
-            <h4 >{{(pendingBill.billUnits * waterUnitPrice |currency:'EGP':true)}}</h4>
+            <h4 >{{(pendingBill.billUnits * waterUnitPrice |currency:'EGP':'code')}}</h4>
           </div>
         </div>
         <div *ngIf="findIndex(pendingBill,telephoneBills)" class="ele" >
@@ -74,7 +70,7 @@
           <div class="tp">
             <h5 >Electricity bill</h5>
             <p >Total of {{pendingBill.billUnits}} Kilowatts</p>
-            <h4 >{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':true}}</h4>
+            <h4 >{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':'code'}}</h4>
           </div>
         </div>
         </div>
@@ -98,13 +94,13 @@
      <div class="container" >
       <div class="line"></div>
       <div class="subtotal">Sub Total</div>
-      <div class="subtotal-value">{{total|currency:"EGP":true}}</div>
+      <div class="subtotal-value">{{total|currency:"EGP":'code'}}</div>
       <div class="main">Main</div>
-      <div class="main-value">{{total|currency:"EGP":true}}</div>
+      <div class="main-value">{{total|currency:"EGP":'code'}}</div>
       <div class="discount">Discount</div>
-      <div class="discount-value">0LE</div>
+      <div class="discount-value">{{0|currency:"EGP":'code'}}</div>
       <div class="total">Total to Pay</div>
-      <div class="total-value">{{total|currency:"EGP":true}}</div>
+      <div class="total-value">{{total|currency:"EGP":'code'}}</div>
       <div class="line"></div>
     </div>
 
@@ -127,20 +123,20 @@
         <div class="payment-details">
           <div class="payment-row">
             <div class="payment-item">Total</div>
-            <div class="payment-value">{{total|currency:"EGP":true}}</div>
+            <div class="payment-value">{{total|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
             <div class="payment-item">Discount</div>
-            <div class="payment-value">0 LE</div>
+            <div class="payment-value">{{0|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
             <div class="payment-item">Total To Pay</div>
-            <div class="payment-value">{{total|currency:"EGP":true}}</div>
+            <div class="payment-value">{{total|currency:"EGP":'code'}}</div>
           </div>
           <hr class="payment-divider">
           <div class="payment-row">
             <div class="payment-item">Sub-total</div>
-            <div class="payment-value">{{total|currency:"EGP":true}}</div>
+            <div class="payment-value">{{total|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
             <button class="payment-button" >Pay Now</button>

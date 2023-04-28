@@ -51,7 +51,7 @@ export class DbservService {
   getTariffPlans() {
     return this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/tariffPlans.json')
       .pipe(map((res) => {
-        //this.tariffPlans = res;
+        // this.tariffPlans = res;
       }))
       .subscribe()
   }
@@ -77,7 +77,16 @@ export class DbservService {
         return Bills;
       }))
   }
-
+  getBills(status:string,type: string) {
+    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type +'/'+status+'.json')
+      .pipe(map((res) => {
+        const Bills = [];
+        for (const key in res) {
+         Bills.push({ ...res[key], id: key })
+        }
+        return Bills;
+      }))
+  }
   deleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
   }

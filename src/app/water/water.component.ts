@@ -19,14 +19,15 @@ export class WaterComponent {
       this.loadPaidBills();
     }
 
-    async loadpendingBills(){
-      (await this.usersService.getPendingBills('waterBills')).subscribe((pendingBills)=>{
+    loadpendingBills() {
+      this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
         this.pendingBills = pendingBills
         console.log(this.pendingBills)
       })
     }
-    loadPaidBills(){
-      this.usersService.getPaidBills('waterBills').subscribe((paidBills)=>{
+  
+    loadPaidBills() {
+      this.usersService.getBills(('Paid'), ('waterBills')).subscribe((paidBills) => {
         this.paidBills = paidBills
         console.log(this.paidBills)
       })

@@ -20,15 +20,15 @@ export class ElectricityComponent {
     this.loadPaidBills();
   }
 
-  async loadpendingBills() {
-    (await this.usersService.getPendingBills('electricBills')).subscribe((pendingBills) => {
+  loadpendingBills() {
+     this.usersService.getBills(('Pending'), ('electricBills')).subscribe((pendingBills) => {
       this.pendingBills = pendingBills
       console.log(this.pendingBills)
     })
   }
 
   loadPaidBills() {
-    this.usersService.getPaidBills('electricBills').subscribe((paidBills) => {
+    this.usersService.getBills(('Paid'),('electricBills')).subscribe((paidBills) => {
       this.paidBills = paidBills
       console.log(this.paidBills)
     })

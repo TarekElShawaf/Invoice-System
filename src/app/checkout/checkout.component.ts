@@ -25,21 +25,21 @@ loggedUserCart=this.usersService.loggedUserCart
 
   async ngOnInit(){
   this.total=0;
-  await this.loadpendingBills();
+  this.loadpendingBills();
   console.log(this.loggedUserCart)
   
 
 }
-  async loadpendingBills(){
-    await (await this.usersService.getPendingBills('waterBills')).subscribe((pendingBills)=>{
+  loadpendingBills(){
+    this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
     this.waterBills = pendingBills
-    console.log("DONEEEEEEEEE")
+    this.calculateTotal(this.waterBills,this.waterUnitPrice)
   })
-  await (await this.usersService.getPendingBills(('electricBills')).subscribe((pendingBills)=>{
+  this.usersService.getBills(('Pending'), ('electricBills')).subscribe((pendingBills) => {
     this.electricBills = pendingBills
+    this.calculateTotal(this.electricBills,this.electricUnitPrice)
 
-  }))
-  console.log("DONEEEEEEEEE2")
+  })
   console.log(this.waterBills)
   console.log(this.electricBills)
 }
@@ -48,12 +48,12 @@ loggedUserCart=this.usersService.loggedUserCart
     else return false;
   }
 
-  async calculateTotal(){
+  calculateTotal(billarr:Bill[],unitPrice:number){
     this.loggedUserCart.forEach((bill)=>{
       if(bill.id==null)return;
-      if(this.findIndex(bill,this.waterBills)) this.total+=(bill.billUnits*this.waterUnitPrice)
-      else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*this.electricUnitPrice)
-      console.log(this.total)
+      if(this.findIndex(bill,billarr)) this.total+=(bill.billUnits*unitPrice)
+      // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
+      // console.log(this.total)
     })
   }
 }

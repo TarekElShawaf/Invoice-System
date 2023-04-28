@@ -201,6 +201,7 @@
     
    .pay{
     margin: 50px 50px;
+    margin-top: 35px;
    }
    .payment {
     display: flex;
@@ -243,7 +244,7 @@
   }
   
   .payment-value {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 2;
     margin-right: 20px;
   }
