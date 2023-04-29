@@ -29,6 +29,7 @@ export class ServiceProviderComponent {
 
   openDialog() {
     this.showDialog = true;
+    console.log(this.tariffs)
   }
 
   closeDialog() {

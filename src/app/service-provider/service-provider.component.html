@@ -1,20 +1,23 @@
 <app-nav-bar></app-nav-bar>
 <div class="service-provider">
-    <h2>Tariff Plans Service Provider</h2>
+    <h2>Tariff Plans Service Providers</h2>
     <p>Choose your service provider:</p>
 
     <div class="providers">
         <!-- List of service providers -->
         <ul>
             <li>
+                <h3>Vodafone</h3>
                 <img src="../../assets/images/vodafone.png" alt="Vodafone">
                 <button (click)="showTariffs('Vodafone')">View Tariffs</button>
             </li>
             <li>
+                <h3>Etisalat</h3>
                 <img src="../../assets/images/etisalat.png" alt="Etisalat">
                 <button (click)="showTariffs('Etisalat')">View Tariffs</button>
             </li>
             <li>
+                <h3>Orange</h3>
                 <img src="../../assets/images/orange.png" alt="Orange">
                 <button (click)="showTariffs('Orange')">View Tariffs</button>
             </li>
@@ -34,12 +37,12 @@
         <div class="popup-overlay"></div>
         <div class="popup-dialog">
             <div class="popup-header">
-                <h3>Tariffs</h3>
+                <h3 style="margin: 0;   font-size: x-large;">Tariffs</h3>
                 <button class="close-button" (click)="closeDialog()">X</button>
             </div>
             <div class="popup-body">
-                <ul>
-                    <li *ngFor="let tariff of selectedTariffs">
+                <ul style="display: flex;  justify-content: space-around;">
+                    <li *ngFor="let tariff of tariffs">
                         {{ tariff }}
                     </li>
                 </ul>

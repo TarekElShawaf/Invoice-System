@@ -4,13 +4,15 @@
 }
 
 .service-provider h2 {
-    margin-top: 0;
+    margin-top: 40px;
 }
-
+.providers h3{
+    margin:5px;
+}
 .providers {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .providers ul {
@@ -18,17 +20,23 @@
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: space-between;
-    max-width: 600px;
+    justify-content: space-evenly;
+    width:70%
+    /* max-width: 600px; */
 }
 
 .providers li {
     cursor: pointer;
+    display: flex;
     padding: 10px;
     background-color: #f2f2f2;
+    width: 15%;
     border-radius: 10px;
     border: 1px solid #ddd;
     transition: background-color 0.3s ease-in-out;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .providers li:hover {
@@ -45,10 +53,32 @@
 }
 
 .providers img {
-    width: 80px;
+    width: 150px;
+    height: 125px;
     margin: 10px;
 }
-
+.providers button{
+    background-color: rgba(46, 193, 172, 1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: normal;
+    text-transform: none;
+    /* font-size: 20px; */
+    font-weight: 400;
+    font-style: normal;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    border-radius: 8px;
+    /* width: 352px; */
+    /* height: 44px; */
+    margin-left: 15px;
+    margin-right: 15px;
+    box-shadow: none;
+    font-weight: bold;
+}
 .plans {
     margin-top: 30px;
 }
@@ -126,6 +156,7 @@
 }
 
 .popup-dialog {
+    position: absolute;
     width: 80%;
     max-width: 600px;
     background-color: white;
@@ -139,6 +170,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    margin-top: 5px;
+
 }
 
 .close-button {
