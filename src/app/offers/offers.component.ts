@@ -41,5 +41,7 @@ export class OffersComponent implements OnInit {
     this.offers.forEach(o => {
       o.subscribed = (o === offer);
     });
+    const subscriptionMessage = `You have subscribed to ${offer.plan} plan from ${offer.provider} at ${offer.price} L.E.`;
+    window.alert(subscriptionMessage);
   }
 }
