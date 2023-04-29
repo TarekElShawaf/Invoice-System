@@ -16,6 +16,10 @@ export class DbservService {
   electricUnits:number;
   waterUnits:number;
   telephoneUnits:number;
+
+
+
+
   //Add user to DB
   createUser(user:{email:string,password:string}){
     console.log(user);

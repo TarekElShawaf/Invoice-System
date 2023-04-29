@@ -18,6 +18,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DbservService } from './dbserv.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ServiceProviderComponent } from './service-provider/service-provider.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ServiceProviderComponent } from './service-provider/service-provider.co
     WaterComponent,
     TelephoneComponent,
     CheckoutComponent,
-    ServiceProviderComponent
+    ServiceProviderComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
