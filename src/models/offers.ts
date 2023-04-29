@@ -3,4 +3,5 @@ export class offers {
     plan:string;
     totalUnits:number;
     price: number;
+    subscribed:boolean;
 }

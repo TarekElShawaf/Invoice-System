@@ -1,9 +1,9 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="home">
-    <div class="homecontent">
-      <h2>OFFERS</h2>
-      <p>choose your offer</p>
+  <div class="homecontent">
+    <h2>OFFERS</h2>
+    <p>choose your offer</p>
   </div>
   <div class="offers">
     <div *ngFor="let offer of offers" class="imgs">
@@ -11,7 +11,8 @@
       <h3>{{offer.plan}}</h3>
       <p>Total of : {{offer.totalUnits}} units</p>
       <h3>{{offer.price}} L.E</h3>
-      <button (click)="subscribe(offer.plan)">subscribe</button>
+      <button (click)="subscribe(offer)" [disabled]="offer.subscribed">subscribe</button>
+      <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>
     </div>
   </div>
 </div>
