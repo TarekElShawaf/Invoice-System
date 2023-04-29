@@ -143,4 +143,21 @@ export class DbservService {
       .subscribe();
   }
 
+  changeUnit(type:string,newValue:number){
+    switch(type){
+      case 'electricUnits':
+        this.electricUnits=newValue;
+        break;
+      case 'waterUnits':
+        this.waterUnits=newValue;
+        break;
+      case 'telephoneUnits':
+        this.telephoneUnits=newValue;
+        break;   
+    }
+    console.log(newValue)
+    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/unitPrices/"+type+'.json',newValue)
+    .subscribe()
+  }
+
 }

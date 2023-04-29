@@ -14,16 +14,11 @@
             <th>Last Name</th>
             <th>Phone Number</th>
             <th>Address</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let user of allUsers;">
-            <!-- <td>{{pendingBill.billNum}}</td>
-            <td>{{pendingBill.billUnits}} Liters</td>
-            <td>{{pendingBill.billUnits * unitPrice}}</td>
-            <td>{{pendingBill.dueDate}}</td>
-            <td>{{pendingBill.billUnits * unitPrice*(1.5)}}</td>
-            <td><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td> -->
             <td>{{user.id}} </td>
             <td>{{user.email}} </td>
             <td>{{user.password}} </td>
@@ -31,18 +26,32 @@
             <td>{{user.lastName}} </td>
             <td>{{user.telephoneNo}} </td>
             <td>{{user.address}} </td>
+            <td><button class="pay-now-button">Edit</button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div *ngIf="waterUnitPrice > 0">
-    <ul style="list-style: none;">
-        <li style="margin-bottom: 2%;">Price of Water Units: <input class="listUnit" type="text" [value]="waterUnitPrice">/Liter </li>
-        <li style="margin-bottom: 2%;">Price of Electric Units: <input class="listUnit" type="text" [value]="electricUnitPrice">/Kilowatts </li>
-        <li style="margin-bottom: 2%;">Price of Telephone Units: <input class="listUnit" type="text" [value]="telephoneUnitPrice">/Minute </li>
-
+  
+  <div class="unitsList" *ngIf="waterUnitPrice > 0">
+    <h2 class="water-bills-heading">Unit Prices</h2>
+    <ul  style="list-style: none;">
+        <li >Price of Water Units: <input class="listUnit" type="text" [value]="waterUnitPrice">/Liter <button (click)="openDialog('waterUnits')">Edit</button> </li>
+        <li >Price of Electric Units: <input class="listUnit" type="text" [value]="electricUnitPrice">/Kilowatts <button (click)="openDialog('electricUnits')">Edit</button></li>
+        <li >Price of Telephone Units: <input class="listUnit" type="text" [value]="telephoneUnitPrice">/Minute<button (click)="openDialog('telephoneUnits')">Edit</button> </li>
     </ul>
   </div>
+  <div class="popup" *ngIf="showDialog">
+    <div class="popup-overlay"></div>
+    <div class="popup-dialog">
+        <div class="popup-header">
+            <button class="close-button" (click)="closeDialog()">X</button>
+        </div>
+        <div class="popup-body">
+            <input type="text" [(ngModel)]="inputValue" value="{{inputValue}}">
+            <button (click)="unitChanged(inputValue)">Save</button>
+        </div>
+    </div>
+</div>
 </main>
 <app-footer></app-footer>

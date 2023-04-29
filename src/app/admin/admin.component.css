@@ -75,38 +75,100 @@ text-align: left;
 background-color: #f2f2f2;
 font-weight: bold;
 }
-
-/* Button styles
-.water-bills-container .pay-now-button,
-.water-bills-container .delete-button {
-background-color: #4CAF50;
-border: none;
-color: white;
-padding: 8px 16px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 14px;
-margin: 4px 2px;
-cursor: pointer;
-} */
-
-
-
-/* Variables
-:root {
---primary-color: #4CAF50;
---primary-color-hover: #3e8e41;
+/* 
+Button styles */
+.water-bills-container .pay-now-button {
+    background-color: rgb(229 127 11);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding-inline: inherit;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
-.water-bills-container .delete-button {
-background-color: #f44336;
+
+
+
+.unitsList li{
+    margin-bottom: 2%;
 }
-.water-bills-container .delete-button:hover {
-background-color: #ff5555;
-} */
-/* Footer */
-.listUnit{
+.unitsList input{
     width: 3em;
     text-align: center;
     margin-right: 5px;
+    border: none;
+    /* border-bottom: 43px; */
+    background-color: #f5f5f5;
+    border-bottom: #000000de;
+    border-bottom-style: inset;
+    border-bottom: ridge;
+}
+.unitsList button{
+    background-color: rgb(229 127 11);
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-dialog {
+    position: absolute;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    outline: none;
+}
+
+.popup-body {
+    max-height: 300px;
+    overflow-y: auto;
 }
