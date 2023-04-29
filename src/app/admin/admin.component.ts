@@ -16,7 +16,7 @@ export class AdminComponent {
   showDialog = false;
   dialogOpened:string
   inputValue:number
-  
+  userToEdit:any;
   ngOnInit(){
     this.loadUsers();
   }
@@ -27,7 +27,7 @@ export class AdminComponent {
       console.log(this.allUsers);
     })
   }
-  openDialog(type:string) {
+  openDialog(type:string,user?:any) {
     this.showDialog = true;
     this.dialogOpened=type;
     switch(type){
@@ -40,12 +40,19 @@ export class AdminComponent {
       case 'telephoneUnits':
         this.inputValue=this.telephoneUnitPrice;
         break;
+      case 'user':
+        this.userToEdit=user;
+        break;
     }
   }
 
   closeDialog() {
     this.showDialog = false;
+    this.userToEdit=null;
   }
+
+
+
 
   unitChanged(newUnit:number){
     this.usersService.changeUnit(this.dialogOpened,newUnit)
@@ -54,5 +61,12 @@ export class AdminComponent {
     this.telephoneUnitPrice=this.usersService.telephoneUnits
     alert("Value Changed")
     this.showDialog = false;
+  }
+
+  userChanged(){
+    this.usersService.updateUser(this.userToEdit)
+    alert("Value Changed")
+    this.userToEdit=null;
+    this.showDialog=false;
   }
 }

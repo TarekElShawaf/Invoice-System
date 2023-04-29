@@ -160,4 +160,9 @@ export class DbservService {
     .subscribe()
   }
 
+  updateUser(user:any){
+    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/"+user.id+'.json',user)
+    .subscribe()
+  }
+
 }
