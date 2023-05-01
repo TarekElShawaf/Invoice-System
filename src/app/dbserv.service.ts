@@ -188,4 +188,7 @@ export class DbservService {
         return codes;
       }))
   }
+  deletePromo(code:any) {
+    return this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes/'+code.id+'.json');
+  }
 }

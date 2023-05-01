@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
+  discount: number=0;
 
 constructor(private usersService:DbservService ){}
 loggedUser=this.usersService.loggedUser
@@ -78,6 +79,7 @@ async ngOnInit(){
 
     if (index > -1) {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
+      this.discount=parseFloat(this.promos[index].value)
       this.total -= parseFloat(this.promos[index].value);
       this.prevValidPromo = promo;
       if (this.total < 0) this.total = 0
@@ -86,6 +88,7 @@ async ngOnInit(){
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
       this.prevValidPromo = ''
       this.promoValid = false;
+      this.discount=0;
     }
   }
 

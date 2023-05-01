@@ -87,4 +87,9 @@ export class AdminComponent {
     this.userToEdit=null;
     this.showDialog=false;
   }
+  deletePromoCode(code:any){
+    this.usersService.deletePromo(code).subscribe(()=>{
+      this.loadPromoCodes();
+    })
+  }
 }
