@@ -71,23 +71,26 @@ async ngOnInit(){
       console.log(promos)
     })
   }
-  checkPromo(promo:string){
-    let index=this.promos.findIndex(x=>x.code==promo)
-    let prevPromoIndex=this.promos.findIndex(x => x.code === this.prevValidPromo)
+  checkPromo(promo: string) {
+    this.total = this.total || 0;
+    let index = this.promos.findIndex(x => x.code == promo)
+    let prevPromoIndex = this.promos.findIndex(x => x.code === this.prevValidPromo)
 
-    if(index>-1){
-      if(this.prevValidPromo!='') this.total += this.promos[prevPromoIndex].value;
-      this.total-=this.promos[index].value
-      this.prevValidPromo=promo;
-      if(this.total<0) this.total=0
-      this.promoValid=true;
-    }
-    else{
-      if(this.prevValidPromo!='') this.total += this.promos[prevPromoIndex].value;
-      this.prevValidPromo=''
-      this.promoValid=false;
+    if (index > -1) {
+      if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
+      this.total -= parseFloat(this.promos[index].value);
+      this.prevValidPromo = promo;
+      if (this.total < 0) this.total = 0
+      this.promoValid = true;
+    } else {
+      if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
+      this.prevValidPromo = ''
+      this.promoValid = false;
     }
   }
+
+
+
 
   get promoChanges() {
     return this.promoSubject.pipe(
