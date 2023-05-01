@@ -1,6 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<div style="display:flex; flex-direction: row; margin-left: 5%;
-margin-top: 1%;">  
+<div style="display:flex; flex-direction: row;">  
  <div class="home">
   <div class="homecontent">
     <h2>Checkout</h2>
@@ -76,22 +75,44 @@ margin-top: 1%;">
         </div>
         </div>
       </div>
-     <div class="method">
-      <form >
-        <label for="paymentmethod">payment Method</label>
-        <br>
-        <select name="visa" id="paymentmethod">
-          <option value="visa">Visa</option>
-          <option value="visa">Cash (in case you are a government organization)</option>
+<div class="method">
+  <form>
+    <label for="paymentmethod">Payment Method</label>
+    <br>
+    <select name="paymentmethod" id="paymentmethod" [(ngModel)]="paymentMethod"
+      (change)="checkPaymentMethod(paymentMethod)">
+      <option value="visa">Visa</option>
+      <option value="cash">Cash (in case you are a government organization)</option>
+    </select>
 
-        </select>
-        
-        <label for="promocode">promo code</label>
-        
-        <input type="text" name="promo" id="promocode" [(ngModel)]="promo" (input)="checkPromo(promo)">
-        <div *ngIf="promoValid" style="color:green; margin:4px">Promo Is Valid! </div>
-      </form>
-     </div>
+    <div *ngIf="paymentMethodInvalid" style="color:red; margin:4px">Please select a valid payment method.</div>
+    <br><br>
+    <div *ngIf="paymentMethod === 'visa'">
+      <label for="cardnumber">Card Number</label>
+      <br>
+      <input type="text" name="cardnumber" id="cardnumber" [(ngModel)]="cardNumber"
+        (input)="checkCardNumber(cardNumber)">
+      <div *ngIf="cardNumberInvalid" style="color:red; margin:4px">Please enter a valid 16-digit card number.</div>
+      <br>
+      <label for="expirydate">Expiry Date</label>
+      <br>
+      <input type="text" name="expirydate" id="expirydate" [(ngModel)]="expiryDate"
+        (input)="checkExpiryDate(expiryDate)">
+      <div *ngIf="expiryDateInvalid" style="color:red; margin:4px">Please enter a valid expiry date (MM/YY).</div>
+      <br>
+      <label for="cvv">CVV</label>
+      <br>
+      <input type="text" name="cvv" id="cvv" [(ngModel)]="cvv" (input)="checkCVV(cvv)">
+      <div *ngIf="cvvInvalid" style="color:red; margin:4px">Please enter a valid 3-digit CVV.</div>
+    </div>
+    <br>
+    <label for="promocode">Promo Code</label>
+    <br>
+    <input type="text" name="promo" id="promocode" [(ngModel)]="promo" (input)="checkPromo(promo)">
+    <div *ngIf="promoValid" style="color:green; margin:4px">Promo is valid!</div>
+    <div *ngIf="promoInvalid" style="color:red; margin:4px">Invalid promo code.</div>
+  </form>
+</div>
      <div></div>
      <div class="container" >
       <div class="line"></div>
@@ -100,7 +121,7 @@ margin-top: 1%;">
       <div class="main">Main</div>
       <div class="main-value">{{total|currency:"EGP":'code'}}</div>
       <div class="discount">Discount</div>
-      <div class="discount-value">{{discount|currency:"EGP":'code'}}</div>
+      <div class="discount-value">{{0|currency:"EGP":'code'}}</div>
       <div class="total">Total to Pay</div>
       <div class="total-value">{{total|currency:"EGP":'code'}}</div>
       <div class="line"></div>
@@ -129,7 +150,7 @@ margin-top: 1%;">
           </div>
           <div class="payment-row">
             <div class="payment-item">Discount</div>
-            <div class="payment-value">{{discount|currency:"EGP":'code'}}</div>
+            <div class="payment-value">{{0|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
             <div class="payment-item">Total To Pay</div>

@@ -10,7 +10,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-  discount: number=0;
 
 constructor(private usersService:DbservService ){}
 loggedUser=this.usersService.loggedUser
@@ -24,11 +23,21 @@ telephoneUnitPrice:number=this.usersService.telephoneUnits
 
 loggedUserCart=this.usersService.loggedUserCart
 private promoSubject = new Subject<string>();
-
-promo:string
-promoValid=false;
-prevValidPromo='';
-promos:any[]
+  selectedPaymentMethod: any;
+  cardNumber: string;
+  expiryDate: string;
+  cvv: string;
+  promo: string;
+  paymentMethod: string;
+  paymentMethodInvalid: boolean;
+  cardNumberInvalid: boolean;
+  expiryDateInvalid: boolean;
+  cvvInvalid: boolean;
+  promoValid: boolean;
+  promoInvalid: boolean;
+  formValid: boolean;
+  prevValidPromo='';
+  promos:any[]
 async ngOnInit(){
   this.total=0;
   this.promoChanges.subscribe(promo => {
@@ -72,6 +81,10 @@ async ngOnInit(){
       console.log(promos)
     })
   }
+  checkPaymentMethod(paymentMethod: string) {
+    this.paymentMethodInvalid = (paymentMethod === '');
+  }
+
   checkPromo(promo: string) {
     this.total = this.total || 0;
     let index = this.promos.findIndex(x => x.code == promo)
@@ -79,21 +92,49 @@ async ngOnInit(){
 
     if (index > -1) {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
-      this.discount=parseFloat(this.promos[index].value)
       this.total -= parseFloat(this.promos[index].value);
       this.prevValidPromo = promo;
       if (this.total < 0) this.total = 0
       this.promoValid = true;
+      this.promoInvalid = false; // set invalid flag to false
     } else {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
       this.prevValidPromo = ''
       this.promoValid = false;
-      this.discount=0;
+      this.promoInvalid = true; // set invalid flag to true
     }
   }
 
+  checkCVV(cvv: string) {
+    if (cvv && cvv.length === 3 && /^\d+$/.test(cvv)) {
+      this.cvvInvalid = false;
+    } else {
+      this.cvvInvalid = true;
+    }
+  }
 
+  checkCardNumber(cardNumber: string) {
+    if (cardNumber && cardNumber.length === 16 && /^\d+$/.test(cardNumber)) {
+      this.cardNumberInvalid = false;
+    } else {
+      this.cardNumberInvalid = true;
+    }
+  }
 
+  checkExpiryDate(expiryDate: string) {
+    if (expiryDate && /^\d{2}\/\d{2}$/.test(expiryDate)) {
+      const [month, year] = expiryDate.split('/');
+      const date = new Date(parseInt(`20${year}`, 10), parseInt(month, 10) - 1, 1);
+      const now = new Date();
+      if (date > now) {
+        this.expiryDateInvalid = false;
+      } else {
+        this.expiryDateInvalid = true;
+      }
+    } else {
+      this.expiryDateInvalid = true;
+    }
+  }
 
   get promoChanges() {
     return this.promoSubject.pipe(
