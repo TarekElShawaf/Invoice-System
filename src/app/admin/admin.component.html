@@ -1,12 +1,22 @@
 <app-nav-bar></app-nav-bar>
+<body style="    min-height: 65vh;
+display: flex;
+flex-direction: column;
+margin: auto;
+width: 100%;">
 <main>
 
   <div class="water-bills-container">
-    <h2 class="water-bills-heading">Users</h2>
+    <h2 class="water-bills-heading" style="    text-align: center;">Users</h2>
     <div class="water-bills-section">
       <table class="water-bills-table" *ngIf="allUsers.length > 0">
         <thead>
-          <tr>
+          <tr style="    width: 15%;
+          text-align: center;
+          margin-right: 5px;
+          /* border: 5px; */
+          background-color: #f5f5f5;
+          border-bottom: ridge;">
             <th>User ID</th>
             <th>Email</th>
             <th>Password</th>
@@ -32,7 +42,11 @@
       </table>
     </div>
   </div>
-  
+  <div style="    display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5%;
+  width: 100%;">
   <div class="unitsList" *ngIf="waterUnitPrice > 0">
     <h2 class="water-bills-heading">Unit Prices</h2>
     <ul  style="list-style: none;">
@@ -67,14 +81,19 @@
         </div>
     </div>
   </div>
-  <div>
+  <div style="width: 300px;">
     <h2 class="water-bills-heading">Promo Codes</h2>
     <div class="promos">
       <ul style="list-style: none;">
-        <li *ngFor="let code of promoCodes" style="font-size: large;font-family: serif;"><label for="promoCode" [innerText]="'Code:'"></label>{{code.code}} <label style="margin-left:2%" for="promoValue" [innerText]="'Value:'"></label>{{code.value|currency:'EGP':'code'}} <button style="background: #cb2d2df2;" (click)="deletePromoCode(code)">Delete</button> </li>
-        <li style="margin-top:1%"> <input class="promoInput" type="text" placeholder="Code" [(ngModel)]="promoCode" [value]="promoCode"> <input class="promoInput" type="text" placeholder="Value" [(ngModel)]="promoValue" [value]="promoValue"> <button (click)="addPromoCode(promoCode,promoValue)">Add Promo Code</button></li>
+        <li *ngFor="let code of promoCodes" style="font-size: large;font-family: serif;margin-top: 4px;"><label for="promoCode" [innerText]="'Code:'"></label>{{code.code}} <label style="margin-left:2%" for="promoValue" [innerText]="'Value:'"></label>{{code.value|currency:'EGP':'code'}} <button style="background: #cb2d2df2;" (click)="deletePromoCode(code)">Delete</button> </li>
+        <li style="margin-top:3%"> <input class="promoInput" type="text" placeholder="Code" [(ngModel)]="promoCode" [value]="promoCode"> <input class="promoInput" type="text" placeholder="Value" [(ngModel)]="promoValue" [value]="promoValue"> <button (click)="addPromoCode(promoCode,promoValue)">Add Promo Code</button></li>
       </ul>
     </div>
   </div>
+</div>
 </main>
-<app-footer></app-footer>
+</body>
+<footer style="margin-top:auto">
+  <app-footer></app-footer>
+</footer>
+

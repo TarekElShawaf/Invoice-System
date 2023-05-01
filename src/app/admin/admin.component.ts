@@ -65,11 +65,15 @@ export class AdminComponent {
   addPromoCode(code:string,value:number){
     let promo={code,value}
     console.log(promo)
-    this.usersService.addPromoCode(promo).subscribe(()=>{
-      this.loadPromoCodes();
-      this.promoCode=null;
-      this.promoValue=null;
-    }); 
+    if(this.promoCodes.findIndex(x => x.code == promo.code)>-1) alert("Promo code already exists.")
+    else{
+      this.usersService.addPromoCode(promo).subscribe(()=>{
+        this.loadPromoCodes();
+
+      }); 
+    }
+    this.promoCode=null;
+    this.promoValue=null;
   }
 
   unitChanged(newUnit:number){

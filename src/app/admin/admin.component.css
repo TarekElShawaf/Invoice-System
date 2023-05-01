@@ -38,18 +38,27 @@ body {
 
 /* Main container styles */
 main {
-max-width: 800px;
-margin: 0 auto;
-padding: 20px;
+    width: 63%;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Heading styles */
 .water-bills-heading {
-font-size: 24px;
-font-weight: bold;
-margin-bottom: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
+.water-bills-container{
+    width: 80%;
+    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-self: center; */
+    margin: auto;
+}
 
 .water-bills-section {
     display: flex;
@@ -63,8 +72,29 @@ border-collapse: collapse;
 width: 150%;
 margin-bottom: 2em;
 }
-
-.water-bills-container th,
+.water-bills-container table td, table th {
+    border: 1px solid black;
+  }
+  .water-bills-container  table tr:first-child th {
+    border-top: 0;
+  }
+  .water-bills-container  table tr:last-child td {
+    border-bottom: 0;
+  }
+  .water-bills-container  table tr td:first-child,
+  .water-bills-container  table tr th:first-child {
+    border-left: 0;
+  }
+  .water-bills-container table tr td:last-child,
+  .water-bills-container table tr th:last-child {
+    border-right: 0;
+  }
+  .water-bills-container table td {
+    width: 1200px;
+    height: 40px;
+    text-align: center;
+    }  
+/* .water-bills-container th,
 .water-bills-container td {
 border: 1px solid #ccc;
 padding: 8px;
@@ -74,7 +104,7 @@ text-align: left;
 .water-bills-container th {
 background-color: #f2f2f2;
 font-weight: bold;
-}
+} */
 /* 
 Button styles */
 .water-bills-container .pay-now-button {
@@ -84,8 +114,8 @@ Button styles */
     font-weight: bold;
     cursor: pointer;
     padding-inline: inherit;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 4px;
+    border-radius: 3px;
 }
 
 
