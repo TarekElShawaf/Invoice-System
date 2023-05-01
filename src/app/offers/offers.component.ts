@@ -35,7 +35,6 @@ export class OffersComponent implements OnInit {
       }
     ];
   }
-
   subscribe(offer: offers) {
     console.log("Subscribed to plan: ", offer.plan);
     this.offers.forEach(o => {
