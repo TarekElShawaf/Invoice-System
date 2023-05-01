@@ -36,7 +36,7 @@ body {
 
 /* Main container styles */
 main {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -65,20 +65,23 @@ main {
 /* Table styles */
 .electricity-bills-container table {
   border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
   width: 100%;
-  table-layout: fixed;
+  margin: 0 auto;
+  position: relative;
 }
-
-.electricity-bills-container th,
-.electricity-bills-container td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+.electricity-bills-container tr:nth-child(even) {
+  background-color: #f5f5f5;
 }
-
-.electricity-bills-container th {
-  background-color: #f2f2f2;
-  font-weight: bold;
+.table-header{
+  font-family: OpenSans-Regular;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: unset;
+  width:150px;
+  text-align: center;
 }
 
 /* Button styles */

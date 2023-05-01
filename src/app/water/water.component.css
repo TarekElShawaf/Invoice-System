@@ -38,7 +38,7 @@ body {
 
 /* Main container styles */
 main {
-max-width: 800px;
+max-width: 1100px;
 margin: 0 auto;
 padding: 20px;
 }
@@ -66,21 +66,38 @@ margin-bottom: 10px;
 
 /* Table styles */
 .water-bills-container table {
-border-collapse: collapse;
-width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.water-bills-container tr:nth-child(even) {
+  background-color: #f5f5f5;
 }
 
-.water-bills-container th,
+.table-header{
+  font-family: OpenSans-Regular;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: unset;
+  width:150px;
+  text-align: center;
+}
+
+/* .water-bills-container th,
 .water-bills-container td {
 border: 1px solid #ccc;
 padding: 8px;
 text-align: left;
-}
+} */
 
-.water-bills-container th {
+/* .water-bills-container th {
 background-color: #f2f2f2;
 font-weight: bold;
-}
+} */
 
 /* Button styles */
 .water-bills-container .pay-now-button,

@@ -2,55 +2,53 @@
 <main>
 
   <div class="water-bills-container">
-    <h2 class="water-bills-heading">Water Bills <span style="font-size: 16px;
-      font-weight: normal;
-      margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Liter</span></h2>
+    <h2 class="water-bills-heading">Water Bills <span style="font-size: 16px;font-weight: normal;margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Liter</span></h2>
     <div class="water-bills-section">
       <h3 class="water-bills-section-heading">Pending Bills</h3>
       <table class="water-bills-table">
         <thead>
-          <tr>
-            <th>Bill Number</th>
-            <th>Units Used</th>
-            <th>Amount</th>
-            <th>Due Date</th>
-            <th>Amount After Due Date</th>
-            <th>Pay Now</th>
+          <tr style="height: 60px;background-color: #2ec1ac; color:white">
+            <th class="table-header">Bill Number</th>
+            <th class="table-header">Units Used</th>
+            <th class="table-header">Amount</th>
+            <th class="table-header">Due Date</th>
+            <th class="table-header">Amount After Due Date</th>
+            <th class="table-header">Pay Now</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pendingBill of pendingBills;">
-            <td>{{pendingBill.billNum}}</td>
-            <td>{{pendingBill.billUnits}} Liters</td>
-            <td>{{pendingBill.billUnits * unitPrice}}</td>
-            <td>{{pendingBill.dueDate}}</td>
-            <td>{{pendingBill.billUnits * unitPrice*(1.5)}}</td>
-            <td><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
+          <tr *ngFor="let pendingBill of pendingBills;" style="color: gray;">
+            <td class="table-header">{{pendingBill.billNum}}</td>
+            <td class="table-header">{{pendingBill.billUnits}} Liters</td>
+            <td class="table-header">{{pendingBill.billUnits * unitPrice}}</td>
+            <td class="table-header">{{pendingBill.dueDate}}</td>
+            <td class="table-header">{{pendingBill.billUnits * unitPrice*(1.5)}}</td>
+            <td class="table-header"><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="water-bills-section">
+    <div class="water-bills-section" style="margin-top:20px">
       <h3 class="water-bills-section-heading">Paid Bills</h3>
       <table class="water-bills-table">
         <thead>
-          <tr>
-            <th>Bill Number</th>
-            <th>Units Used</th>
-            <th>Amount</th>
-            <th>Due Date</th>
-            <th>Amount After Due Date</th>
-            <th>Pay Now</th>
+          <tr style="height: 60px;background-color: #2ec1ac; color:white">
+            <th class="table-header">Bill Number</th>
+            <th class="table-header">Units Used</th>
+            <th class="table-header">Amount</th>
+            <th class="table-header">Due Date</th>
+            <th class="table-header">Amount After Due Date</th>
+            <th class="table-header">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let paidBill of paidBills;">
-            <td>{{paidBill.billNum}}</td>
-            <td>{{paidBill.billUnits}} Liters</td>
-            <td>{{paidBill.billUnits * unitPrice}}</td>
-            <td>{{paidBill.dueDate}}</td>
-            <td>{{paidBill.billUnits * unitPrice*(1.5)}}</td>
-            <td><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
+          <tr *ngFor="let paidBill of paidBills;" style="color: gray;">
+            <td class="table-header">{{paidBill.billNum}}</td>
+            <td class="table-header">{{paidBill.billUnits}} Liters</td>
+            <td class="table-header">{{paidBill.billUnits * unitPrice}}</td>
+            <td class="table-header">{{paidBill.dueDate}}</td>
+            <td class="table-header">{{paidBill.billUnits * unitPrice*(1.5)}}</td>
+            <td class="table-header"><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
           </tr>
         </tbody>
       </table>
