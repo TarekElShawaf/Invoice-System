@@ -165,4 +165,27 @@ export class DbservService {
     .subscribe()
   }
 
+  addPromoCode(promo: any) {
+    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes.json", promo)
+      .pipe(
+        map(response => {
+          // transform the response into the new promo code object
+          return {
+            id: response['name'],
+            code: promo.code,
+            value: promo.value
+          };
+        })
+      );
+  }
+  getPromoCodes(){
+    return this.http.get<{[key:string]:{code:string,value:number}}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes.json')
+      .pipe(map((res)=>{
+        const codes = [];
+        for(const key in res){
+          codes.push({...res[key],id:key})
+        }
+        return codes;
+      }))
+  }
 }

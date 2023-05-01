@@ -11,7 +11,7 @@
       <h3>{{offer.plan}}</h3>
       <p>Total of : {{offer.totalUnits}} units</p>
       <h3>{{offer.price}} L.E</h3>
-      <button (click)="subscribe(offer)" [disabled]="offer.subscribed">subscribe</button>
+      <button (click)="subscribe(offer)" [disabled]="offer.subscribed">Subscribe</button>
       <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>
     </div>
   </div>

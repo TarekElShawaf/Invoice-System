@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 export class AdminComponent {
   constructor(private usersService:DbservService){}
   allUsers: any[] =[];
+  promoCodes:any[]=[];
+  promoCode:string;
+  promoValue:number;
   waterUnitPrice:number=this.usersService.waterUnits
   electricUnitPrice:number=this.usersService.electricUnits
   telephoneUnitPrice:number=this.usersService.telephoneUnits
@@ -19,12 +22,19 @@ export class AdminComponent {
   userToEdit:any;
   ngOnInit(){
     this.loadUsers();
+    this.loadPromoCodes();
   }
 
   loadUsers() {
     this.usersService.getUsers().subscribe((users)=>{
       this.allUsers = users
       console.log(this.allUsers);
+    })
+  }
+  loadPromoCodes() {
+    this.usersService.getPromoCodes().subscribe((codes)=>{
+      this.promoCodes = codes
+      console.log(codes);
     })
   }
   openDialog(type:string,user?:any) {
@@ -52,7 +62,15 @@ export class AdminComponent {
   }
 
 
-
+  addPromoCode(code:string,value:number){
+    let promo={code,value}
+    console.log(promo)
+    this.usersService.addPromoCode(promo).subscribe(()=>{
+      this.loadPromoCodes();
+      this.promoCode=null;
+      this.promoValue=null;
+    }); 
+  }
 
   unitChanged(newUnit:number){
     this.usersService.changeUnit(this.dialogOpened,newUnit)

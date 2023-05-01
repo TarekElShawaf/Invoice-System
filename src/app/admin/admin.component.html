@@ -59,13 +59,22 @@
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'First Name:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.firstName" value="{{userToEdit.firstName}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Last Name:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.lastName" value="{{userToEdit.lastName}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Phone Number:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.telephoneNo" value="{{userToEdit.telephoneNo}}"> </div>
-            <div class="dialogLine"style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Address:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.address" value="{{userToEdit.address}}"> </div>
+            <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Address:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.address" value="{{userToEdit.address}}"> </div>
         </div>
 
             <button *ngIf="userToEdit==null" (click)="unitChanged(inputValue)">Save</button>
             <button *ngIf="userToEdit!=null" style="    align-self: flex-end; padding: 7px 10px;" (click)="userChanged()">Save</button>
         </div>
     </div>
-</div>
+  </div>
+  <div>
+    <h2 class="water-bills-heading">Promo Codes</h2>
+    <div class="promos">
+      <ul style="list-style: none;">
+        <li *ngFor="let code of promoCodes" style="font-size: large;font-family: serif;"><label for="promoCode" [innerText]="'Code:'"></label>{{code.code}} <label style="margin-left:2%" for="promoValue" [innerText]="'Value:'"></label>{{code.value|currency:'EGP':'code'}} </li>
+        <li style="margin-top:1%"> <input class="promoInput" type="text" placeholder="Code" [(ngModel)]="promoCode" [value]="promoCode"> <input class="promoInput" type="text" placeholder="Value" [(ngModel)]="promoValue" [value]="promoValue"> <button (click)="addPromoCode(promoCode,promoValue)">Add Promo Code</button></li>
+      </ul>
+    </div>
+  </div>
 </main>
 <app-footer></app-footer>

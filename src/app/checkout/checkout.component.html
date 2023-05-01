@@ -87,7 +87,8 @@
         
         <label for="promocode">promo code</label>
         
-        <input type="text" name="promo" id="promocode">
+        <input type="text" name="promo" id="promocode" [(ngModel)]="promo" (input)="checkPromo(promo)">
+        <div *ngIf="promoValid" style="color:green; margin:4px">Promo Is Valid! </div>
       </form>
      </div>
      <div></div>

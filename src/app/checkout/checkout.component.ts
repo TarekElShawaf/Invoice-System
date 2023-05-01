@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DbservService } from '../dbserv.service';
 import { Bill } from 'src/models/bill';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -20,13 +22,19 @@ telephoneBills:Bill[]=[]
 telephoneUnitPrice:number=this.usersService.telephoneUnits
 
 loggedUserCart=this.usersService.loggedUserCart
+private promoSubject = new Subject<string>();
 
-
-
-  async ngOnInit(){
+promo:string
+promoValid=false;
+prevValidPromo='';
+promos:any[]
+async ngOnInit(){
   this.total=0;
+  this.promoChanges.subscribe(promo => {
+    this.checkPromo(promo);
+  });
   this.loadpendingBills();
-  console.log(this.loggedUserCart)
+  this.loadPromos();
   
 
 }
@@ -56,4 +64,35 @@ loggedUserCart=this.usersService.loggedUserCart
       // console.log(this.total)
     })
   }
+
+  loadPromos(){
+    this.usersService.getPromoCodes().subscribe((promos)=>{
+      this.promos=promos
+      console.log(promos)
+    })
+  }
+  checkPromo(promo:string){
+    let index=this.promos.findIndex(x=>x.code==promo)
+    let prevPromoIndex=this.promos.findIndex(x => x.code === this.prevValidPromo)
+
+    if(index>-1){
+      if(this.prevValidPromo!='') this.total += this.promos[prevPromoIndex].value;
+      this.total-=this.promos[index].value
+      this.prevValidPromo=promo;
+      if(this.total<0) this.total=0
+      this.promoValid=true;
+    }
+    else{
+      if(this.prevValidPromo!='') this.total += this.promos[prevPromoIndex].value;
+      this.prevValidPromo=''
+      this.promoValid=false;
+    }
+  }
+
+  get promoChanges() {
+    return this.promoSubject.pipe(
+      debounceTime(500)
+    );
+  }
+
 }
