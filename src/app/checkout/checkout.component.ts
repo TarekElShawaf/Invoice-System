@@ -14,6 +14,7 @@ export class CheckoutComponent {
 constructor(private usersService:DbservService ){}
 loggedUser=this.usersService.loggedUser
 total:number=0;
+discount:number=0;
 waterBills:Bill[]=[]
 waterUnitPrice:number=this.usersService.waterUnits
 electricBills:Bill[]=[]
@@ -92,16 +93,16 @@ async ngOnInit(){
 
     if (index > -1) {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
+      this.discount=parseFloat(this.promos[index].value)
       this.total -= parseFloat(this.promos[index].value);
       this.prevValidPromo = promo;
       if (this.total < 0) this.total = 0
       this.promoValid = true;
-      this.promoInvalid = false; // set invalid flag to false
     } else {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
       this.prevValidPromo = ''
       this.promoValid = false;
-      this.promoInvalid = true; // set invalid flag to true
+      this.discount=0;
     }
   }
 

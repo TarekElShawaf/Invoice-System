@@ -37,39 +37,29 @@
         margin-top:3px;margin-bottom: 3px;
     }
     .method label{
-  
-      font-size: x-large;
-      
-     
+      font-size: medium;
+      width: 25%;
     }
     .method select{
-  
-      margin-top: 10px;
-      display: block; 
-      width: 100%; 
-      padding: 10px; 
-      font-size: 14px; 
-      font-weight:lighter; 
-      border: 2px solid #ccc; 
-      border-radius: 5px; 
-      box-sizing: border-box; 
-      background-color: #f2f2f2; 
-      color: #5c5b5b; 
+      text-align: center;
+      margin-right: 5px;
+      border: none;
+      background-color: #f5f5f5;
+      border-bottom: #000000de;
+      border-bottom-style: inset;
+      border-bottom: ridge;
+      padding: 10px;
     
     }
     .method input{
-      display: block; 
-      width: 100%;
-      margin-top: 10px;
-      font-size: 14px; 
-      font-weight: lighter; 
-      padding: 10px;
-      border: 2px solid #ccc; 
-      border-radius: 5px; 
-      box-sizing: border-box; 
-      background-color: #f2f2f2;
-      color: #333; 
-    
+      text-align: center;
+      margin-right: 5px;
+      border: none;
+      background-color: #f5f5f5;
+      border-bottom: #000000de;
+      border-bottom-style: inset;
+      border-bottom: ridge;
+      padding:10px
     }
     
     .method{
@@ -280,3 +270,12 @@
     font-weight: bold;
     cursor: pointer;
   } 
+
+  .boxStyles{
+    margin-right: 5px;
+    border: none;
+    background-color: #f5f5f5;
+    border-bottom: #000000de;
+    border-bottom-style: inset;
+    border-bottom: ridge;
+  }
