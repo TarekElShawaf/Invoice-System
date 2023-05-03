@@ -76,10 +76,10 @@
         </div>
       </div>
 <div class="method">
-  <form>
+  <form #paymentClear="ngForm">
     <label for="paymentmethod">Payment Method</label>
     <br>
-    <select name="paymentmethod" class="boxStyles" [(ngModel)]="paymentMethod" (change)="checkPaymentMethod(paymentMethod)" style="width:100%">
+    <select name="paymentmethod" class="boxStyles" [(ngModel)]="paymentMethod" (change)="checkPaymentMethod(paymentMethod)" style="width:100%" required>
       
       <option value="visa">Visa</option>
       <option value="cash">Cash (in case you are a government organization)</option>
@@ -93,18 +93,18 @@
       <label for="cardnumber">Card Number</label>
       <br>
       <input type="text" name="cardnumber" id="cardnumber" [(ngModel)]="cardNumber"
-        (input)="checkCardNumber(cardNumber)" style="width: 60%;">
+        (input)="checkCardNumber(cardNumber)" style="width: 60%;" required>
       <div *ngIf="cardNumberInvalid" style="color:red; margin:4px">Please enter a valid 16-digit card number.</div>
       <br>
       <label for="expirydate">Expiry Date</label>
       <br>
       <input type="text" name="expirydate" id="expirydate" [(ngModel)]="expiryDate"
-        (input)="checkExpiryDate(expiryDate)" style="width: 60%;">
+        (input)="checkExpiryDate(expiryDate)" style="width: 60%;" required>
       <div *ngIf="expiryDateInvalid" style="color:red; margin:4px">Please enter a valid expiry date (MM/YY).</div>
       <br>
       <label for="cvv">CVV</label>
       <br>
-      <input type="text" name="cvv" id="cvv" [(ngModel)]="cvv" (input)="checkCVV(cvv)" style="width: 60%;">
+      <input type="text" name="cvv" id="cvv" [(ngModel)]="cvv" (input)="checkCVV(cvv)" style="width: 60%;" required>
       <div *ngIf="cvvInvalid" style="color:red; margin:4px">Please enter a valid 3-digit CVV.</div>
     </div>
     <br>
@@ -164,7 +164,7 @@
             <div class="payment-value">{{total|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
-            <button class="payment-button" >Pay Now</button>
+            <button class="payment-button" (click)="pay(paymentClear)">Pay Now</button>
           </div>
         </div>
       </div>        

@@ -143,4 +143,28 @@ async ngOnInit(){
     );
   }
 
+  pay(paymentClear){
+    if (paymentClear.form.invalid) {
+      alert('Please select a valid payment method before continuing.');
+    }
+    else{
+      let paidWater=[]
+      let paidElectric=[]
+      let paidTelephone=[]
+      this.loggedUserCart.forEach((bill)=>{
+        if(bill.id==null)return;
+        else if(this.findIndex(bill,this.waterBills)) paidWater.push(bill)
+        else if(this.findIndex(bill,this.electricBills)) paidElectric.push(bill)
+        else if(this.findIndex(bill,this.telephoneBills)) paidTelephone.push(bill)
+        // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
+        // console.log(this.total)
+      })
+      this.usersService.payBills(paidWater,'waterBills').subscribe()
+      this.usersService.payBills(paidElectric,'electricBills').subscribe()
+      this.usersService.payBills(paidTelephone,'telephoneBills').subscribe()
+      this.usersService.clearCart();
+      alert("Payment Succesful")
+    }
+  }
+
 }

@@ -100,19 +100,24 @@ export class DbservService {
     bills.forEach((bill) => {
       bill.status = "Paid";
       paidBills.push(bill);
-      this.deleteBill(bill.id, type);
+      const index = this.loggedUserCart.indexOf(bill);
+      if (index > -1) { // only splice array when item is found
+        this.loggedUserCart.splice(index, 1); // 2nd parameter means remove one item only
+      }
+      this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
     });
-    this.http
-      .put(
-        "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
-        this.loggedUser.id +
-        "/" +
-        type +
-        "/Paid.json",
-        paidBills
-      )
-      .subscribe();
-  }
+    
+    return this.http.post
+    (
+      "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
+      this.loggedUser.id +
+      "/" +
+      type +
+      "/Paid.json",
+      paidBills
+    )
+    
+}
 
   addToCart(bill:Bill){
     this.loggedUserCart.push(bill)

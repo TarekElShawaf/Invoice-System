@@ -61,7 +61,7 @@ onLogin(user:{email:String,password:String}){
   if (this.found){
 
     this.usersService.getCart();
-    console.log(this.usersService.loggedUserCart)
+    console.log("cart:",this.usersService.loggedUserCart)
     this.router.navigate(['home'])
   } 
 }
