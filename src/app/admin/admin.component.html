@@ -25,6 +25,7 @@ width: 100%;">
             <th>Phone Number</th>
             <th>Address</th>
             <th>Edit</th>
+            <th>View Bills</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@ width: 100%;">
             <td>{{user.telephoneNo}} </td>
             <td>{{user.address}} </td>
             <td><button (click)="openDialog('user',user)" class="pay-now-button">Edit</button></td>
+            <td><button (click)="openDialog('bills',user)" class="pay-now-button" style="background-color: green;">Bills</button></td>
           </tr>
         </tbody>
       </table>
@@ -61,11 +63,11 @@ width: 100%;">
         <div class="popup-header">
             <button class="close-button" (click)="closeDialog()">X</button>
         </div>
-        <div *ngIf="userToEdit==null" class="popup-body">
+        <div *ngIf="userToEdit==null&&userToViewBills==null" class="popup-body">
             <div class="dialogLine"><label class="unitLabel" for="unit" [innerText]="dialogOpened+':'"> </label>  <input id="unit" type="text" [(ngModel)]="inputValue" value="{{inputValue}}"> </div>
             <button (click)="unitChanged(inputValue)">Save</button>
         </div>
-        <div *ngIf="userToEdit!=null" class="popup-body">
+        <div *ngIf="userToEdit!=null&&userToViewBills==null" class="popup-body">
             <div style="width: 100%;">
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'ID:'"> </label>  <input disabled id="unit" type="text" [(ngModel)]="userToEdit.id" value="{{userToEdit.id}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Email:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.email" value="{{userToEdit.email}}"> </div>
@@ -74,11 +76,37 @@ width: 100%;">
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Last Name:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.lastName" value="{{userToEdit.lastName}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Phone Number:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.telephoneNo" value="{{userToEdit.telephoneNo}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Address:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.address" value="{{userToEdit.address}}"> </div>
-        </div>
+           </div>
 
             <button *ngIf="userToEdit==null" (click)="unitChanged(inputValue)">Save</button>
             <button *ngIf="userToEdit!=null" style="    align-self: flex-end; padding: 7px 10px;" (click)="userChanged()">Save</button>
         </div>
+        <div *ngIf="userToViewBills!=null" class="popup-body">
+          <div *ngFor="let bill of userBills" style="align-self: flex-start;margin:5px">
+            <ul style="list-style: none;">
+              <li style="font-weight: bold;"><label class="unitLabel" [innerText]="'ID:'"></label>{{bill.id}}<button style="background: #cb2d2df2;padding: 3px 3px;font-size: 13px;border-radius: 5px;margin-bottom: 3%;" (click)="deleteBill(bill)">Delete</button></li>
+              <li><label class="unitLabel" [innerText]="'Bill Type:'"></label>{{bill.type}}</li>
+              <li ><label class="unitLabel" [innerText]="'Bill Number:'"></label>{{bill.billNum}}</li>
+              <li><label class="unitLabel" [innerText]="'Bill Units:'"></label>{{bill.billUnits}}</li>
+              <li><label class="unitLabel" [innerText]="'Due Date:'"></label>{{bill.dueDate}}</li>
+              <br>
+            </ul>
+          </div>
+          <div style="align-self: flex-start;">
+            <form #bill="ngForm" [formGroup]="billForm"  style="margin-top: 10%;" (ngSubmit)="addBill(bill.value)" style="    margin-top: 10%;line-height: 30px; display: flex; flex-direction: column;">
+              <div><label class="unitLabel" [innerText]="'Bill Number:'"></label><input type="number" formControlName="billNum" placeholder="Bill Number" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;"></div>
+              <div><label class="unitLabel" [innerText]="'Bill Units:'"></label><input  type="number" formControlName="billUnits" placeholder="Bill Units" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
+              <div><label class="unitLabel" [innerText]="'Bill Due Date:'"></label><input  type="text" formControlName="dueDate" placeholder="Due Date" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
+              <div><label class="unitLabel" [innerText]="'Bill Type:'"></label><select formControlName="billType" style="width: 40%;height: 1.5em;text-align: center; margin-right: 5px;border: none; background-color: #f5f5f5;border-bottom: ridge;">
+                <option value="electricBills">Electric Bill</option>
+                  <option value="waterBills">Water Bill</option>
+                  <option value="telephoneBills">Telephone Bill</option>
+              </select></div>
+              <button type="submit" style="width: 27%;height: 1.5em; align-self: flex-start;margin-left: 0;padding: 2px 2px;font-size: 15px;">Add Bill</button> 
+            </form>
+          </div>
+          <button (click)="closeDialog()">Save</button>
+      </div>
     </div>
   </div>
   <div style="width: 300px;">
