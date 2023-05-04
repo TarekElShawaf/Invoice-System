@@ -2,17 +2,24 @@
 
 <div class="home">
   <div class="homecontent">
-    <h2>OFFERS</h2>
-    <p>choose your offer</p>
+    <h2>SERVICE PROVIDERS</h2>
+    <p>Choose your service provider and offer</p>
   </div>
-  <div class="offers">
-    <div *ngFor="let offer of offers" class="imgs">
-      <img [src]="'../../assets/images/'+offer.provider.toLowerCase()+'.png'" alt="{{offer.provider}}card">
-      <h3>{{offer.plan}}</h3>
-      <p>Total of : {{offer.totalUnits}} units</p>
-      <h3>{{offer.price}} L.E</h3>
-      <button (click)="subscribe(offer)" [disabled]="offer.subscribed">Subscribe</button>
-      <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>
+  <div class="service-providers">
+    <div *ngFor="let provider of providers" class="provider-container">
+      <div class="provider-header">
+        <img [src]="'../../assets/images/'+provider.name.toLowerCase()+'.png'" alt="{{provider.name}} logo">
+        <h3 class="provider-name">{{provider.name}}</h3>
+      </div>
+      <div class="offer-container">
+        <div *ngFor="let offer of provider.offers" class="offer">
+          <h4>{{offer.plan}}</h4>
+          <p>Total of: {{offer.totalUnits}} units</p>
+          <h4>{{offer.price}} L.E</h4>
+          <button (click)="subscribe(offer)" [disabled]="offer.subscribed">Subscribe</button>
+          <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
