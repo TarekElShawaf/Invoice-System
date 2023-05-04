@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DbservService } from '../dbserv.service';
 import { Observable } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -8,8 +9,30 @@ import { Observable } from 'rxjs';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+  datePatternValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const pattern = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!control.value || !pattern.test(control.value)) {
+      return { 'invalidDatePattern': true };
+    }
+    const inputDate = new Date(control.value);
+    const currentDate = new Date();
+    if (inputDate.getTime() < currentDate.getTime()) {
+      return { 'invalidDate': true };
+    }
+    return null;
+  }
+
+
   userToViewBills: any;
   userBills=[]
+  public billForm = new FormGroup({
+    billUnits: new FormControl('', Validators.required ),
+    dueDate: new FormControl('',Validators.compose([Validators.required,this.datePatternValidator])),
+    billType: new FormControl('', Validators.required ),
+    billNum: new FormControl('', Validators.required ),
+
+  });
+
   constructor(private usersService:DbservService){}
   allUsers: any[] =[];
   promoCodes:any[]=[];
@@ -65,6 +88,7 @@ export class AdminComponent {
   closeDialog() {
     this.showDialog = false;
     this.userToEdit=null;
+    this.userToViewBills=null;
   }
 
 
@@ -104,7 +128,31 @@ export class AdminComponent {
   }
 
   loadUserBills(id:string){
-    
     this.userBills=this.usersService.getBillsofUser(id)
+  }
+  deleteBill(bill:any){
+    switch(bill.type){
+      case 'Water Bill':
+        this.usersService.adminDeleteBill(bill.id,'waterBills')
+        break;
+      case 'Electric Bill':
+        this.usersService.adminDeleteBill(bill.id,'electricBills')
+        break; 
+      case 'Telephone Bill':
+        this.usersService.adminDeleteBill(bill.id,'telephoneBills')
+        break;      
+    }
+    const index = this.userBills.indexOf(bill);
+    if (index > -1) { // only splice array when item is found
+      this.userBills.splice(index, 1); // 2nd parameter means remove one item only
+    }
+  }
+
+  addBill(form:{billType:string,billNum:number,billUnits:number,dueDate:string}){
+    let bill={billNum:form.billNum,billUnits:form.billUnits,dueDate:form.dueDate}
+    console.log(bill)
+    this.usersService.addBill(this.userToViewBills.id,form.billType,bill).subscribe(()=>{
+      this.loadUserBills(this.userToViewBills.id)
+    })
   }
 }

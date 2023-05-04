@@ -94,7 +94,9 @@ export class DbservService {
   deleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
   }
-
+  adminDeleteBill(id: string, type: string) {
+    this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + id + '.json').subscribe();
+  }
   payBills(bills: Bill[], type: string) {
     let paidBills =[{}]
     bills.forEach((bill) => {
@@ -219,5 +221,10 @@ export class DbservService {
     }))
     .subscribe()
     return Bills;
+  }
+
+  addBill(userId:string,billType:string,bill:any){
+    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + userId + "/" + billType +"/Pending.json",bill)
+
   }
 }
