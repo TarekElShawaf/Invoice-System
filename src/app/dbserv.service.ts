@@ -99,7 +99,12 @@ export class DbservService {
     let paidBills: Bill[] = [];
     bills.forEach((bill) => {
       bill.status = "Paid";
-      paidBills.push(bill);
+      let billToBeUploaded = {
+        billNum: bill.billNum,
+        billUnits: bill.billUnits,
+        dueDate: bill.dueDate
+      };
+      paidBills.push(billToBeUploaded);
       const index = this.loggedUserCart.indexOf(bill);
       if (index > -1) { // only splice array when item is found
         this.loggedUserCart.splice(index, 1); // 2nd parameter means remove one item only
