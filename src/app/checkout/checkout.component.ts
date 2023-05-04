@@ -159,9 +159,9 @@ async ngOnInit(){
         // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
         // console.log(this.total)
       })
-      this.usersService.payBills(paidWater,'waterBills').subscribe()
-      this.usersService.payBills(paidElectric,'electricBills').subscribe()
-      this.usersService.payBills(paidTelephone,'telephoneBills').subscribe()
+      this.usersService.payBills(paidWater,'waterBills')
+      this.usersService.payBills(paidElectric,'electricBills')
+      this.usersService.payBills(paidTelephone,'telephoneBills')
       this.usersService.clearCart();
       alert("Payment Succesful")
     }

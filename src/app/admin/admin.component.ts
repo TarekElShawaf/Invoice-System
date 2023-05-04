@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+  userToViewBills: any;
+  userBills=[]
   constructor(private usersService:DbservService){}
   allUsers: any[] =[];
   promoCodes:any[]=[];
@@ -53,6 +55,10 @@ export class AdminComponent {
       case 'user':
         this.userToEdit=user;
         break;
+      case 'bills':
+       this.userToViewBills=user;
+       this.loadUserBills(user.id)
+        break;
     }
   }
 
@@ -95,5 +101,10 @@ export class AdminComponent {
     this.usersService.deletePromo(code).subscribe(()=>{
       this.loadPromoCodes();
     })
+  }
+
+  loadUserBills(id:string){
+    
+    this.userBills=this.usersService.getBillsofUser(id)
   }
 }

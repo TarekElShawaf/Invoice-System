@@ -96,7 +96,7 @@ export class DbservService {
   }
 
   payBills(bills: Bill[], type: string) {
-    let paidBills: Bill[] = [];
+    let paidBills =[{}]
     bills.forEach((bill) => {
       bill.status = "Paid";
       let billToBeUploaded = {
@@ -110,17 +110,9 @@ export class DbservService {
         this.loggedUserCart.splice(index, 1); // 2nd parameter means remove one item only
       }
       this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
+      this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + this.loggedUser.id + "/" + type +"/Paid.json",billToBeUploaded).subscribe();
     });
-    
-    return this.http.post
-    (
-      "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
-      this.loggedUser.id +
-      "/" +
-      type +
-      "/Paid.json",
-      paidBills
-    )
+    console.log("paid",paidBills)
     
 }
 
@@ -200,5 +192,32 @@ export class DbservService {
   }
   deletePromo(code:any) {
     return this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes/'+code.id+'.json');
+  }
+
+
+  getBillsofUser(id:string){
+    let Bills=[]
+    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/waterBills/Pending.json')
+    .pipe(map((res) => {
+      for (const key in res) {
+       Bills.push({ ...res[key], id: key,type:'Water Bill' })
+      }
+    }))
+    .subscribe()
+    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/electricBills/Pending.json')
+    .pipe(map((res) => {
+      for (const key in res) {
+       Bills.push({ ...res[key], id: key,type:'Electric Bill' })
+      }
+    }))
+    .subscribe()
+    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/telephoneBills/Pending.json')
+    .pipe(map((res) => {
+      for (const key in res) {
+       Bills.push({ ...res[key], id: key,type:'Telephone Bill' })
+      }
+    }))
+    .subscribe()
+    return Bills;
   }
 }

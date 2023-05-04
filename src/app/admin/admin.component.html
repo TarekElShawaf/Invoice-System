@@ -25,6 +25,7 @@ width: 100%;">
             <th>Phone Number</th>
             <th>Address</th>
             <th>Edit</th>
+            <th>View Bills</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@ width: 100%;">
             <td>{{user.telephoneNo}} </td>
             <td>{{user.address}} </td>
             <td><button (click)="openDialog('user',user)" class="pay-now-button">Edit</button></td>
+            <td><button (click)="openDialog('bills',user)" class="pay-now-button">Bills</button></td>
           </tr>
         </tbody>
       </table>
@@ -61,11 +63,11 @@ width: 100%;">
         <div class="popup-header">
             <button class="close-button" (click)="closeDialog()">X</button>
         </div>
-        <div *ngIf="userToEdit==null" class="popup-body">
+        <div *ngIf="userToEdit==null&&userToViewBills==null" class="popup-body">
             <div class="dialogLine"><label class="unitLabel" for="unit" [innerText]="dialogOpened+':'"> </label>  <input id="unit" type="text" [(ngModel)]="inputValue" value="{{inputValue}}"> </div>
             <button (click)="unitChanged(inputValue)">Save</button>
         </div>
-        <div *ngIf="userToEdit!=null" class="popup-body">
+        <div *ngIf="userToEdit!=null&&userToViewBills==null" class="popup-body">
             <div style="width: 100%;">
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'ID:'"> </label>  <input disabled id="unit" type="text" [(ngModel)]="userToEdit.id" value="{{userToEdit.id}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Email:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.email" value="{{userToEdit.email}}"> </div>
@@ -74,11 +76,23 @@ width: 100%;">
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Last Name:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.lastName" value="{{userToEdit.lastName}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Phone Number:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.telephoneNo" value="{{userToEdit.telephoneNo}}"> </div>
             <div class="dialogLine" style="justify-content: flex-start;"><label class="unitLabel" for="unit" [innerText]="'Address:'"> </label>  <input id="unit" type="text" [(ngModel)]="userToEdit.address" value="{{userToEdit.address}}"> </div>
-        </div>
+           </div>
 
             <button *ngIf="userToEdit==null" (click)="unitChanged(inputValue)">Save</button>
             <button *ngIf="userToEdit!=null" style="    align-self: flex-end; padding: 7px 10px;" (click)="userChanged()">Save</button>
         </div>
+        <div *ngIf="userToViewBills!=null" class="popup-body">
+          <div *ngFor="let bill of userBills">
+            <ul style="list-style: none;">
+              <li>{{bill.id}}</li>
+              <li>{{bill.billNum}}</li>
+              <li>{{bill.billUnits}}</li>
+              <li>{{bill.dueDate}}</li>
+              <li>{{bill.type}}</li>
+            </ul>
+          </div>
+          <button (click)="unitChanged(inputValue)">Save</button>
+      </div>
     </div>
   </div>
   <div style="width: 300px;">
