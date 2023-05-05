@@ -1,133 +1,228 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 50px 20px;
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  .form_sketch {
-      border-color: transparent;
-      background-color: transparent;
-  }
-  
-  #base {
-      position: absolute;
-      z-index: 0;
-  }
-  /* Global Styles */
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
+/* Global Styles */
 
-  
-  
-  /* Global styles */
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Telephone plans styles */
-  .telephone-plans-container {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .telephone-plans-heading {
-    font-size: 2rem;
-    margin-top: 1rem;
-  }
-  .telephone-plan-details{
-    display: flex;
-    flex-direction: column;
-  }
-  .telephone-plan {
-    display: flex;
-    justify-content: space-between;
-    margin: 2rem 0;
-  }
-  
-  .telephone-plan-name {
-    font-size: 1.5rem;
-    margin-top: 0;
-  }
-  
-  .telephone-plan-amount {
-    font-size: 1.25rem;
-    margin: 0.5rem 0;
-  }
-  
-  .telephone-plan-features {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
-  .telephone-plan-features li {
-    margin: 0.5rem 0;
-  }
-  
-  .pay-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .pay-button:hover {
-    background-color: #3e8e41;
-  }
-  
-  /* Telephone offers styles */
-  .telephone-offers {
-    background-color: #f2f2f2;
-    padding: 2rem 0;
-  }
-  
-  .telephone-offers-heading {
-    font-size: 1.5rem;
-  }
-  
-  .telephone-offers-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 1.25rem;
-  }
-  
-  .telephone-offers-list li {
-    margin: 0.5rem 0;
-  }
-  
-  .telephone-offers-button {
-    background-color: #008CBA;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .telephone-offers-button:hover {
-    background-color: #006b8f;
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form_sketch {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+#base {
+  position: absolute;
+  z-index: 0;
+}
+
+/* Navigation Bar Styles */
+
+.app-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.nav-bar-logo {
+  font-size: 1.5rem;
+}
+
+.nav-bar-links {
+  display: flex;
+}
+
+.nav-bar-link {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.nav-bar-link:hover {
+  text-decoration: underline;
+}
+
+/* Billing Accounts Styles */
+
+.billing-accounts-container {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.billing-accounts-heading {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.billing-account-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.billing-account-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.billing-account-name {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.billing-account-number,
+.billing-account-balance {
+  margin: 0.5rem 0;
+}
+
+.billing-account-pay-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.billing-account-pay-button:hover {
+  background-color: #2E8B57;
+}
+
+/* Service Providers and Tariff Styles */
+
+.tariff-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tariff-heading {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.service-provider {
+  margin-top: 2rem;
+}
+
+.service-provider-name {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.service-provider-tariff {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-provider-tariff li {
+  margin: 0.5rem 0;
+}
+
+.service-provider-tariff li:before {
+  content: "•";
+  color: #4CAF50;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+/* Bill Details Styles */
+
+.bill-details-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.bill-details-heading {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.bill-details {
+  margin-top: 2rem;
+}
+
+.bill-details-info {
+  margin: 0.5rem 0;
+}
+
+.bill-details-pay-button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.bill-details-pay-button:hover {
+  background-color: #2d8f28;
+}
+
+/* Telephone Offers Styles */
+
+.telephone-offers {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.telephone-offers-heading {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.telephone-offers-list {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.telephone-offers-list li {
+  margin: 0.5rem 0;
+}
+
+.telephone-offers-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.telephone-offers-button:hover {
+  background-color: #0069d9;
+}

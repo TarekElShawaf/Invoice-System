@@ -1,41 +1,57 @@
-<app-nav-bar></app-nav-bar>>
+<app-nav-bar></app-nav-bar>
 
 <main>
-  <div class="telephone-plans-container">
-    <h2 class="telephone-plans-heading">Telephone Plans</h2>
-    <div class="telephone-plan">
-      <div class="telephone-plan-details">
-        <img src="../../assets/images/Cards.png" style="margin-bottom: 4px;">
-        <h3 class="telephone-plan-name">Pre-paid Plan</h3>
-        <p class="telephone-plan-amount">$25/month</p>
-        <ul class="telephone-plan-features">
-          <li>500 minutes talk time</li>
-          <li>Unlimited SMS</li>
-          <li>1GB data</li>
-        </ul>
-        <button class="pay-button">Pay Now</button>
-      </div>
-      <div class="telephone-plan-details">
-        <img src="../../assets/images/post-paid.png" style="margin-bottom: 4px;">
-        <h3 class="telephone-plan-name">Post-paid Plan</h3>
-        <p class="telephone-plan-amount">$50/month</p>
-        <ul class="telephone-plan-features">
-          <li>Unlimited talk time</li>
-          <li>Unlimited SMS</li>
-          <li>10GB data</li>
-        </ul>
-        <button class="pay-button">Pay Now</button>
+  <div class="billing-accounts-container">
+    <h2 class="billing-accounts-heading">Billing Accounts</h2>
+    <div class="billing-account">
+      <div class="billing-account-details">
+        <div class="billing-account-info">
+          <h3 class="billing-account-name">John Doe</h3>
+          <p class="billing-account-number">Account Number: 1234567890</p>
+          <p class="billing-account-balance">Balance: $100.00</p>
+        </div>
+        <button class="billing-account-pay-button">Pay Now</button>
       </div>
     </div>
-    <div class="telephone-offers">
-      <h3 class="telephone-offers-heading">Offers</h3>
-      <ul class="telephone-offers-list">
-        <li>Get 50% off on your first month</li>
-        <li>Refer a friend and get $10 credit</li>
-        <li>Upgrade to post-paid plan and get a free smartphone</li>
-      </ul>
-      <a style="text-decoration: none;" routerLink="/offers" routerLinkActive="active"><button class="telephone-offers-button" >View All Offers</button> </a>
+    <div class="billing-account">
+      <div class="billing-account-details">
+        <div class="billing-account-info">
+          <h3 class="billing-account-name">Jane Doe</h3>
+          <p class="billing-account-number">Account Number: 0987654321</p>
+          <p class="billing-account-balance">Balance: $50.00</p>
+        </div>
+        <button class="billing-account-pay-button">Pay Now</button>
+      </div>
     </div>
+  </div>
+  <div class="bill-details-container">
+    <h2 class="bill-details-heading">Bills</h2>
+    <div class="bill-details">
+      <p class="bill-details-info">Bill Date: May 1, 2023</p>
+      <p class="bill-details-info">Bill Number: 1234567890</p>
+      <p class="bill-details-info">Amount Due: $50.00</p>
+      <button class="bill-details-pay-button">Pay Now</button>
+    </div>
+    <div class="bill-details">
+      <p class="bill-details-info">Bill Date: April 1, 2023</p>
+      <p class="bill-details-info">Bill Number: 0987654321</p>
+      <p class="bill-details-info">Amount Due: $75.00</p>
+      <button class="bill-details-pay-button">Pay Now</button>
+    </div>
+    <div class="bill-details">
+      <p class="bill-details-info">Bill Date: March 1, 2023</p>
+      <p class="bill-details-info">Bill Number: 1357924680</p>
+      <p class="bill-details-info">Amount Due: $60.00</p>
+      <button class="bill-details-pay-button">Pay Now</button>
+    </div>
+  </div>
+  <div class="telephone-offers">
+    <h3 class="telephone-offers-heading">Offers</h3>
+    <ul class="telephone-offers-list">
+      <li>Check various offers by Service Providers!</li>
+    </ul>
+    <a style="text-decoration: none;" routerLink="/offers" routerLinkActive="active"><button
+        class="telephone-offers-button">View All Offers</button> </a>
   </div>
 </main>
 <app-footer></app-footer>

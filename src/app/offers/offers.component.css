@@ -1,51 +1,167 @@
-.homecontent{
-    text-align: center;
-  }
-  .home{
-    margin-bottom: 50px;
+/* Center the content of the home section */
+.homecontent {
+  text-align: center;
+}
 
-  }
-  .offers{
-    display: flex;
-    /* justify-content: space-evenly; */
-    margin-top: 30px;
-    
-  }
-  .imgss img{
-    width: 270px;
-    
-  }
-  .imgs img{
-    width: 300px;
-    height:180px;
-    
-  }
-  .imgs{
-    text-align: center;
-    width: 50%;
-  }
-  .imgss{
-    text-align: center;
-    width: 50%;
-  }
-  .imgss p{
-    color: gray;
-  }
-  .imgs p{
-    color: gray;
-  }
-  button{
-    cursor:pointer;
-    background: rgba(46, 193, 172, 1);
-    width: 24%;
-    border-radius: 10px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(216, 216, 216, 1);
-    font-weight: 700;
-    font-style: normal;
-    font-size: 1.5em;
-    color: #FFFFFF;
-    line-height: 65px;
+/* Add some margin to the bottom of the home section */
+.home {
+  margin-bottom: 50px;
+}
 
-  }
+/* Style the provider name */
+.provider-name {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #222;
+}
+
+/* Style the offer container */
+.offer-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the offer image */
+.offer img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* Style the offer details */
+.offer-details {
+  margin-left: 20px;
+}
+
+.offer-details h4 {
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.offer-details p {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  color: #444;
+}
+
+.offer-details button {
+  cursor: pointer;
+  background: rgba(46, 193, 172, 1);
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(216, 216, 216, 1);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.2em;
+  color: #FFFFFF;
+}
+
+.offer-details button:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.offer-details p.subscribed-message {
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-size: 1.2em;
+  font-style: italic;
+  color: #555;
+}.homecontent {
+  text-align: center;
+}
+
+.home {
+  margin-bottom: 50px;
+}
+
+.provider-container {
+  margin-bottom: 50px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.provider-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.provider-header img {
+  width: 70px;
+  height: 70px;
+  margin-right: 20px;
+}
+
+.provider-name {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.offer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.offer {
+  width: calc(50% - 20px);
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.offer h4 {
+  font-size: 1.3em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.offer p {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.offer button {
+  cursor: pointer;
+  background: rgba(46, 193, 172, 1);
+  width: 100%;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(216, 216, 216, 1);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.2em;
+  color: #FFFFFF;
+  line-height: 50px;
+  margin-top: 10px;
+}
+
+.offer button[disabled] {
+  cursor: not-allowed;
+  background-color: #999;
+}
+
+.offer p.subscribed {
+  color: green;
+  font-size: 1.1em;
+  margin-top: 10px;
+}

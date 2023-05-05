@@ -9,6 +9,42 @@ export class ServiceProviderComponent {
   tariffs: string[] = [];
   selectedTariffs: string[] = [];
   showDialog = false;
+  providers = [
+    {
+      name: "Provider A",
+      offers: [
+        {
+          plan: "Offer 1",
+          totalUnits: 100,
+          price: 50,
+          subscribed: false
+        },
+        {
+          plan: "Offer 2",
+          totalUnits: 200,
+          price: 100,
+          subscribed: false
+        }
+      ]
+    },
+    {
+      name: "Provider B",
+      offers: [
+        {
+          plan: "Offer 3",
+          totalUnits: 150,
+          price: 75,
+          subscribed: false
+        },
+        {
+          plan: "Offer 4",
+          totalUnits: 300,
+          price: 150,
+          subscribed: false
+        }
+      ]
+    }
+  ];
 
   showTariffs(provider: string) {
     this.tariffs = [];
