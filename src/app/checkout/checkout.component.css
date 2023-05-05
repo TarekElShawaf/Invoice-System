@@ -3,7 +3,9 @@
     background-color: white;
   
   }
-
+main{
+  min-height: 67vh;
+}
     .homecontent{
       margin:0px 50px;
       

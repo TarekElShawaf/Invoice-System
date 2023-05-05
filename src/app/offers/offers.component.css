@@ -124,7 +124,14 @@ width: 12%;
   flex-direction: row;
 
 }
-
+.offer-container button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+main{
+  min-height: 67vh;
+}
 .offer {
   width: calc(15% - 20px);
   padding: 20px;

@@ -53,32 +53,36 @@ async ngOnInit(){
     this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
     this.waterBills = pendingBills
     this.calculateTotal(this.waterBills,this.waterUnitPrice)
+    console.log("total1:",this.total)
+
   })
   this.usersService.getBills(('Pending'), ('electricBills')).subscribe((pendingBills) => {
     this.electricBills = pendingBills
     this.calculateTotal(this.electricBills,this.electricUnitPrice)
+    console.log("total2:",this.total)
 
   })
   this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
     this.telephoneBills = pendingBills
-    this.calculateTotal(this.telephoneBills,this.telephoneUnitPrice)
+    this.calculateTotal(this.telephoneBills)
+
+    console.log("total3:",this.total)
     console.log("cart from checkout",this.loggedUserCart)
-    console.log("telephone Bills from checkout:", this.telephoneBills)
   })
   console.log(this.waterBills)
   console.log(this.electricBills)
 }
   findIndex(bill:Bill,billarr:Bill[]){
-    if(billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
+    if(bill.type=='telephoneBill' && billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
     else if(billarr.findIndex(x=>x.id==bill.id)>-1)return true;
     else return false;
   }
 
-  calculateTotal(billarr:Bill[],unitPrice:number){
+  calculateTotal(billarr:Bill[],unitPrice?:number){
     this.loggedUserCart.forEach((bill)=>{
-      if(bill.id==null)return;
-      else if(bill.type=='telephoneBill') this.total+=(bill.offerValue)
-      else if(this.findIndex(bill,billarr)) this.total+=(bill.billUnits*unitPrice)
+      
+      if(bill.type=='telephoneBill'&&unitPrice==null){this.total+=(bill.offerValue); console.log(bill.offerValue); return;}
+      else if(this.findIndex(bill,billarr)) {this.total+=(bill.billUnits*unitPrice);console.log(bill.billUnits*unitPrice);return}
       // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
       // console.log(this.total)
     })

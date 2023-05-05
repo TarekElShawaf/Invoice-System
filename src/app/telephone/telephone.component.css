@@ -221,7 +221,9 @@ body {
 .telephone-offers-list li {
   margin: 0.5rem 0;
 }
-
+main{
+  min-height: 67vh;
+}
 .telephone-offers-button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;

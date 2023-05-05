@@ -12,6 +12,9 @@
     font-size: 64px;
     color: #304858;
 }
+main{
+    min-height: 67vh;
+  }
 .stomach{
     display: flex;
     flex-direction: row;

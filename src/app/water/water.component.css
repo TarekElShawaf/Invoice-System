@@ -86,7 +86,9 @@ margin-bottom: 10px;
   width:150px;
   text-align: center;
 }
-
+main{
+  min-height: 67vh;
+}
 /* .water-bills-container th,
 .water-bills-container td {
 border: 1px solid #ccc;

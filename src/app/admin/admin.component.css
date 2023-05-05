@@ -41,6 +41,7 @@ main {
     width: 63%;
     margin: 0 auto;
     padding: 20px;
+    min-height: 67vh;
 }
 
 /* Heading styles */
@@ -48,6 +49,7 @@ main {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 30px;
+    margin-top: 2%;
 }
 
 .water-bills-container{
@@ -276,4 +278,42 @@ Button styles */
     background-color: rgb(177 177 177);
     border-radius: 5px;
   }
+.service-providers{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    margin-bottom:5%
+}
+
+.provider{
+    width: calc(25% - 20px);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.provider button{
+    margin-top: 2%;
+    align-self: center;
+    cursor: pointer;
+    background: rgba(46, 193, 172, 1);
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(216, 216, 216, 1);
+    font-weight: 700;
+    font-style: normal;
+    color: #FFFFFF;
+    padding: 4px;
+}
+.provider-logo{
+    width: 95%;
+    height: 7em;
+    margin-top: 2%;
+}
+
   

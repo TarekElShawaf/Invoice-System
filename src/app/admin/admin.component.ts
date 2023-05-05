@@ -9,6 +9,8 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
+  allOffers: any[];
+  currentProvider: string;
   datePatternValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const pattern = /^\d{2}\/\d{2}\/\d{4}$/;
     if (!control.value || !pattern.test(control.value)) {
@@ -32,6 +34,13 @@ export class AdminComponent {
     billNum: new FormControl('', Validators.required ),
 
   });
+  public offerForm = new FormGroup({
+    offerPlan: new FormControl('', Validators.required ),
+    price: new FormControl('',Validators.required),
+    // provider: new FormControl('', Validators.required ),
+    totalUnits: new FormControl('', Validators.required ),
+
+  });
 
   constructor(private usersService:DbservService){}
   allUsers: any[] =[];
@@ -45,9 +54,11 @@ export class AdminComponent {
   dialogOpened:string
   inputValue:number
   userToEdit:any;
+  showProviderDialog=false;
   ngOnInit(){
     this.loadUsers();
     this.loadPromoCodes();
+    this.loadOffers();
   }
 
   loadUsers() {
@@ -89,6 +100,7 @@ export class AdminComponent {
     this.showDialog = false;
     this.userToEdit=null;
     this.userToViewBills=null;
+    this.showProviderDialog=false;
   }
 
 
@@ -154,5 +166,25 @@ export class AdminComponent {
     this.usersService.addBill(this.userToViewBills.id,form.billType,bill).subscribe(()=>{
       this.loadUserBills(this.userToViewBills.id)
     })
+  }
+  openProvider(type:string){
+    this.showProviderDialog=true;
+    this.currentProvider=type;
+  }
+  loadOffers(){
+    this.usersService.getAllOffers().subscribe((offers)=>{
+      this.allOffers = offers
+    })
+  }
+  deleteOffer(offer:any){
+    this.usersService.deleteOffer(offer.id).subscribe(()=>{
+      this.loadOffers()
+    });
+  }
+  addOffer(offer:any){
+    let uploadedOffer={ provider: this.currentProvider, plan: offer.offerPlan, totalUnits: offer.totalUnits,price:offer.price, subscribed: false}
+    this.usersService.addOffer(uploadedOffer).subscribe(()=>{
+      this.loadOffers()
+    });
   }
 }

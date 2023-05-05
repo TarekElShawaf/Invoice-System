@@ -238,4 +238,16 @@ export class DbservService {
       return offers;
     }))
   }
+  subscribeToPlan(id:string){
+    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers/"+id+"/subscribed.json",true).subscribe()
+  }
+  deleteOffer(id:string){
+    return this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers/'+id+'.json');
+
+  }
+
+  addOffer(offer:any){
+    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers.json",offer)
+
+  }
 }

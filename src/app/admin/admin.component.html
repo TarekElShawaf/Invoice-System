@@ -7,7 +7,7 @@ width: 100%;">
 <main>
 
   <div class="water-bills-container">
-    <h2 class="water-bills-heading" style="    text-align: center;">Users</h2>
+    <h2 class="water-bills-heading" style="text-align: center;">Users</h2>
     <div class="water-bills-section">
       <table class="water-bills-table" *ngIf="allUsers.length > 0">
         <thead>
@@ -117,6 +117,67 @@ width: 100%;">
         <li style="margin-top:3%"> <input class="promoInput" type="text" placeholder="Code" [(ngModel)]="promoCode" [value]="promoCode"> <input class="promoInput" type="text" placeholder="Value" [(ngModel)]="promoValue" [value]="promoValue"> <button (click)="addPromoCode(promoCode,promoValue)">Add Promo Code</button></li>
       </ul>
     </div>
+  </div>
+</div>
+<div>
+  <div>
+    <h2 class="water-bills-heading" style="text-align: center;">Service Providers</h2>
+  </div>
+  <div class="service-providers">
+    <div class="provider">
+      <div class="provider-header"><h4>Vodafone</h4><img class="provider-logo" src="../../assets/images/vodafone.png"></div>
+      <button (click)="openProvider('Vodafone')" >View Offers</button>
+    </div>
+    <div class="provider">
+      <div class="provider-header"><h4>Etisalat</h4><img  class="provider-logo" src="../../assets/images/etisalat.png"></div>
+      <button (click)="openProvider('Etisalat')" >View Offers</button>
+    </div>
+    <div class="provider">
+      <div class="provider-header"><h4>Orange</h4><img  class="provider-logo" src="../../assets/images/orange.png"></div>
+      <button (click)="openProvider('Orange')" >View Offers</button>
+    </div>
+  </div>
+</div>
+<div class="popup" *ngIf="showProviderDialog">
+  <div class="popup-overlay"></div>
+  <div class="popup-dialog">
+      <div class="popup-header">
+          <button class="close-button" (click)="closeDialog()">X</button>
+      </div>
+      <div class="popup-body" style="align-items:unset">
+        <div *ngFor="let offer of allOffers" >
+          <ng-container *ngIf="offer.provider==currentProvider" >
+          <div style="align-self: flex-start;">
+          <ul   style="list-style: none;">
+            <li style="font-weight: bold;"><label class="unitLabel" [innerText]="'ID:'"></label>{{offer.id}}<button style="background: #cb2d2df2;padding: 3px 3px;font-size: 13px;border-radius: 5px;margin-bottom: 3%;" (click)="deleteOffer(offer)">Delete</button></li>
+            <li><label class="unitLabel" [innerText]="'Plan:'"></label>{{offer.plan}}</li>
+            <li ><label class="unitLabel" [innerText]="'Total Units:'"></label>{{offer.totalUnits}}</li>
+            <li><label class="unitLabel" [innerText]="'Price:'"></label>{{offer.price|currency:'EGP':'code'}}</li>
+            <br>
+          </ul>            
+        </div>
+        </ng-container>
+        </div>
+        <div style="align-self: flex-start;">
+          <form #offer="ngForm" [formGroup]="offerForm"  style="margin-top: 10%;" (ngSubmit)="addOffer(offer.value)" style="margin-top: 10%;line-height: 30px; display: flex; flex-direction: column;">
+            <div><label class="unitLabel" [innerText]="'Plan:'"></label><input type="text" formControlName="offerPlan" placeholder="Plan" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;"></div>
+            <div><label class="unitLabel" [innerText]="'Total Units:'"></label><input  type="number" formControlName="totalUnits" placeholder="Total Units" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
+            <div><label class="unitLabel" [innerText]="'Price:'"></label><input  type="number" formControlName="price" placeholder="Price" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
+            <!-- <div><label class="unitLabel" [innerText]="'Bill Type:'"></label><select formControlName="billType" style="width: 40%;height: 1.5em;text-align: center; margin-right: 5px;border: none; background-color: #f5f5f5;border-bottom: ridge;">
+              <option value="electricBills">Electric Bill</option>
+                <option value="waterBills">Water Bill</option>
+                <option value="telephoneBills">Telephone Bill</option>
+            </select></div> -->
+            <button type="submit" style="    width: 33%;
+            height: 1.5em;
+            align-self: flex-start;
+            margin-left: 0;
+            padding: 3px 3px;
+            font-size: 16px;">Add Offer</button> 
+          </form>
+        </div>
+        <button (click)="closeDialog()" style="align-self: center;">Save</button>
+      </div>
   </div>
 </div>
 </main>

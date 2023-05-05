@@ -8,7 +8,9 @@ body {
     margin-right: auto;
     text-align: left;
 }
-
+main{
+  min-height: 67vh;
+}
 .form_sketch {
     border-color: transparent;
     background-color: transparent;

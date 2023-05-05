@@ -72,12 +72,11 @@ export class OffersComponent implements OnInit {
     });
   }
 
-  subscribe(offer: { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean; }) {
+  subscribe(offer: { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean;id:string }) {
     // console.log("Subscribed to plan: ", offer.plan);
     // this.offers.forEach(o => {
     //   o.subscribed = (o === offer);
     // });
-
     // create a new Date object for the current date
     const currentDate = new Date();
     // get the day, month, and year values of the current date
@@ -88,9 +87,10 @@ export class OffersComponent implements OnInit {
     const dateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
 
     let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,billUnits:offer.totalUnits,dueDate:dateString,type:'telephoneBill',offerValue:offer.price}
-    
+    console.log(offer.id)
     this.usersService.addToCart(bill)
     this.usersService.addBill(this.usersService.loggedUser.id,'telephoneBills',bill).subscribe()
+    this.usersService.subscribeToPlan(offer.id)
     console.log("user cart from subscribe: ",this.usersService.loggedUserCart)
     offer.subscribed=true;
     const subscriptionMessage = `You have Added ${offer.plan} plan from ${offer.provider} at ${offer.price} L.E. to your cart`;
