@@ -13,6 +13,7 @@ export class LoginComponent {
   allUsers: any[] =[];
   found:boolean =false;
   loginClicked:boolean=false;
+  admin: boolean;
   constructor(private usersService:DbservService , private router:Router){
 
   }
@@ -54,15 +55,21 @@ onLogin(user:{email:String,password:String}){
   this.allUsers.forEach((i)=>{
     if(i.email.toLowerCase()==user.email.toLowerCase()&&i.password==user.password){
       this.found=true;
+      if(i.admin==true) this.admin=true;
       this.usersService.loggedUser=i;
       return;
     }
   })
   if (this.found){
+    if(this.admin){
+      this.router.navigate(['admin'])
+    }
+    else{
+      this.usersService.getCart();
+      console.log("cart:",this.usersService.loggedUserCart)
+      this.router.navigate(['home'])
+    }
 
-    this.usersService.getCart();
-    console.log("cart:",this.usersService.loggedUserCart)
-    this.router.navigate(['home'])
   } 
 }
 

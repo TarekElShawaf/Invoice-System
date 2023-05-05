@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DbservService } from '../dbserv.service';
 import { Observable } from 'rxjs';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -42,11 +43,12 @@ export class AdminComponent {
 
   });
 
-  constructor(private usersService:DbservService){}
+  constructor(private usersService:DbservService,private router:Router){}
   allUsers: any[] =[];
   promoCodes:any[]=[];
   promoCode:string;
   promoValue:number;
+  loggedUser = this.usersService.loggedUser
   waterUnitPrice:number=this.usersService.waterUnits
   electricUnitPrice:number=this.usersService.electricUnits
   telephoneUnitPrice:number=this.usersService.telephoneUnits
@@ -60,7 +62,11 @@ export class AdminComponent {
     this.loadPromoCodes();
     this.loadOffers();
   }
-
+  logout(){
+    this.usersService.loggedUser=null;
+    this.usersService.loggedUserCart=[]
+    this.router.navigate(['login'])
+  }
   loadUsers() {
     this.usersService.getUsers().subscribe((users)=>{
       this.allUsers = users
