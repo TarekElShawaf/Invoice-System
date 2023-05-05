@@ -59,18 +59,26 @@ async ngOnInit(){
     this.calculateTotal(this.electricBills,this.electricUnitPrice)
 
   })
+  this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
+    this.telephoneBills = pendingBills
+    this.calculateTotal(this.telephoneBills,this.telephoneUnitPrice)
+    console.log("cart from checkout",this.loggedUserCart)
+    console.log("telephone Bills from checkout:", this.telephoneBills)
+  })
   console.log(this.waterBills)
   console.log(this.electricBills)
 }
   findIndex(bill:Bill,billarr:Bill[]){
-    if(billarr.findIndex(x=>x.id==bill.id)>-1)return true;
+    if(billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
+    else if(billarr.findIndex(x=>x.id==bill.id)>-1)return true;
     else return false;
   }
 
   calculateTotal(billarr:Bill[],unitPrice:number){
     this.loggedUserCart.forEach((bill)=>{
       if(bill.id==null)return;
-      if(this.findIndex(bill,billarr)) this.total+=(bill.billUnits*unitPrice)
+      else if(bill.type=='telephoneBill') this.total+=(bill.offerValue)
+      else if(this.findIndex(bill,billarr)) this.total+=(bill.billUnits*unitPrice)
       // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
       // console.log(this.total)
     })

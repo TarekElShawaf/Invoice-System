@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbservService } from '../dbserv.service';
+import { Bill } from 'src/models/bill';
 
 @Component({
   selector: 'app-offers',
@@ -76,6 +77,22 @@ export class OffersComponent implements OnInit {
     // this.offers.forEach(o => {
     //   o.subscribed = (o === offer);
     // });
+
+    // create a new Date object for the current date
+    const currentDate = new Date();
+    // get the day, month, and year values of the current date
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    // create a string representation of the date in the format "dd/mm/yyyy"
+    const dateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
+
+    let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,billUnits:offer.totalUnits,dueDate:dateString,type:'telephoneBill',offerValue:offer.price}
+    
+    this.usersService.addToCart(bill)
+    this.usersService.addBill(this.usersService.loggedUser.id,'telephoneBills',bill).subscribe()
+    console.log("user cart from subscribe: ",this.usersService.loggedUserCart)
+    offer.subscribed=true;
     const subscriptionMessage = `You have Added ${offer.plan} plan from ${offer.provider} at ${offer.price} L.E. to your cart`;
     window.alert(subscriptionMessage);
   }
@@ -92,9 +109,6 @@ export class OffersComponent implements OnInit {
 
           if(offer.provider==providerName) this.providers[i].offers.push(offer)
         })
-        // if a matching provider is found, assign its offers array to the provider's offers array
-        console.log("Providers:")
-        console.log(this.providers)
       }
     })
   }
