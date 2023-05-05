@@ -42,6 +42,7 @@
         line-height: 27px;
     ">  Your Cart
         </h4>
+        <ng-container *ngIf="loggedUserCart.length > 0"> 
         <div style="margin-bottom: 10px;" *ngFor="let pendingBill of loggedUserCart;">
         <div *ngIf="findIndex(pendingBill,electricBills)" class="ele" >
           <div class="imgi">
@@ -74,6 +75,10 @@
           </div>
         </div>
         </div>
+      </ng-container>
+      <ng-container *ngIf="loggedUserCart.length==0">
+          <h2>No bills in your cart, add bills to start paying!</h2>
+      </ng-container>
       </div>
 <div class="method">
   <form #paymentClear="ngForm">
