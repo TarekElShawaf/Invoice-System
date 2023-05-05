@@ -169,7 +169,7 @@
             <div class="payment-value">{{total|currency:"EGP":'code'}}</div>
           </div>
           <div class="payment-row">
-            <button class="payment-button" (click)="pay(paymentClear)">Pay Now</button>
+            <button class="payment-button" [disabled]="loggedUserCart.length==0" (click)="pay(paymentClear)">Pay Now</button>
           </div>
         </div>
       </div>        

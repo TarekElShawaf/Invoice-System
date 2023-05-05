@@ -269,7 +269,12 @@
     box-shadow: none;
     font-weight: bold;
     cursor: pointer;
-  } 
+  }
+  .payment-button:disabled{
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
 
   .boxStyles{
     margin-right: 5px;

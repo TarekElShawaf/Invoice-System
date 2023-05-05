@@ -179,6 +179,8 @@ Button styles */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-height: calc(100% - 50px); 
+    overflow-y: auto;
 }
 
 .popup-header {
@@ -266,3 +268,12 @@ Button styles */
     color: #FFFFFF;
     padding: 4px;
 }
+.popup-dialog::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .popup-dialog::-webkit-scrollbar-thumb {
+    background-color: rgb(177 177 177);
+    border-radius: 5px;
+  }
+  
