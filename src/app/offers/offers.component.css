@@ -22,8 +22,10 @@
 .offer-container {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 /* Style the offer image */
@@ -54,17 +56,21 @@
 
 .offer-details button {
   cursor: pointer;
+  margin: 0;
   background: rgba(46, 193, 172, 1);
-  width: 150px;
-  height: 50px;
   border-radius: 10px;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(216, 216, 216, 1);
   font-weight: 700;
   font-style: normal;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #FFFFFF;
+  line-height: 40px;
+  margin-top: 10px;
+  align-self: center;
+  justify-content: center;
+  display: flex;
 }
 
 .offer-details button:disabled {
@@ -98,33 +104,37 @@
 .provider-header {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
 .provider-header img {
-  width: 70px;
-  height: 70px;
-  margin-right: 20px;
+width: 12%;
 }
-
+/* 
 .provider-name {
   font-size: 1.5em;
   color: #333;
-}
+} */
 
 .offer-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  flex-direction: row;
+
 }
 
 .offer {
-  width: calc(50% - 20px);
+  width: calc(15% - 20px);
   padding: 20px;
   background-color: #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .offer h4 {
@@ -142,17 +152,17 @@
 .offer button {
   cursor: pointer;
   background: rgba(46, 193, 172, 1);
-  width: 100%;
   border-radius: 10px;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(216, 216, 216, 1);
   font-weight: 700;
   font-style: normal;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #FFFFFF;
-  line-height: 50px;
+  line-height: 40px;
   margin-top: 10px;
+  align-self: center;
 }
 
 .offer button[disabled] {

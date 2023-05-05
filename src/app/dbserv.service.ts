@@ -225,6 +225,17 @@ export class DbservService {
 
   addBill(userId:string,billType:string,bill:any){
     return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + userId + "/" + billType +"/Pending.json",bill)
+  }
 
+
+  getAllOffers(){
+    return this.http.get("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers.json")
+    .pipe(map((res)=>{
+      const offers = [];
+      for(const key in res){
+        offers.push({...res[key],id:key})
+      }
+      return offers;
+    }))
   }
 }

@@ -9,13 +9,12 @@
     <div *ngFor="let provider of providers" class="provider-container">
       <div class="provider-header">
         <img [src]="'../../assets/images/'+provider.name.toLowerCase()+'.png'" alt="{{provider.name}} logo">
-        <h3 class="provider-name">{{provider.name}}</h3>
       </div>
       <div class="offer-container">
         <div *ngFor="let offer of provider.offers" class="offer">
           <h4>{{offer.plan}}</h4>
           <p>Total of: {{offer.totalUnits}} units</p>
-          <h4>{{offer.price}} L.E</h4>
+          <h4>{{offer.price|currency:"EGP":'code'}}</h4>
           <button (click)="subscribe(offer)" [disabled]="offer.subscribed">Subscribe</button>
           <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>
         </div>
