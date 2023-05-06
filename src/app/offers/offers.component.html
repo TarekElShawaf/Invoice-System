@@ -13,7 +13,7 @@
       <div class="offer-container">
         <div *ngFor="let offer of provider.offers" class="offer">
           <h4>{{offer.plan}}</h4>
-          <p>Total of: {{offer.totalUnits}} units</p>
+          <p>Total of: {{offer.totalUnits}} +50 Units</p>
           <h4>{{offer.price|currency:"EGP":'code'}}</h4>
           <button (click)="subscribe(offer)" [disabled]="offer.subscribed">Subscribe</button>
           <p *ngIf="offer.subscribed">Subscribed to {{offer.plan}}!</p>

@@ -68,11 +68,18 @@
           <div class="imgi">
             <img src="../../assets/images/post-paid.png" alt="lamp">
           </div>
-          <div class="tp">
-            <h5 >Telephone Offer</h5>
-            <p >Total of {{pendingBill.billUnits}} Unit</p>
+          <div class="tp" *ngIf="pendingBill.type=='account'">
+            <h5 >Account Bill</h5>
+            <p>Account Number: {{pendingBill.billNum}}</p>
             <h4 >{{pendingBill.offerValue |currency:'EGP':'code'}}</h4>
           </div>
+          <div class="tp" *ngIf="pendingBill.type==null">
+            <h5 >Telephone Tariff</h5>
+            <p >Total of {{pendingBill.billUnits}} Units</p>
+            <h4 >{{pendingBill.billUnits * telephoneUnitPrice |currency:'EGP':'code'}}</h4>
+          </div>
+        
+
         </div>
         </div>
       </ng-container>

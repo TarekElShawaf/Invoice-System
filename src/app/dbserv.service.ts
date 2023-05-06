@@ -91,28 +91,59 @@ export class DbservService {
         return Bills;
       }))
   }
+  
+  getBillingAccounts(){
+    return this.http.get("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/"+this.loggedUser.id+"/billingAccounts.json")
+    .pipe(map((res)=>{
+      const accs = [];
+      for(const key in res){
+        if(res[key]!=null) accs.push({...res[key],id:key})
+      }
+      return accs;
+    }))
+  }
+
   deleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
   }
   adminDeleteBill(id: string, type: string) {
     this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + id + '.json').subscribe();
   }
-  payBills(bills: Bill[], type: string) {
+  payBills(bills: any[], type: string) {
     let paidBills =[{}]
     bills.forEach((bill) => {
       bill.status = "Paid";
-      let billToBeUploaded = {
-        billNum: bill.billNum,
-        billUnits: bill.billUnits,
-        dueDate: bill.dueDate
-      };
+      let billToBeUploaded
+      if(bill.type=='account'){
+         billToBeUploaded = {
+          billName: bill.name,
+          billNum: bill.number,
+          offerValue: bill.total,
+          type:bill.type
+        };       
+      }
+      else{
+        billToBeUploaded = {
+          billNum: bill.billNum,
+          billUnits: bill.billUnits,
+          dueDate: bill.dueDate
+        };
+      }
+
       paidBills.push(billToBeUploaded);
       const index = this.loggedUserCart.indexOf(bill);
       if (index > -1) { // only splice array when item is found
         this.loggedUserCart.splice(index, 1); // 2nd parameter means remove one item only
       }
-      this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
+      if(billToBeUploaded.type=='account'){
+        this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/1.json').subscribe();
+
+      }
+      else{
+        this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
+      }
       this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + this.loggedUser.id + "/" + type +"/Paid.json",billToBeUploaded).subscribe();
+
     });
     console.log("paid",paidBills)
     
@@ -129,6 +160,7 @@ export class DbservService {
       .pipe(map((res)=>{
         console.log(res)
         for(const key in res){
+          if(res[key]!=null)
           this.loggedUserCart.push({...res[key]})
         }
 

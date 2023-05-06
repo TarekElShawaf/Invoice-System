@@ -64,7 +64,7 @@ async ngOnInit(){
   })
   this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
     this.telephoneBills = pendingBills
-    this.calculateTotal(this.telephoneBills)
+    this.calculateTotal(this.telephoneBills,this.telephoneUnitPrice,true)
 
     console.log("total3:",this.total)
     console.log("cart from checkout",this.loggedUserCart)
@@ -73,15 +73,17 @@ async ngOnInit(){
   console.log(this.electricBills)
 }
   findIndex(bill:Bill,billarr:Bill[]){
-    if(bill.type=='telephoneBill' && billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
+    if((bill.type=='telephoneBill'||bill.type=='account' ) && billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
     else if(billarr.findIndex(x=>x.id==bill.id)>-1)return true;
     else return false;
   }
 
-  calculateTotal(billarr:Bill[],unitPrice?:number){
+  calculateTotal(billarr:Bill[],unitPrice?:number,inTelephone?:boolean){
     this.loggedUserCart.forEach((bill)=>{
       
-      if(bill.type=='telephoneBill'&&unitPrice==null){this.total+=(bill.offerValue); console.log(bill.offerValue); return;}
+      if(bill.type=='telephoneBill'&&inTelephone==true){this.total+=(bill.billUnits*unitPrice); console.log(bill.offerValue); return;}
+      if(bill.type=='account'&&inTelephone==true){ this.total+=(bill.offerValue); return;}
+
       else if(this.findIndex(bill,billarr)) {this.total+=(bill.billUnits*unitPrice);console.log(bill.billUnits*unitPrice);return}
       // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
       // console.log(this.total)
@@ -163,17 +165,20 @@ async ngOnInit(){
       let paidWater=[]
       let paidElectric=[]
       let paidTelephone=[]
+      let accounts=[]
       this.loggedUserCart.forEach((bill)=>{
         if(bill.id==null)return;
         else if(this.findIndex(bill,this.waterBills)) paidWater.push(bill)
         else if(this.findIndex(bill,this.electricBills)) paidElectric.push(bill)
         else if(this.findIndex(bill,this.telephoneBills)) paidTelephone.push(bill)
+        else if (bill.type=='account') accounts.push(bill)
         // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
         // console.log(this.total)
       })
       this.usersService.payBills(paidWater,'waterBills')
       this.usersService.payBills(paidElectric,'electricBills')
       this.usersService.payBills(paidTelephone,'telephoneBills')
+      this.usersService.payBills(accounts,'billingAccounts')
       this.usersService.clearCart();
       alert("Payment Succesful")
     }

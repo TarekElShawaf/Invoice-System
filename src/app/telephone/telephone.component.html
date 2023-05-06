@@ -4,16 +4,16 @@
   <div class="billing-accounts-container">
     <h2 class="billing-accounts-heading">Billing Accounts</h2>
     <div class="billing-account">
-      <div class="billing-account-details">
+      <div class="billing-account-details" *ngFor="let account of billingAccounts">
         <div class="billing-account-info">
-          <h3 class="billing-account-name">John Doe</h3>
-          <p class="billing-account-number">Account Number: 1234567890</p>
-          <p class="billing-account-balance">Balance: {{100.00|currency:'EGP':'code'}}</p>
+          <h3 class="billing-account-name">{{account.name}}</h3>
+          <p class="billing-account-number">Account Number: {{account.number}}</p>
+          <p class="billing-account-balance">Amount Due: {{account.total|currency:'EGP':'code'}}</p>
         </div>
-        <button class="billing-account-pay-button">Pay Now</button>
+        <button class="billing-account-pay-button" (click)="addToCart(account,true)">Pay Now</button>
       </div>
     </div>
-    <div class="billing-account">
+    <!-- <div class="billing-account">
       <div class="billing-account-details">
         <div class="billing-account-info">
           <h3 class="billing-account-name">Jane Doe</h3>
@@ -22,35 +22,30 @@
         </div>
         <button class="billing-account-pay-button">Pay Now</button>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="bill-details-container">
     <h2 class="bill-details-heading">Bills</h2>
     <div class="all-bills">
-    <div class="bill-details">
-      <p class="bill-details-info">Bill Date: May 1, 2023</p>
-      <p class="bill-details-info">Bill Number: 1234567890</p>
-      <p class="bill-details-info">Amount Due: {{50.00|currency:'EGP':'code'}}</p>
-      <button class="bill-details-pay-button">Pay Now</button>
+    <div *ngFor="let bill of pendingBills">
+
+
+    <div *ngIf="bill.type==null"class="bill-details" >
+      <ng-container >
+      <p class="bill-details-info">Bill Number: {{bill.billNum}}</p>
+      <p class="bill-details-info">Due Date: {{bill.dueDate| date}} </p>
+      <p class="bill-details-info">Bill Units: {{bill.billUnits}} Units</p>
+      <p class="bill-details-info">Amount Due: {{bill.billUnits*unitPrice|currency:'EGP':'code'}}</p>
+      <button class="bill-details-pay-button" (click)="addToCart(bill)">Pay Now</button>
+    </ng-container>
     </div>
-    <div class="bill-details">
-      <p class="bill-details-info">Bill Date: April 1, 2023</p>
-      <p class="bill-details-info">Bill Number: 0987654321</p>
-      <p class="bill-details-info">Amount Due: {{75.00|currency:'EGP':'code'}}</p>
-      <button class="bill-details-pay-button">Pay Now</button>
-    </div>
-    <div class="bill-details">
-      <p class="bill-details-info">Bill Date: March 1, 2023</p>
-      <p class="bill-details-info">Bill Number: 1357924680</p>
-      <p class="bill-details-info">Amount Due: {{60.00|currency:'EGP':'code'}}</p>
-      <button class="bill-details-pay-button">Pay Now</button>
     </div>
     </div>
   </div>
   <div class="telephone-offers">
-    <h3 class="telephone-offers-heading">Offers</h3>
+    <h3 class="telephone-offers-heading">Tariffs+Offers</h3>
     <ul class="telephone-offers-list">
-      <li>Check various offers by Service Providers!</li>
+      <li>Check various Tariffs and Offers by Service Providers!</li>
     </ul>
     <a style="text-decoration: none;" routerLink="/offers" routerLinkActive="active"><button
         class="telephone-offers-button">View All Offers</button> </a>
