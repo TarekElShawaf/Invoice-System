@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { DbservService } from '../dbserv.service';
 import { Bill } from 'src/models/bill';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { UserService } from '../user.service';
+import { ControlsService } from '../controls.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,24 +12,28 @@ import { Subject } from 'rxjs';
 })
 export class CheckoutComponent {
 
-constructor(private usersService:DbservService ){}
-loggedUser=this.usersService.loggedUser
-total:number=0;
-discount:number=0;
-waterBills:Bill[]=[]
-waterUnitPrice:number=this.usersService.waterUnits
-electricBills:Bill[]=[]
-electricUnitPrice:number=this.usersService.electricUnits
-telephoneBills:Bill[]=[]
-telephoneUnitPrice:number=this.usersService.telephoneUnits
+  constructor( private userService: UserService, private controlsService: ControlsService) { }
+  loggedUser = this.userService.loggedUser
 
-loggedUserCart=this.usersService.loggedUserCart
-private promoSubject = new Subject<string>();
+  total: number = 0;
+  discount: number = 0;
+
+  Bills: Bill[] = [];
+  pendingBills: Bill[] = [];
+  promos: any[];
+
+  waterUnitPrice: number = this.controlsService.waterUnits
+  electricUnitPrice: number = this.controlsService.electricUnits
+  telephoneUnitPrice: number = this.controlsService.telephoneUnits
+
+  loggedUserCart = this.userService.loggedUserCart
+  private promoSubject = new Subject<string>();
+
   selectedPaymentMethod: any;
   cardNumber: string;
   expiryDate: string;
   cvv: string;
-  promo: string;
+  promo: string='';
   paymentMethod: string;
   paymentMethodInvalid: boolean;
   cardNumberInvalid: boolean;
@@ -36,78 +41,98 @@ private promoSubject = new Subject<string>();
   cvvInvalid: boolean;
   promoValid: boolean;
   promoInvalid: boolean;
+
   formValid: boolean;
-  prevValidPromo='';
-  promos:any[]
-async ngOnInit(){
-  this.total=0;
-  this.promoChanges.subscribe(promo => {
-    this.checkPromo(promo);
-  });
-  this.loadpendingBills();
-  this.loadPromos();
-  
+  prevValidPromo = '';
 
-}
-  loadpendingBills(){
-    this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
-    this.waterBills = pendingBills
-    this.calculateTotal(this.waterBills,this.waterUnitPrice)
-    console.log("total1:",this.total)
+  ngOnInit() {
+    this.total = 0;
+    this.promoChanges.subscribe(promo => {
+      this.checkPromo(promo);
+    });
+    // this.loadpendingBills();
+    this.loadPromos();
+    this.loadBills();
 
-  })
-  this.usersService.getBills(('Pending'), ('electricBills')).subscribe((pendingBills) => {
-    this.electricBills = pendingBills
-    this.calculateTotal(this.electricBills,this.electricUnitPrice)
-    console.log("total2:",this.total)
+  }
+  loadBills() {
+    this.pendingBills = [];
+    this.controlsService.getBillsofUser(this.loggedUser.id).subscribe((bills) => {
+      this.Bills = bills
+      this.calculateTotal();
+    })
+    this.Bills.forEach((bill) => {
+      if (bill.status == "Pending") this.pendingBills.push(bill)
+    })
+  }
 
-  })
-  this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
-    this.telephoneBills = pendingBills
-    this.calculateTotal(this.telephoneBills,this.telephoneUnitPrice,true)
+  calculateTotal() {
+    this.loggedUserCart.forEach((bill) => {
+      switch (bill.type) {
+        case "Water Bill":
+          this.total += bill.units * this.waterUnitPrice;
+          break;
+        case "Electric Bill":
+          this.total += bill.units * this.electricUnitPrice;
+          break;
+        case "Telephone Bill":
+          this.total += bill.units * this.telephoneUnitPrice;
+          break;
+        case "Offer":
+          this.total += bill.offerValue;
+          break;
+      }
+    })
+    console.log("total from calculate: ", this.total);
+  }
 
-    console.log("total3:",this.total)
-    console.log("cart from checkout",this.loggedUserCart)
-  })
-  console.log(this.waterBills)
-  console.log(this.electricBills)
-}
-  findIndex(bill:Bill,billarr:Bill[]){
-    if((bill.type=='telephoneBill'||bill.type=='account' ) && billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
-    else if(billarr.findIndex(x=>x.id==bill.id)>-1)return true;
+
+  //   loadpendingBills(){
+  //     this.usersService.getBills(('Pending'), ('waterBills')).subscribe((pendingBills) => {
+  //     this.waterBills = pendingBills
+  //     this.calculateTotal(this.waterBills,this.waterUnitPrice)
+  //     console.log("total1:",this.total)
+
+  //   })
+  //   this.usersService.getBills(('Pending'), ('electricBills')).subscribe((pendingBills) => {
+  //     this.electricBills = pendingBills
+  //     this.calculateTotal(this.electricBills,this.electricUnitPrice)
+  //     console.log("total2:",this.total)
+
+  //   })
+  //   this.usersService.getBills(('Pending'), ('telephoneBills')).subscribe((pendingBills) => {
+  //     this.telephoneBills = pendingBills
+  //     this.calculateTotal(this.telephoneBills,this.telephoneUnitPrice,true)
+
+  //     console.log("total3:",this.total)
+  //     console.log("cart from checkout",this.loggedUserCart)
+  //   })
+  //   console.log(this.waterBills)
+  //   console.log(this.electricBills)
+  // }
+  findIndex(bill: Bill, billarr: Bill[]) {
+    // if((bill.type=='telephoneBill'||bill.type=='account' ) && billarr.findIndex(x=>x.billNum==bill.billNum)>-1)return true;
+    if (billarr.findIndex(x => x.id == bill.id) > -1) return true;
     else return false;
   }
 
-  calculateTotal(billarr:Bill[],unitPrice?:number,inTelephone?:boolean){
-    this.loggedUserCart.forEach((bill)=>{
-      
-      if(bill.type=='telephoneBill'&&inTelephone==true){this.total+=(bill.billUnits*unitPrice); console.log(bill.offerValue); return;}
-      if(bill.type=='account'&&inTelephone==true){ this.total+=(bill.offerValue); return;}
 
-      else if(this.findIndex(bill,billarr)) {this.total+=(bill.billUnits*unitPrice);console.log(bill.billUnits*unitPrice);return}
-      // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
-      // console.log(this.total)
-    })
-  }
 
-  loadPromos(){
-    this.usersService.getPromoCodes().subscribe((promos)=>{
-      this.promos=promos
-      console.log(promos)
+  loadPromos() {
+    this.controlsService.getPromoCodes().subscribe((promos) => {
+      this.promos = promos
+      console.log("promos from loadPromos: ", promos);
     })
-  }
-  checkPaymentMethod(paymentMethod: string) {
-    this.paymentMethodInvalid = (paymentMethod === '');
   }
 
   checkPromo(promo: string) {
     this.total = this.total || 0;
-    let index = this.promos.findIndex(x => x.code == promo)
+    let index = this.promos.findIndex(x => x.code.toLowerCase() == promo.toLowerCase())
     let prevPromoIndex = this.promos.findIndex(x => x.code === this.prevValidPromo)
-
+    //If Promo found re-add previously discounted value (if there was) and deducte the new Promo value 
     if (index > -1) {
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
-      this.discount=parseFloat(this.promos[index].value)
+      this.discount = parseFloat(this.promos[index].value)
       this.total -= parseFloat(this.promos[index].value);
       this.prevValidPromo = promo;
       if (this.total < 0) this.total = 0
@@ -116,10 +141,13 @@ async ngOnInit(){
       if (this.prevValidPromo != '') this.total += parseFloat(this.promos[prevPromoIndex].value);
       this.prevValidPromo = ''
       this.promoValid = false;
-      this.discount=0;
+      this.discount = 0;
     }
   }
 
+  checkPaymentMethod(paymentMethod: string) {
+    this.paymentMethodInvalid = (paymentMethod === '');
+  }
   checkCVV(cvv: string) {
     if (cvv && cvv.length === 3 && /^\d+$/.test(cvv)) {
       this.cvvInvalid = false;
@@ -157,30 +185,19 @@ async ngOnInit(){
     );
   }
 
-  pay(paymentClear){
+  pay(paymentClear) {
     if (paymentClear.form.invalid) {
       alert('Please select a valid payment method before continuing.');
     }
-    else{
-      let paidWater=[]
-      let paidElectric=[]
-      let paidTelephone=[]
-      let accounts=[]
-      this.loggedUserCart.forEach((bill)=>{
-        if(bill.id==null)return;
-        else if(this.findIndex(bill,this.waterBills)) paidWater.push(bill)
-        else if(this.findIndex(bill,this.electricBills)) paidElectric.push(bill)
-        else if(this.findIndex(bill,this.telephoneBills)) paidTelephone.push(bill)
-        else if (bill.type=='account') accounts.push(bill)
-        // else if(this.findIndex(bill,this.electricBills)) this.total+=(bill.billUnits*unitPrice)
-        // console.log(this.total)
-      })
-      this.usersService.payBills(paidWater,'waterBills')
-      this.usersService.payBills(paidElectric,'electricBills')
-      this.usersService.payBills(paidTelephone,'telephoneBills')
-      this.usersService.payBills(accounts,'billingAccounts')
-      this.usersService.clearCart();
-      alert("Payment Succesful")
+    else {
+      this.loggedUserCart=this.userService.loggedUserCart;
+      this.userService.payBills()
+      this.userService.clearCart().subscribe(()=>{
+        this.total=0;
+        this.discount=0;
+        alert("Payment Succesful");
+      });
+      
     }
   }
 

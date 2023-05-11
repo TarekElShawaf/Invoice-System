@@ -86,7 +86,7 @@ export class OffersComponent implements OnInit {
     // create a string representation of the date in the format "dd/mm/yyyy"
     const dateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
 
-    let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,billUnits:offer.totalUnits,dueDate:dateString,type:'telephoneBill',offerValue:offer.price}
+    let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,units:offer.totalUnits,dueDate:dateString,type:'telephoneBill',offerValue:offer.price,status:'Pending'}
     console.log(offer.id)
     this.usersService.addToCart(bill)
     this.usersService.addBill(this.usersService.loggedUser.id,'telephoneBills',bill).subscribe()

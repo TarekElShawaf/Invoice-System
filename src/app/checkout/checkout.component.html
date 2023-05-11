@@ -44,39 +44,39 @@
         </h4>
         <ng-container *ngIf="loggedUserCart.length > 0"> 
         <div style="margin-bottom: 10px;" *ngFor="let pendingBill of loggedUserCart;">
-        <div *ngIf="findIndex(pendingBill,electricBills)" class="ele" >
+        <div *ngIf="pendingBill.type=='Electric Bill' " class="ele" >
           <div class="imgi">
             <img src="../../assets/images/lamp.png" alt="lamp">
           </div>
           <div class="tp">
             <h5>Electricity bill</h5>
-            <p>Total of {{pendingBill.billUnits}} Kilowatts</p>
-            <h4 style="font-weight: bold;">{{pendingBill.billUnits * electricUnitPrice |currency:'EGP':'code'}}</h4>
+            <p>Total of {{pendingBill.units}} Kilowatts</p>
+            <h4 style="font-weight: bold;">{{pendingBill.units * electricUnitPrice |currency:'EGP':'code'}}</h4>
           </div>
         </div>
-        <div *ngIf="findIndex(pendingBill,waterBills)" class="ele" >
+        <div *ngIf="pendingBill.type=='Water Bill'" class="ele" >
           <div class="imgi">
             <img src="../../assets/images/waterTap.png" alt="waterTap">
           </div>
           <div class="tp">
             <h5 >Water bill</h5>
-            <p >Total of {{pendingBill.billUnits}} Liters</p>
-            <h4 >{{(pendingBill.billUnits * waterUnitPrice |currency:'EGP':'code')}}</h4>
+            <p >Total of {{pendingBill.units}} Liters</p>
+            <h4 >{{(pendingBill.units * waterUnitPrice |currency:'EGP':'code')}}</h4>
           </div>
         </div>
-        <div *ngIf="findIndex(pendingBill,telephoneBills)" class="ele" >
+        <div *ngIf="pendingBill.type=='Telephone Bill'" class="ele" >
           <div class="imgi">
             <img src="../../assets/images/post-paid.png" alt="lamp">
           </div>
-          <div class="tp" *ngIf="pendingBill.type=='account'">
-            <h5 >Account Bill</h5>
-            <p>Account Number: {{pendingBill.billNum}}</p>
+          <div class="tp" *ngIf="pendingBill.offerValue!=null">
+            <h5 >Telephone Tariff</h5>
+            <p>Account Number:{{pendingBill.billNum}}</p>
             <h4 >{{pendingBill.offerValue |currency:'EGP':'code'}}</h4>
           </div>
           <div class="tp" *ngIf="pendingBill.type==null">
             <h5 >Telephone Tariff</h5>
-            <p >Total of {{pendingBill.billUnits}} Units</p>
-            <h4 >{{pendingBill.billUnits * telephoneUnitPrice |currency:'EGP':'code'}}</h4>
+            <p >Total of {{pendingBill.units}} Units</p>
+            <h4 >{{pendingBill.units * telephoneUnitPrice |currency:'EGP':'code'}}</h4>
           </div>
         
 
@@ -123,8 +123,9 @@
     <label for="promocode" >Promo Code</label>
     <br>
     <input type="text" name="promo" class="boxStyles" [(ngModel)]="promo" (input)="checkPromo(promo)" style="width:97%">
-    <div *ngIf="promoValid" style="color:green; margin:4px">Promo is valid!</div>
-    <div *ngIf="promoInvalid" style="color:red; margin:4px">Invalid promo code.</div>
+
+    <div *ngIf="promoValid&&promo!=''" style="color:green; margin:4px">Promo is valid!</div>
+    <div *ngIf="!promoValid&&promo!=''" style="color:red; margin:4px">Invalid promo code.</div>
   </form>
 </div>
      <div></div>

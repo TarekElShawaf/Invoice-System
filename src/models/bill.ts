@@ -1,9 +1,9 @@
 export class Bill{
     billNum:number;
-    billUnits?:number;
+    type:string;
+    status:string
     dueDate:string;
+    units?:number;
     id?:string;
-    status?:string;
-    type?:string;
     offerValue?:number;
 }

@@ -2,7 +2,7 @@
 <main>
 
   <div class="water-bills-container">
-    <h2 class="water-bills-heading">Water Bills <span style="font-size: 16px;font-weight: normal;margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Liter</span></h2>
+    <h2 class="water-bills-heading">Water Bills <span style="font-size: 16px;font-weight: normal;margin-left: 5px;">price of unit: {{unitPrice |currency:'EGP':'code'}}/Liter</span></h2>
     <div class="water-bills-section">
       <h3 class="water-bills-section-heading">Pending Bills</h3>
       <table class="water-bills-table">
@@ -19,10 +19,10 @@
         <tbody>
           <tr *ngFor="let pendingBill of pendingBills;" style="color: gray;">
             <td class="table-header">{{pendingBill.billNum}}</td>
-            <td class="table-header">{{pendingBill.billUnits}} Liters</td>
-            <td class="table-header">{{pendingBill.billUnits * unitPrice}}</td>
-            <td class="table-header">{{pendingBill.dueDate}}</td>
-            <td class="table-header">{{pendingBill.billUnits * unitPrice*(1.5)}}</td>
+            <td class="table-header">{{pendingBill.units}} Liters</td>
+            <td class="table-header">{{pendingBill.units * unitPrice |currency:'EGP':'code'}}</td>
+            <td class="table-header">{{pendingBill.dueDate| date}}</td>
+            <td class="table-header">{{pendingBill.units * unitPrice*(1.5) |currency:'EGP':'code'}}</td>
             <td class="table-header"><button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
@@ -33,7 +33,14 @@
       <table class="water-bills-table">
         <thead>
           <tr style="height: 60px;background-color: #2ec1ac; color:white">
-            <th class="table-header">Bill Number</th>
+            <th class="table-header">Bill Number<input (change)="onCheckboxChange($event)" type="checkbox" style="width: 20px;
+              height: 15px;
+              border: 2px solid #ccc;
+              border-radius: 4px;
+              background-color: #fff;
+              vertical-align: middle;
+              margin-right: 10px;
+              margin-left: 5px;"></th>
             <th class="table-header">Units Used</th>
             <th class="table-header">Amount</th>
             <th class="table-header">Due Date</th>
@@ -44,14 +51,27 @@
         <tbody>
           <tr *ngFor="let paidBill of paidBills;" style="color: gray;">
             <td class="table-header">{{paidBill.billNum}}</td>
-            <td class="table-header">{{paidBill.billUnits}} Liters</td>
-            <td class="table-header">{{paidBill.billUnits * unitPrice}}</td>
-            <td class="table-header">{{paidBill.dueDate}}</td>
-            <td class="table-header">{{paidBill.billUnits * unitPrice*(1.5)}}</td>
+            <td class="table-header">{{paidBill.units}} Liters</td>
+            <td class="table-header">{{paidBill.units * unitPrice |currency:'EGP':'code'}}</td>
+            <td class="table-header">{{paidBill.dueDate| date}}</td>
+            <td class="table-header">{{paidBill.units * unitPrice*(1.5) |currency:'EGP':'code'}}</td>
             <td class="table-header"><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
           </tr>
         </tbody>
       </table>
+      <div class="popup" *ngIf="showDialog">
+        <div class="popup-overlay"></div>
+        <div class="popup-dialog">
+            <div class="popup-header">
+                <button class="close-button" (click)="closeDialog()">X</button>
+            </div>
+            <div *ngIf="showDialog" class="popup-body">
+                <div class="dialogLine">Are you sure want to delete all bills?  </div>
+                <div style="display:flex;flex-direction: row;justify-content:space-between;"> <button (click)="deletePaidBills()">Yes</button><button (click)="closeDialog()">No</button></div>
+            </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </main>

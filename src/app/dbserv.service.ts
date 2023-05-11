@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Bill } from 'src/models/bill';
-import { Cart } from 'src/models/cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbservService {
 
+  FirebaseURL:string ='https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/';
   constructor(private http:HttpClient) { }
 
   loggedUser:any;
@@ -23,15 +23,15 @@ export class DbservService {
   //Add user to DB
   createUser(user:{email:string,password:string}){
     console.log(user);
-    this.http.post('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users.json',user)
+    this.http.post(this.FirebaseURL+'users.json',user)
       .subscribe((res)=>{
           console.log(res);
       })
   }
 
-
+  //Get All Users from DB
   getUsers(){
-    return this.http.get<{[key:string]:{mail:string,pass:string}}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users.json')
+    return this.http.get<{[key:string]:{mail:string,pass:string}}>(this.FirebaseURL+'users.json')
       .pipe(map((res)=>{
         const users = [];
         for(const key in res){
@@ -42,7 +42,7 @@ export class DbservService {
   }
 
   getUnitPrices(){
-    return this.http.get<{electricUnits:number,waterUnits:number,telephoneUnits:number}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/unitPrices.json')
+    return this.http.get<{electricUnits:number,waterUnits:number,telephoneUnits:number}>(this.FirebaseURL+'controls/unitPrices.json')
       .pipe(map((res)=>{
         this.electricUnits=res.electricUnits;
         this.waterUnits=res.waterUnits;
@@ -53,7 +53,7 @@ export class DbservService {
 
   //Get tariff plans for different service providers
   getTariffPlans() {
-    return this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/tariffPlans.json')
+    return this.http.get(this.FirebaseURL+'controls/tariffPlans.json')
       .pipe(map((res) => {
         // this.tariffPlans = res;
       }))
@@ -62,7 +62,7 @@ export class DbservService {
 
   
   getPendingBills(type: string) {
-    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending.json')
+    return this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Pending.json')
       .pipe(map((res) => {
         const Bills = [];
         for (const key in res) {
@@ -72,7 +72,7 @@ export class DbservService {
       }))
   }
   getPaidBills(type: string) {
-    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid.json')
+    return this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Paid.json')
       .pipe(map((res) => {
         const Bills = [];
         for (const key in res) {
@@ -82,7 +82,7 @@ export class DbservService {
       }))
   }
   getBills(status:string,type: string) {
-    return this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type +'/'+status+'.json')
+    return this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type +'/'+status+'.json')
       .pipe(map((res) => {
         const Bills = [];
         for (const key in res) {
@@ -93,7 +93,7 @@ export class DbservService {
   }
   
   getBillingAccounts(){
-    return this.http.get("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/"+this.loggedUser.id+"/billingAccounts.json")
+    return this.http.get(this.FirebaseURL+"users/"+this.loggedUser.id+"/billingAccounts.json")
     .pipe(map((res)=>{
       const accs = [];
       for(const key in res){
@@ -104,10 +104,13 @@ export class DbservService {
   }
 
   deleteBill(id: string, type: string) {
-    this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
+    return this.http.delete(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json').subscribe();
+  }
+  deleteAllBills(id: string, type: string) {
+    return this.http.delete(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Paid/' + id + '.json');
   }
   adminDeleteBill(id: string, type: string) {
-    this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + id + '.json').subscribe();
+    this.http.delete(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Pending/' + id + '.json').subscribe();
   }
   payBills(bills: any[], type: string) {
     let paidBills =[{}]
@@ -127,6 +130,7 @@ export class DbservService {
           billNum: bill.billNum,
           billUnits: bill.billUnits,
           dueDate: bill.dueDate
+
         };
       }
 
@@ -136,13 +140,13 @@ export class DbservService {
         this.loggedUserCart.splice(index, 1); // 2nd parameter means remove one item only
       }
       if(billToBeUploaded.type=='account'){
-        this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/1.json').subscribe();
+        this.http.delete(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/1.json').subscribe();
 
       }
       else{
-        this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
+        this.http.delete(this.FirebaseURL+'users/' + this.loggedUser.id + '/' + type + '/Pending/' + bill.id + '.json').subscribe();
       }
-      this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + this.loggedUser.id + "/" + type +"/Paid.json",billToBeUploaded).subscribe();
+      this.http.post(this.FirebaseURL+"users/" + this.loggedUser.id + "/" + type +"/Paid.json",billToBeUploaded).subscribe();
 
     });
     console.log("paid",paidBills)
@@ -151,12 +155,12 @@ export class DbservService {
 
   addToCart(bill:Bill){
     this.loggedUserCart.push(bill)
-    this.http.put('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/cart.json',this.loggedUserCart)
+    this.http.put(this.FirebaseURL+'users/'+this.loggedUser.id+'/cart.json',this.loggedUserCart)
       .subscribe((res)=>{
       })
   }
   getCart(){
-    this.http.get('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/'+this.loggedUser.id+'/cart.json')
+    this.http.get(this.FirebaseURL+'users/'+this.loggedUser.id+'/cart.json')
       .pipe(map((res)=>{
         console.log(res)
         for(const key in res){
@@ -172,7 +176,7 @@ export class DbservService {
     this.loggedUserCart = [];
     this.http
       .delete(
-        "https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" +
+        this.FirebaseURL+ "users/" +
         this.loggedUser.id +
         "/cart.json"
       )
@@ -192,17 +196,17 @@ export class DbservService {
         break;   
     }
     console.log(newValue)
-    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/unitPrices/"+type+'.json',newValue)
+    this.http.put(this.FirebaseURL+"controls/unitPrices/"+type+'.json',newValue)
     .subscribe()
   }
 
   updateUser(user:any){
-    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/"+user.id+'.json',user)
+    this.http.put(this.FirebaseURL+"users/"+user.id+'.json',user)
     .subscribe()
   }
 
   addPromoCode(promo: any) {
-    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes.json", promo)
+    return this.http.post(this.FirebaseURL+"controls/promoCodes.json", promo)
       .pipe(
         map(response => {
           // transform the response into the new promo code object
@@ -215,7 +219,7 @@ export class DbservService {
       );
   }
   getPromoCodes(){
-    return this.http.get<{[key:string]:{code:string,value:number}}>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes.json')
+    return this.http.get<{[key:string]:{code:string,value:number}}>(this.FirebaseURL+'controls/promoCodes.json')
       .pipe(map((res)=>{
         const codes = [];
         for(const key in res){
@@ -225,27 +229,27 @@ export class DbservService {
       }))
   }
   deletePromo(code:any) {
-    return this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/promoCodes/'+code.id+'.json');
+    return this.http.delete(this.FirebaseURL+'controls/promoCodes/'+code.id+'.json');
   }
 
 
   getBillsofUser(id:string){
     let Bills=[]
-    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/waterBills/Pending.json')
+    this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + id + '/waterBills/Pending.json')
     .pipe(map((res) => {
       for (const key in res) {
        Bills.push({ ...res[key], id: key,type:'Water Bill' })
       }
     }))
     .subscribe()
-    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/electricBills/Pending.json')
+    this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + id + '/electricBills/Pending.json')
     .pipe(map((res) => {
       for (const key in res) {
        Bills.push({ ...res[key], id: key,type:'Electric Bill' })
       }
     }))
     .subscribe()
-    this.http.get<{ [key: string]: Bill }>('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/' + id + '/telephoneBills/Pending.json')
+    this.http.get<{ [key: string]: Bill }>(this.FirebaseURL+'users/' + id + '/telephoneBills/Pending.json')
     .pipe(map((res) => {
       for (const key in res) {
        Bills.push({ ...res[key], id: key,type:'Telephone Bill' })
@@ -256,12 +260,12 @@ export class DbservService {
   }
 
   addBill(userId:string,billType:string,bill:any){
-    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/users/" + userId + "/" + billType +"/Pending.json",bill)
+    return this.http.post(this.FirebaseURL+"users/" + userId + "/" + billType +"/Pending.json",bill)
   }
 
 
   getAllOffers(){
-    return this.http.get("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers.json")
+    return this.http.get(this.FirebaseURL+"controls/Offers.json")
     .pipe(map((res)=>{
       const offers = [];
       for(const key in res){
@@ -271,15 +275,16 @@ export class DbservService {
     }))
   }
   subscribeToPlan(id:string){
-    this.http.put("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers/"+id+"/subscribed.json",true).subscribe()
+    this.http.put(this.FirebaseURL+"controls/Offers/"+id+"/subscribed.json",true).subscribe()
   }
+
   deleteOffer(id:string){
-    return this.http.delete('https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers/'+id+'.json');
+    return this.http.delete(this.FirebaseURL+'controls/Offers/'+id+'.json');
 
   }
 
   addOffer(offer:any){
-    return this.http.post("https://angularui-b824b-default-rtdb.europe-west1.firebasedatabase.app/controls/Offers.json",offer)
+    return this.http.post(this.FirebaseURL+"controls/Offers.json",offer)
 
   }
 }

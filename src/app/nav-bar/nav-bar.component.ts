@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DbservService } from '../dbserv.service';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,13 +10,13 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent {
 
-  constructor(private usersService:DbservService,private router:Router){
+  constructor(private userService:UserService,private router:Router){
   }
-  loggedUser=this.usersService.loggedUser
+  loggedUser=this.userService.loggedUser
 
   logout(){
-    this.usersService.loggedUser=null;
-    this.usersService.loggedUserCart=[]
+    this.userService.loggedUser=null;
+    this.userService.loggedUserCart=[]
     this.router.navigate(['login'])
   }
 }

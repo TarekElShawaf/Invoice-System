@@ -82,7 +82,7 @@ export class TelephoneComponent {
           const year = currentDate.getFullYear();
           // create a string representation of the date in the format "dd/mm/yyyy"
           const dateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
-          let bill : Bill = {billNum:pendingBill.number,dueDate:dateString,type:'account',offerValue:pendingBill.total}
+          let bill : Bill = {billNum:pendingBill.number,dueDate:dateString,type:'account',offerValue:pendingBill.total,id:pendingBill.id,status:'pending'}
           this.usersService.addToCart(bill)
           this.usersService.addBill(this.usersService.loggedUser.id,'telephoneBills',bill).subscribe()
           alert(`Billing Account Bill ${bill.billNum } added to cart`)

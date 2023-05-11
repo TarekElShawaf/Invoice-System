@@ -2,7 +2,7 @@
 
 <main>
   <div class="electricity-bills-container">
-    <h2 class="electricity-bills-heading">Electricity Bills  <span style="font-size: 16px;font-weight: normal;margin-left: 5px;">price of unit: {{unitPrice|currency:'EGP':true}}/Kilowatt</span></h2>
+    <h2 class="electricity-bills-heading">Electricity Bills  <span style="font-size: 16px;font-weight: normal;margin-left: 5px;">price of unit: {{unitPrice |currency:'EGP':'code'}}/Kilowatt</span></h2>
     <div class="electricity-bills-section">
       <h3 class="electricity-bills-section-heading">Pending Bills</h3>
       <table class="electricity-bills-table">
@@ -19,10 +19,10 @@
         <tbody>
           <tr *ngFor="let pendingBill of pendingBills;" style="color: gray;">
             <td class="table-header">{{pendingBill.billNum}}</td>
-            <td class="table-header">{{pendingBill.billUnits}} Kilowatts</td>
-            <td class="table-header">{{pendingBill.billUnits * unitPrice |currency:'EGP':true}}</td>
+            <td class="table-header">{{pendingBill.units}} Kilowatts</td>
+            <td class="table-header">{{pendingBill.units * unitPrice  |currency:'EGP':'code'}}</td>
             <td class="table-header">{{pendingBill.dueDate | date}}</td>
-            <td class="table-header">{{pendingBill.billUnits * unitPrice*(1.5) |currency:'EGP':true}}</td>
+            <td class="table-header">{{pendingBill.units * unitPrice*(1.5) |currency:'EGP':'code'}}</td>
             <td class="table-header"> <button (click)="addToCart(pendingBill)" class="pay-now-button">Pay Now</button></td>
           </tr>
         </tbody>
@@ -44,10 +44,10 @@
         <tbody>
           <tr *ngFor="let paidBill of paidBills;" style="color: gray;">
             <td class="table-header">{{paidBill.billNum}}</td>
-            <td class="table-header">{{paidBill.billUnits}} Kilowatts</td>
-            <td class="table-header">{{paidBill.billUnits * unitPrice |currency:'EGP':true}}</td>
+            <td class="table-header">{{paidBill.units}} Kilowatts</td>
+            <td class="table-header">{{paidBill.units * unitPrice  |currency:'EGP':'code'}}</td>
             <td class="table-header">{{paidBill.dueDate | date}}</td>
-            <td class="table-header">{{paidBill.billUnits * unitPrice*(1.5) |currency:'EGP':true}}</td>
+            <td class="table-header">{{paidBill.units * unitPrice*(1.5)  |currency:'EGP':'code'}}</td>
             <td class="table-header"><button (click)="deleteBill(paidBill)" class="delete-button">Delete</button></td>
           </tr>
         </tbody>
