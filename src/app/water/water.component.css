@@ -255,4 +255,6 @@ background-color: #f44336;
 .water-bills-container .delete-button:hover {
 background-color: #ff5555;
 }
-/* Footer */
+.empty_table{
+  text-align: center;
+}

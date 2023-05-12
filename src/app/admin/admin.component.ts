@@ -127,19 +127,24 @@ export class AdminComponent {
   }
 
   unitChanged(newUnit:number){
-    this.adminService.changeUnit(this.dialogOpened,newUnit).subscribe();
+    console.log(this.dialogOpened)
+    this.adminService.changeUnit(this.dialogOpened,newUnit).subscribe(()=>{
+      this.controlsService.getUnitPrices().subscribe(()=>{
+        this.waterUnitPrice=this.controlsService.waterUnits
+        this.electricUnitPrice=this.controlsService.electricUnits
+        this.telephoneUnitPrice=this.controlsService.telephoneUnits
+    
+        alert("Value Changed")
+        this.showDialog = false;
+      })
+    });
 
-    this.waterUnitPrice=this.controlsService.waterUnits
-    this.electricUnitPrice=this.controlsService.electricUnits
-    this.telephoneUnitPrice=this.controlsService.telephoneUnits
 
-    alert("Value Changed")
-    this.showDialog = false;
   }
 
   userChanged(){
     this.adminService.updateUser(this.userToEdit).subscribe();
-    alert("Value Changed")
+    alert("User Edited")
     this.userToEdit=null;
     this.showDialog=false;
   }
@@ -157,7 +162,8 @@ export class AdminComponent {
   }
 
   deleteBill(bill:Bill){
-
+    console.log(this.userToViewBills.id)
+    console.log(bill.id)
     this.controlsService.deleteBill(this.userToViewBills.id,bill.id).subscribe();
     let index = this.userBills.indexOf(bill);
     if (index > -1) { // only splice array when item is found
@@ -166,12 +172,21 @@ export class AdminComponent {
   }
 
   addBill(form:{billType:string,billNum:number,billUnits:number,dueDate:string}){
-    let bill:Bill;
-    bill={billNum:form.billNum, units:form.billUnits, dueDate:form.dueDate, type:form.billType, status:'Pending'}
-    console.log("bill from addBill: ",bill)
-    this.adminService.addBill(this.userToViewBills.id,bill).subscribe(()=>{
-      this.loadUserBills(this.userToViewBills.id)
-    })
+    let index=this.userBills.findIndex(x=>x.billNum==form.billNum)
+    if(index>-1){
+      alert("Bill Already Exists, Change the bill number and try again")
+      this.billForm.controls.billNum.reset();
+    }
+    else{
+      let bill:Bill;
+      bill={billNum:form.billNum, units:form.billUnits, dueDate:form.dueDate, type:form.billType, status:'Pending'}
+      console.log("bill from addBill: ",bill)
+      this.adminService.addBill(this.userToViewBills.id,bill).subscribe(()=>{
+        this.loadUserBills(this.userToViewBills.id)
+        this.billForm.reset()
+      })
+    }
+
   }
 
 
@@ -192,10 +207,18 @@ export class AdminComponent {
     });
   }
   addOffer(offer:any){
-    let uploadedOffer={ provider: this.currentProvider, plan: offer.offerPlan, totalUnits: offer.totalUnits,price:offer.price, subscribed: false}
-    this.adminService.addOffer(uploadedOffer).subscribe(()=>{
-      this.loadOffers()
-    });
+    let index = this.allOffers.findIndex(x=>x.plan.toLowerCase()==offer.offerPlan.toLowerCase())
+    if(index>-1) alert("Offer Already Exists.")
+    else{
+      let uploadedOffer={ provider: this.currentProvider, plan: offer.offerPlan, totalUnits: offer.totalUnits,price:offer.price, subscribed: false}
+
+  
+      this.adminService.addOffer(uploadedOffer).subscribe(()=>{
+        this.loadOffers()
+      });
+    }
+    //resetting values
+    this.offerForm.reset()
   }
 
 

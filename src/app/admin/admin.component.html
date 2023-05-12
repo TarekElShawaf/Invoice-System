@@ -83,9 +83,9 @@ width: 100%;">
   <div class="unitsList" *ngIf="waterUnitPrice > 0">
     <h2 class="water-bills-heading">Unit Prices</h2>
     <ul  style="list-style: none;">
-        <li >Price of Water Units: <input class="listUnit" type="text" [value]="waterUnitPrice">/Liter <button (click)="openDialog('waterUnits')">Edit</button> </li>
-        <li >Price of Electric Units: <input class="listUnit" type="text" [value]="electricUnitPrice">/Kilowatts <button (click)="openDialog('electricUnits')">Edit</button></li>
-        <li >Price of Telephone Units: <input class="listUnit" type="text" [value]="telephoneUnitPrice">/Minute<button (click)="openDialog('telephoneUnits')">Edit</button> </li>
+        <li >Price of Water Units: <input class="listUnit" disabled type="text" [value]="waterUnitPrice">/Liter <button (click)="openDialog('waterUnits')">Edit</button> </li>
+        <li >Price of Electric Units: <input class="listUnit" disabled type="text" [value]="electricUnitPrice">/Kilowatts <button (click)="openDialog('electricUnits')">Edit</button></li>
+        <li >Price of Telephone Units: <input class="listUnit" disabled type="text" [value]="telephoneUnitPrice">/Minute<button (click)="openDialog('telephoneUnits')">Edit</button> </li>
     </ul>
   </div>
   <div class="popup" *ngIf="showDialog">
@@ -117,8 +117,9 @@ width: 100%;">
             <ul style="list-style: none;">
               <li style="font-weight: bold;"><label class="unitLabel" [innerText]="'ID:'"></label>{{bill.id}}<button style="background: #cb2d2df2;padding: 3px 3px;font-size: 13px;border-radius: 5px;margin-bottom: 3%;" (click)="deleteBill(bill)">Delete</button></li>
               <li><label class="unitLabel" [innerText]="'Bill Type:'"></label>{{bill.type}}</li>
+              <li><label class="unitLabel" [innerText]="'Bill Status:'"></label>{{bill.status}}</li>
               <li ><label class="unitLabel" [innerText]="'Bill Number:'"></label>{{bill.billNum}}</li>
-              <li><label class="unitLabel" [innerText]="'Bill Units:'"></label>{{bill.billUnits}}</li>
+              <li><label class="unitLabel" [innerText]="'Bill Units:'"></label>{{bill.units}}</li>
               <li><label class="unitLabel" [innerText]="'Due Date:'"></label>{{bill.dueDate}}</li>
               <br>
             </ul>
@@ -129,9 +130,9 @@ width: 100%;">
               <div><label class="unitLabel" [innerText]="'Bill Units:'"></label><input  type="number" formControlName="billUnits" placeholder="Bill Units" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
               <div><label class="unitLabel" [innerText]="'Bill Due Date:'"></label><input  type="text" formControlName="dueDate" placeholder="Due Date" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
               <div><label class="unitLabel" [innerText]="'Bill Type:'"></label><select formControlName="billType" style="width: 40%;height: 1.5em;text-align: center; margin-right: 5px;border: none; background-color: #f5f5f5;border-bottom: ridge;">
-                <option value="electricBills">Electric Bill</option>
-                  <option value="waterBills">Water Bill</option>
-                  <option value="telephoneBills">Telephone Bill</option>
+                <option value="Electric Bill">Electric Bill</option>
+                  <option value="Water Bill">Water Bill</option>
+                  <option value="Telephone Bill">Telephone Bill</option>
               </select></div>
               <button type="submit" style="width: 27%;height: 1.5em; align-self: flex-start;margin-left: 0;padding: 2px 2px;font-size: 15px;">Add Bill</button> 
             </form>
@@ -190,7 +191,7 @@ width: 100%;">
         </ng-container>
         </div>
         <div style="align-self: flex-start;">
-          <form #offer="ngForm" [formGroup]="offerForm"  style="margin-top: 10%;" (ngSubmit)="addOffer(offer.value)" style="margin-top: 10%;line-height: 30px; display: flex; flex-direction: column;">
+          <form #offer="ngForm" [formGroup]="offerForm" class="offerForm" style="margin-top: 10%;" (ngSubmit)="addOffer(offer.value)" style="margin-top: 10%;line-height: 30px; display: flex; flex-direction: column;">
             <div><label class="unitLabel" [innerText]="'Plan:'"></label><input type="text" formControlName="offerPlan" placeholder="Plan" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;"></div>
             <div><label class="unitLabel" [innerText]="'Total Units:'"></label><input  type="number" formControlName="totalUnits" placeholder="Total Units" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>
             <div><label class="unitLabel" [innerText]="'Price:'"></label><input  type="number" formControlName="price" placeholder="Price" style="width: 40%;height: 2em;text-align: center; margin-right: 5px; border: none; background-color: #f5f5f5; border-bottom: ridge;">  </div>

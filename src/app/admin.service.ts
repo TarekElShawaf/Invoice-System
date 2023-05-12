@@ -24,23 +24,12 @@ export class AdminService {
 
   //Add Bill To User
   addBill(userId: string, bill: any) {
-    return this.http.post(this.FirebaseURL + "users/" + userId + "/bills.json", bill)
+    return this.http.post(this.FirebaseURL + "users/" + userId + "/Bills.json", bill)
   }
 
 
   //Change Unit Price (Liters, KiloWatts, Minutes)
   changeUnit(type: string, newValue: number) {
-    switch (type) {
-      case 'electricUnits':
-        this.controlsService.electricUnits = newValue;
-        break;
-      case 'waterUnits':
-        this.controlsService.waterUnits = newValue;
-        break;
-      case 'telephoneUnits':
-        this.controlsService.telephoneUnits = newValue;
-        break;
-    }
     return this.http.put(this.FirebaseURL + "controls/unitPrices/" + type + '.json', newValue);
   }
 

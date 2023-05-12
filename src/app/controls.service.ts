@@ -103,7 +103,7 @@ export class ControlsService {
 
   //Delete One Bill Of A User
   deleteBill(userId: string, billId: string) {
-    return this.http.delete(this.FirebaseURL + 'users/' + userId + '/bills' + billId + '.json');
+    return this.http.delete(this.FirebaseURL + 'users/' + userId + '/Bills/' + billId + '.json');
   }
   // //Delete All Bills Of A User
   // deleteAllBills(userId: string) {

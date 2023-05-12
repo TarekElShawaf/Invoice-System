@@ -195,9 +195,8 @@ export class CheckoutComponent {
       this.userService.clearCart().subscribe(()=>{
         this.total=0;
         this.discount=0;
-        alert("Payment Succesful");
       });
-      
+      alert("Payment Succesful");
     }
   }
 
