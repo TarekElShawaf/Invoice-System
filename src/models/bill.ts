@@ -5,5 +5,9 @@ export class Bill{
     dueDate:string;
     units?:number;
     id?:string;
+
+    //telephone related attributes
+    accountNum?:string;
     offerValue?:number;
+    offerPlan?:string;
 }

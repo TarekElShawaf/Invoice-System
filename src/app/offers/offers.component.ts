@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DbservService } from '../dbserv.service';
 import { Bill } from 'src/models/bill';
-
+import { UserService } from '../user.service';
+import { ControlsService } from '../controls.service';
+import {Offer} from 'src/models/offers';
+import { AdminService } from '../admin.service';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
@@ -12,71 +15,44 @@ export class OffersComponent implements OnInit {
   providers = [
     {
       name: "Vodafone",
-      offers: [
-        // {
-        //   plan: "Offer 1",
-        //   totalUnits: 100,
-        //   price: 50,
-        //   subscribed: false
-        // },
-        // {
-        //   plan: "Offer 2",
-        //   totalUnits: 200,
-        //   price: 100,
-        //   subscribed: false
-        // }
-      ]
+      offers: []
     },
     {
       name: "Orange",
-      offers: [
-        // {
-        //   plan: "Offer 3",
-        //   totalUnits: 150,
-        //   price: 75,
-        //   subscribed: false
-        // },
-        // {
-        //   plan: "Offer 4",
-        //   totalUnits: 300,
-        //   price: 150,
-        //   subscribed: false
-        // }
-      ]
+      offers: [ ]
     },
     {
       name:"Etisalat",
-      offers:[
-
-      ]
+      offers:[]
     }
   ];
+  currentOffer: any;
 
-  offers: { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean; }[] = [];
-  offers2=[]
-  constructor(private usersService:DbservService) { }
+
+  constructor(private usersService:DbservService,private userService:UserService,private controlsService:ControlsService,private adminService:AdminService) { }
 
   ngOnInit(): void {
     //this.offers = [];
     this.loadOffers();
-    this.providers.forEach(provider => {
-      provider.offers.forEach(offer => {
-        this.offers.push({
-          provider: provider.name,
-          plan: offer.plan,
-          totalUnits: offer.totalUnits,
-          price: offer.price,
-          subscribed: offer.subscribed
-        } as { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean; });
-      });
-    });
+    // this.providers.forEach(provider => {
+    //   provider.offers.forEach(offer => {
+    //     this.offers.push({
+    //       provider: provider.name,
+    //       plan: offer.plan,
+    //       totalUnits: offer.totalUnits,
+    //       price: offer.price,
+    //       subscribed: offer.subscribed
+    //     } as { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean; });
+    //   });
+    // });
   }
 
-  subscribe(offer: { provider?: string; plan: string; totalUnits: number; price: number; subscribed: boolean;id:string }) {
+  subscribe(offer:Offer) {
     // console.log("Subscribed to plan: ", offer.plan);
     // this.offers.forEach(o => {
     //   o.subscribed = (o === offer);
     // });
+
     // create a new Date object for the current date
     const currentDate = new Date();
     // get the day, month, and year values of the current date
@@ -86,27 +62,34 @@ export class OffersComponent implements OnInit {
     // create a string representation of the date in the format "dd/mm/yyyy"
     const dateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString()}`;
 
-    let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,units:offer.totalUnits,dueDate:dateString,type:'telephoneBill',offerValue:offer.price,status:'Pending'}
-    console.log(offer.id)
-    this.usersService.addToCart(bill)
-    this.usersService.addBill(this.usersService.loggedUser.id,'telephoneBills',bill).subscribe()
-    this.usersService.subscribeToPlan(offer.id)
-    console.log("user cart from subscribe: ",this.usersService.loggedUserCart)
-    offer.subscribed=true;
-    const subscriptionMessage = `You have Added ${offer.plan} plan from ${offer.provider} at ${offer.price} L.E. to your cart`;
-    window.alert(subscriptionMessage);
+    let bill:Bill = {billNum:Math.floor(Math.random() * 1000) + 1,units:offer.totalUnits,dueDate:dateString,type:'Offer',offerValue:offer.price,offerPlan:offer.plan,status:'Pending'}
+    // remove other offer's bill if the there was one
+    let index=this.userService.loggedUserCart.findIndex((x=>x.type=="Offer"))
+    if(index>-1){
+      this.userService.loggedUserCart.splice(index, 1);
+    }
+    this.userService.addToCart(bill).subscribe(()=>{
+      this.adminService.addBill(this.userService.loggedUser.id,bill).subscribe((addedBill)=>{
+          bill.id=addedBill['name'];
+          console.log(addedBill['name']);
+          console.log("user cart from subscribe: ",this.userService.loggedUserCart)
+          const subscriptionMessage = `You have Added ${offer.plan} plan from ${offer.provider} at ${offer.price} L.E. to your cart`;
+          window.alert(subscriptionMessage);        
+        })
+
+      })
   }
 
   loadOffers(){
-    this.usersService.getAllOffers().subscribe((offers)=>{
-      this.offers2=offers;
+    this.controlsService.getAllOffers().subscribe((offers)=>{
+      // this.offers2=offers;
       for (let i = 0; i < this.providers.length; i++) {
-        const provider = this.providers[i];
-        const providerName = provider.name;
+        let provider = this.providers[i];
+        let providerName = provider.name;
       
-        // find the matching provider in the offers2 array
-        this.offers2.forEach((offer)=>{
-
+        // find the matching provider in the offers array
+        offers.forEach((offer)=>{
+          if(offer.plan==this.userService.loggedUser.currentPlan) this.currentOffer=offer.plan
           if(offer.provider==providerName) this.providers[i].offers.push(offer)
         })
       }

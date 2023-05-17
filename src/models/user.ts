@@ -13,4 +13,5 @@ export class User{
     cart?:Bill[];
     bills?:Bill[];
     billingAccounts?:billingAccount[];
+    currentPlan?:string;
 }

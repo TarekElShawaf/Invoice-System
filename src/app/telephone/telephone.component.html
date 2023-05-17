@@ -9,8 +9,9 @@
           <h3 class="billing-account-name">{{account.name}}</h3>
           <p class="billing-account-number">Account Number: {{account.number}}</p>
           <p class="billing-account-balance">Amount Due: {{account.total|currency:'EGP':'code'}}</p>
+
         </div>
-        <button class="billing-account-pay-button" (click)="addToCart(account,true)">Pay Now</button>
+        <button class="billing-account-pay-button" (click)="addToCart(account,account.number)">Pay Now</button>
       </div>
     </div>
     <!-- <div class="billing-account">
@@ -30,12 +31,13 @@
     <div *ngFor="let bill of pendingBills">
 
 
-    <div *ngIf="bill.type==null"class="bill-details" >
+    <div class="bill-details" >
       <ng-container >
       <p class="bill-details-info">Bill Number: {{bill.billNum}}</p>
+      <p class="bill-details-info">Billing Account: {{bill.accountNum}}</p>
+      <p class="bill-details-info">Bill Units: {{bill.units}} Units</p>
+      <p class="bill-details-info">Amount Due: {{bill.units*unitPrice|currency:'EGP':'code'}}</p>
       <p class="bill-details-info">Due Date: {{bill.dueDate| date}} </p>
-      <p class="bill-details-info">Bill Units: {{bill.billUnits}} Units</p>
-      <p class="bill-details-info">Amount Due: {{bill.billUnits*unitPrice|currency:'EGP':'code'}}</p>
       <button class="bill-details-pay-button" (click)="addToCart(bill)">Pay Now</button>
     </ng-container>
     </div>

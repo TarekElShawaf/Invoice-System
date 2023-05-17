@@ -46,7 +46,7 @@
         <div style="margin-bottom: 10px;" *ngFor="let pendingBill of loggedUserCart;">
         <div *ngIf="pendingBill.type=='Electric Bill' " class="ele" >
           <div class="imgi">
-            <img src="../../assets/images/lamp.png" alt="lamp">
+            <img src="../../assets/images/bolt-256.png" alt="Electricity Icon">
           </div>
           <div class="tp">
             <h5>Electricity bill</h5>
@@ -56,7 +56,7 @@
         </div>
         <div *ngIf="pendingBill.type=='Water Bill'" class="ele" >
           <div class="imgi">
-            <img src="../../assets/images/waterTap.png" alt="waterTap">
+            <img src="../../assets/images/droplet-256.png" alt="Water Icon">
           </div>
           <div class="tp">
             <h5 >Water bill</h5>
@@ -66,20 +66,25 @@
         </div>
         <div *ngIf="pendingBill.type=='Telephone Bill'" class="ele" >
           <div class="imgi">
-            <img src="../../assets/images/post-paid.png" alt="lamp">
+            <img src="../../assets/images/phone-46-256.png" alt="Telephone Tarrif">
           </div>
-          <div class="tp" *ngIf="pendingBill.offerValue!=null">
+          <div class="tp" >
             <h5 >Telephone Tariff</h5>
             <p>Account Number:{{pendingBill.billNum}}</p>
-            <h4 >{{pendingBill.offerValue |currency:'EGP':'code'}}</h4>
-          </div>
-          <div class="tp" *ngIf="pendingBill.type==null">
-            <h5 >Telephone Tariff</h5>
             <p >Total of {{pendingBill.units}} Units</p>
             <h4 >{{pendingBill.units * telephoneUnitPrice |currency:'EGP':'code'}}</h4>
           </div>
-        
-
+        </div>
+        <div *ngIf="pendingBill.type=='Offer'" class="ele" >
+          <div class="imgi"  >
+            <img src="../../assets/images/phone-128.png" alt="Telephone Offer" >
+          </div>
+          <div class="tp" >
+            <h5 >Telephone Plan</h5>
+            <p>Plan:{{pendingBill.offerPlan}}</p>
+            <p >Total of {{pendingBill.units}} Units</p>
+            <h4 >{{pendingBill.offerValue |currency:'EGP':'code'}}</h4>
+          </div>
         </div>
         </div>
       </ng-container>

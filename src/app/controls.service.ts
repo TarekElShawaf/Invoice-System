@@ -67,8 +67,8 @@ export class ControlsService {
 
 
   //Get Billing Accounts Of User
-  getBillingAccounts() {
-    return this.http.get(this.FirebaseURL + "users/" + this.userService.loggedUser.id + "/billingAccounts.json")
+  getBillingAccounts(userId:string) {
+    return this.http.get(this.FirebaseURL + "users/" + userId+ "/billingAccounts.json")
       .pipe(map((res) => {
         const accounts = [];
         for (const key in res) {

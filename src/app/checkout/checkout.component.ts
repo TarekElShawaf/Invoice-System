@@ -196,6 +196,7 @@ export class CheckoutComponent {
         this.total=0;
         this.discount=0;
       });
+      this.loggedUserCart=[];
       alert("Payment Succesful");
     }
   }

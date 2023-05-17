@@ -54,7 +54,12 @@ export class UserService {
   payBills() {
     this.loggedUserCart.forEach((bill) => {
       bill.status = "Paid";
-      
+      if(bill.type=="Offer"){
+        console.log(bill.offerPlan);
+        this.subscribeToPlan(bill.offerPlan).subscribe(()=>{
+          this.loggedUser.currentPlan=bill.offerPlan;
+        })
+      }
       const index = this.loggedUserCart.indexOf(bill);
       if (index > -1) this.loggedUserCart.splice(index, 1); // only splice array when item is found && 2nd parameter means remove one item only
 
@@ -62,4 +67,8 @@ export class UserService {
     });    
   }
 
+  subscribeToPlan(plan:string){
+    let currentPlan= { currentPlan: plan };
+    return this.http.patch(this.FirebaseURL + "users/" + this.loggedUser.id + '.json', currentPlan)
+  }
 }
